@@ -1,0 +1,8 @@
+O arquivo /components/SoccerPage.tsx tem um erro de sintaxe na linha 1842:
+
+ERRO: {transfers.length > 0 && (\\n
+CORRETO: {transfers.length > 0 && (
+
+O problema é um caractere literal `\\n` que deve ser removido para que seja apenas uma quebra de linha normal.
+
+Devido a problemas de encoding, a edição direta não está funcionando. A solução é recriar o arquivo removendo esse caractere problemático.

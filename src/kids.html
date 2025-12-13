@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedFlix Kids</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+    /* ==================== HEADER ==================== */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 68px;
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(0,0,0,0.7) 10%, transparent);
+      z-index: 999;
+      transition: background-color 0.4s;
+    }
+    
+    .header.scrolled {
+      background: rgba(102, 126, 234, 0.95);
+      backdrop-filter: blur(10px);
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .logo {
+      height: 25px;
+      cursor: pointer;
+    }
+    
+    .kids-badge {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+    }
+    
+    .nav {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    
+    .nav a {
+      color: #e5e5e5;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.4s;
+    }
+    
+    .nav a:hover,
+    .nav a.active {
+      color: #fff;
+      font-weight: 500;
+    }
+    
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+    
+    .icon {
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .icon:hover {
+      transform: scale(1.1);
+    }
+    
+    .profile-kids {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+      border-radius: 4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+      transition: transform 0.3s;
+    }
+    
+    .profile-kids:hover {
+      transform: scale(1.1);
+    }
+    
+    /* ==================== HERO BANNER ==================== */
+    .billboard {
+      position: relative;
+      height: 56.25vw;
+      display: flex;
+      align-items: center;
+      background-size: cover;
+      background-position: center center;
+      margin-top: 68px;
+    }
+    
+    .billboard-vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(77deg, rgba(102,126,234,0.8) 0, rgba(118,75,162,0.4) 40%, transparent 85%);
+    }
+    
+    .billboard-bottom {
+      position: absolute;
+      bottom: -1px;
+      width: 100%;
+      height: 14.7vw;
+      background: linear-gradient(180deg, transparent 0, rgba(102,126,234,0.15) 15%, rgba(102,126,234,0.35) 29%, rgba(102,126,234,0.58) 44%, #667eea 68%, #667eea);
+    }
+    
+    .billboard-info {
+      position: relative;
+      z-index: 10;
+      width: 36%;
+      margin-left: 60px;
+      margin-bottom: 20vh;
+    }
+    
+    .billboard-logo {
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 1.2vw;
+    }
+    
+    .billboard-title {
+      font-size: 3vw;
+      font-weight: 700;
+      margin-bottom: 1.2vw;
+      text-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      color: #fff;
+    }
+    
+    .billboard-synopsis {
+      font-size: 1.2vw;
+      line-height: 1.4;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+      margin-bottom: 1.2vw;
+    }
+    
+    .billboard-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 1.5vw;
+    }
+    
+    .play-button {
+      background: #fff;
+      color: #000;
+      padding: 0.8rem 2rem 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2vw;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .play-button:hover {
+      background: rgba(255,255,255,0.75);
+    }
+    
+    .more-info-button {
+      background: rgba(109,109,110,0.7);
+      color: #fff;
+      padding: 0.8rem 2rem 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2vw;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .more-info-button:hover {
+      background: rgba(109,109,110,0.4);
+    }
+    
+    /* ==================== OLD HERO (Hidden) ==================== */
+    .hero {
+      display: none;
+    }
+    
+    .hero-shapes {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .shape {
+      position: absolute;
+      opacity: 0.1;
+      animation: float 20s infinite ease-in-out;
+    }
+    
+    .shape-1 {
+      width: 200px;
+      height: 200px;
+      background: #fff;
+      border-radius: 50%;
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    .shape-2 {
+      width: 150px;
+      height: 150px;
+      background: #FFD700;
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      top: 60%;
+      left: 80%;
+      animation-delay: 3s;
+    }
+    
+    .shape-3 {
+      width: 100px;
+      height: 100px;
+      background: #FF69B4;
+      transform: rotate(45deg);
+      top: 30%;
+      right: 15%;
+      animation-delay: 6s;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-30px) rotate(5deg); }
+      50% { transform: translateY(-50px) rotate(-5deg); }
+      75% { transform: translateY(-30px) rotate(5deg); }
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+    
+    .hero-title {
+      font-size: 5vw;
+      font-weight: 900;
+      margin-bottom: 20px;
+      text-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      background: linear-gradient(135deg, #fff 0%, #FFD700 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.8vw;
+      margin-bottom: 40px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    
+    .hero-button {
+      background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+      color: #fff;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .hero-button:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 35px rgba(255, 107, 107, 0.6);
+    }
+    
+    .hero-button.secondary {
+      background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+      box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+    }
+    
+    .hero-button.secondary:hover {
+      box-shadow: 0 12px 35px rgba(78, 205, 196, 0.6);
+    }
+    
+    /* ==================== CONTENT ==================== */
+    .content {
+      padding: 60px 60px 100px;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.2) 100%);
+    }
+    
+    /* ==================== CATEGORIES ==================== */
+    .category-section {
+      margin-bottom: 60px;
+      position: relative;
+    }
+    
+    .category-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      gap: 15px;
+      padding: 0 60px;
+    }
+    
+    .category-icon {
+      font-size: 32px;
+      filter: drop-shadow(0 2px 5px rgba(0,0,0,0.3));
+    }
+    
+    .category-title {
+      font-size: 1.4vw;
+      font-weight: 700;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+    
+    .category-scroll {
+      display: flex;
+      gap: 4px;
+      overflow-x: scroll;
+      overflow-y: visible;
+      scroll-behavior: smooth;
+      padding: 5vw 60px 10vw;
+    }
+    
+    .category-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* ==================== TITLE CARD - EFEITO HOVER NETFLIX ==================== */
+    .title-card {
+      position: relative;
+      min-width: 16vw;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.5, 0, 0.1, 1);
+      transform-origin: center center;
+    }
+    
+    /* Primeiro card expande para direita */
+    .title-card:first-child {
+      transform-origin: left center;
+    }
+    
+    /* Último card expande para esquerda */
+    .title-card:last-child {
+      transform-origin: right center;
+    }
+    
+    .title-card:hover {
+      transform: scale(1.5) translateY(-2vw);
+      z-index: 999;
+      transition-delay: 0.5s;
+    }
+    
+    .card-image {
+      width: 100%;
+      height: 9vw;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      transition: border-radius 0.3s;
+    }
+    
+    .title-card:hover .card-image {
+      border-radius: 4px 4px 0 0;
+      transition-delay: 0.5s;
+    }
+    
+    /* Info que aparece EMBAIXO da imagem */
+    .card-info {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #181818;
+      border-radius: 0 0 4px 4px;
+      padding: 1em;
+      opacity: 0;
+      visibility: hidden;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: all 0.3s cubic-bezier(0.5, 0, 0.1, 1);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
+    
+    .title-card:hover .card-info {
+      opacity: 1;
+      visibility: visible;
+      transform: scaleY(1);
+      transition-delay: 0.5s;
+    }
+    
+    .card-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1em;
+    }
+    
+    .card-button {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #fff;
+      color: #000;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .card-button:hover {
+      background: rgba(255,255,255,0.75);
+    }
+    
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .card-meta {
+      font-size: 14px;
+      color: #FFD700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    /* ==================== GAMES SECTION ==================== */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      margin-top: 25px;
+    }
+    
+    .game-card {
+      background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 100%);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.4s;
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    
+    .game-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      border-color: rgba(255,255,255,0.5);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+    
+    .game-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+    }
+    
+    .game-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    
+    .game-description {
+      font-size: 14px;
+      color: rgba(255,255,255,0.8);
+    }
+    
+    /* ==================== LOADING ==================== */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+    }
+    
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 1024px) {
+      .games-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header {
+        padding: 0 30px;
+      }
+      
+      .content {
+        padding: 40px 30px 60px;
+      }
+      
+      .hero-title {
+        font-size: 40px;
+      }
+      
+      .hero-subtitle {
+        font-size: 18px;
+      }
+      
+      .category-title {
+        font-size: 24px;
+      }
+      
+      .card {
+        min-width: 220px;
+        max-width: 220px;
+      }
+      
+      .card-image {
+        height: 300px;
+      }
+      
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-left">
+    <img src="http://chemorena.com/redfliz.png" alt="RedFlix" class="logo" onclick="window.location.href='/index.html'">
+    <div class="kids-badge">🎈 KIDS</div>
+    <ul class="nav">
+      <li><a href="#videos" class="active">Vídeos</a></li>
+      <li><a href="#games">Jogos</a></li>
+    </ul>
+  </div>
+  
+  <div class="header-right">
+    <div class="icon" onclick="window.location.href='/index.html'" title="Voltar ao RedFlix">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+      </svg>
+    </div>
+    <div class="profile-kids">👶</div>
+  </div>
+</header>
+
+<!-- HERO BANNER -->
+<div class="billboard" id="billboard">
+  <div class="billboard-vignette"></div>
+  <div class="billboard-bottom"></div>
+  
+  <div class="billboard-info">
+    <img id="billboardLogo" class="billboard-logo" style="display:none;">
+    <h1 id="billboardTitle" class="billboard-title"></h1>
+    <p id="billboardSynopsis" class="billboard-synopsis"></p>
+    
+    <div class="billboard-links">
+      <button class="play-button" onclick="scrollToSection('videos')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        Assistir Vídeos
+      </button>
+      
+      <button class="more-info-button" onclick="scrollToSection('games')">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M15,7.5V2H9V7.5H3V14H9V22H15V14H21V7.5H15M11,4H13V9H11V4M7,10H9V12H7V10M15,12V10H17V12H15M13,20H11V15H13V20Z"/>
+        </svg>
+        Jogar
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  
+  <!-- ANIMAÇÕES -->
+  <div class="category-section" id="videos">
+    <div class="category-header">
+      <div class="category-icon">🎨</div>
+      <h2 class="category-title">Desenhos Animados</h2>
+    </div>
+    <div class="category-scroll" id="animation-scroll">
+      <div class="loading">Carregando desenhos...</div>
+    </div>
+  </div>
+  
+  <!-- AVENTURA -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-icon">🦸</div>
+      <h2 class="category-title">Aventuras</h2>
+    </div>
+    <div class="category-scroll" id="adventure-scroll">
+      <div class="loading">Carregando aventuras...</div>
+    </div>
+  </div>
+  
+  <!-- FAMÍLIA -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-icon">👨‍👩‍👧‍👦</div>
+      <h2 class="category-title">Para Toda Família</h2>
+    </div>
+    <div class="category-scroll" id="family-scroll">
+      <div class="loading">Carregando...</div>
+    </div>
+  </div>
+  
+  <!-- EDUCATIVO -->
+  <div class="category-section">
+    <div class="category-header">
+      <div class="category-icon">📚</div>
+      <h2 class="category-title">Educativo</h2>
+    </div>
+    <div class="category-scroll" id="educational-scroll">
+      <div class="loading">Carregando...</div>
+    </div>
+  </div>
+  
+  <!-- JOGOS -->
+  <div class="category-section" id="games">
+    <div class="category-header">
+      <div class="category-icon">🎮</div>
+      <h2 class="category-title">Jogos Divertidos</h2>
+    </div>
+    
+    <div class="games-grid">
+      <div class="game-card" onclick="openGame('memory')">
+        <div class="game-icon">🧩</div>
+        <div class="game-title">Jogo da Memória</div>
+        <div class="game-description">Encontre os pares e teste sua memória!</div>
+      </div>
+      
+      <div class="game-card" onclick="openGame('colors')">
+        <div class="game-icon">🎨</div>
+        <div class="game-title">Aprenda Cores</div>
+        <div class="game-description">Descubra as cores do arco-íris!</div>
+      </div>
+      
+      <div class="game-card" onclick="openGame('quiz')">
+        <div class="game-icon">❓</div>
+        <div class="game-title">Quiz Divertido</div>
+        <div class="game-description">Responda perguntas e ganhe estrelas!</div>
+      </div>
+      
+      <div class="game-card" onclick="openGame('puzzle')">
+        <div class="game-icon">🧩</div>
+        <div class="game-title">Quebra-Cabeça</div>
+        <div class="game-description">Monte imagens dos seus personagens favoritos!</div>
+      </div>
+      
+      <div class="game-card" onclick="openGame('draw')">
+        <div class="game-icon">✏️</div>
+        <div class="game-title">Desenhar</div>
+        <div class="game-description">Solte sua criatividade e desenhe!</div>
+      </div>
+      
+      <div class="game-card" onclick="openGame('music')">
+        <div class="game-icon">🎵</div>
+        <div class="game-title">Piano Musical</div>
+        <div class="game-description">Toque músicas e aprenda notas!</div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  const API_KEY = 'ddb1bdf6aa91bdf335797853884b0c1d';
+  const BASE = 'https://api.themoviedb.org/3';
+  const IMG = 'https://image.tmdb.org/t/p';
+  
+  // Categories configuration
+  const categories = [
+    {
+      id: 'animation',
+      container: 'animation-scroll',
+      endpoint: '/discover/tv',
+      params: 'with_genres=16&with_keywords=210024|287928&certification_country=US&certification.lte=G'
+    },
+    {
+      id: 'adventure',
+      container: 'adventure-scroll',
+      endpoint: '/discover/tv',
+      params: 'with_genres=10759&with_keywords=9717&certification_country=US&certification.lte=PG'
+    },
+    {
+      id: 'family',
+      container: 'family-scroll',
+      endpoint: '/discover/movie',
+      params: 'with_genres=10751&sort_by=popularity.desc'
+    },
+    {
+      id: 'educational',
+      container: 'educational-scroll',
+      endpoint: '/discover/tv',
+      params: 'with_genres=99,10751&sort_by=popularity.desc'
+    }
+  ];
+  
+  // Load category content
+  async function loadCategory(category) {
+    const container = document.getElementById(category.container);
+    
+    try {
+      const url = `${BASE}${category.endpoint}?api_key=${API_KEY}&language=pt-BR&${category.params}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      
+      const items = data.results.slice(0, 12);
+      
+      if (items.length === 0) {
+        container.innerHTML = '<div class="loading">Nenhum conteúdo encontrado.</div>';
+        return;
+      }
+      
+      container.innerHTML = items.map(item => {
+        const title = item.name || item.title;
+        const image = item.backdrop_path ? `${IMG}/w500${item.backdrop_path}` : 
+          (item.poster_path ? `${IMG}/w500${item.poster_path}` : 
+          'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="280" height="157"%3E%3Crect fill="%234ECDC4" width="280" height="157"/%3E%3Ctext x="50%25" y="50%25" fill="white" text-anchor="middle" dy=".3em" font-size="20"%3E' + encodeURIComponent(title) + '%3C/text%3E%3C/svg%3E');
+        const year = item.first_air_date?.split('-')[0] || item.release_date?.split('-')[0] || '';
+        const rating = item.vote_average ? `⭐ ${item.vote_average.toFixed(1)}` : '';
+        
+        return `
+          <div class="title-card" onclick="openContent('${item.id}', '${category.endpoint.includes('movie') ? 'movie' : 'tv'}')">
+            <img class="card-image" src="${image}" alt="${title}">
+            <div class="card-info">
+              <div class="card-title">${title}</div>
+              <div class="card-meta">
+                ${year ? `<span>${year}</span>` : ''}
+                ${rating ? `<span>${rating}</span>` : ''}
+              </div>
+              <div class="card-buttons">
+                <button class="card-button">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+    } catch (err) {
+      console.error('Erro ao carregar categoria:', err);
+      container.innerHTML = '<div class="loading">Erro ao carregar conteúdo.</div>';
+    }
+  }
+  
+  // Open content details
+  function openContent(id, type) {
+    if (type === 'tv') {
+      window.location.href = `/serie-details.html?id=${id}`;
+    } else {
+      alert(`Abrindo filme ID: ${id}`);
+      // window.location.href = `/movie-details.html?id=${id}`;
+    }
+  }
+  
+  // Open game
+  function openGame(gameName) {
+    alert(`🎮 Abrindo jogo: ${gameName}\n\nEm breve você poderá jogar este jogo divertido!`);
+    // Aqui você pode integrar jogos reais ou criar páginas separadas para cada jogo
+  }
+  
+  // Scroll to section
+  function scrollToSection(sectionId) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+  
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  });
+  
+  // Load billboard with TMDB API
+  async function loadBillboard() {
+    try {
+      // Usar série infantil popular - Bluey (ID: 98878) ou Adventure Time (ID: 15260)
+      const showId = 98878; // Bluey - série infantil muito popular
+      
+      const res = await fetch(`${BASE}/tv/${showId}?api_key=${API_KEY}&language=pt-BR`);
+      const show = await res.json();
+      
+      // Set backdrop image
+      if (show.backdrop_path) {
+        document.getElementById('billboard').style.backgroundImage = 
+          `url(${IMG}/original${show.backdrop_path})`;
+      }
+      
+      // Try to get logo
+      const imgRes = await fetch(`${BASE}/tv/${showId}/images?api_key=${API_KEY}`);
+      const images = await imgRes.json();
+      const logo = images.logos?.find(l => l.iso_639_1 === 'en' || l.iso_639_1 === 'pt' || l.iso_639_1 === null);
+      
+      if (logo) {
+        document.getElementById('billboardLogo').src = `${IMG}/original${logo.file_path}`;
+        document.getElementById('billboardLogo').style.display = 'block';
+      } else {
+        document.getElementById('billboardTitle').textContent = show.name || 'RedFlix Kids';
+      }
+      
+      // Set synopsis (limited to 200 chars)
+      const synopsis = show.overview || 'Bem-vindo ao RedFlix Kids! Diversão e aprendizado para toda a família!';
+      const truncatedSynopsis = synopsis.length > 200 
+        ? synopsis.substring(0, 200) + '...' 
+        : synopsis;
+      
+      document.getElementById('billboardSynopsis').textContent = truncatedSynopsis;
+      
+    } catch (err) {
+      console.error('Erro ao carregar billboard:', err);
+      // Fallback
+      document.getElementById('billboardTitle').textContent = '🌈 Bem-vindo ao RedFlix Kids! 🎉';
+      document.getElementById('billboardSynopsis').textContent = 'Diversão e aprendizado para toda a família!';
+    }
+  }
+  
+  // Load billboard
+  loadBillboard();
+  
+  // Load all categories
+  categories.forEach(category => loadCategory(category));
+</script>
+
+</body>
+</html>

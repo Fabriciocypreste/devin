@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste TMDB API - RedFlix</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #141414 0%, #1f1f1f 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(229, 9, 20, 0.1);
+            border-radius: 16px;
+            border: 2px solid rgba(229, 9, 20, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            color: #E50914;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            color: #999;
+            font-size: 1.1rem;
+        }
+        
+        .test-section {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 1px solid #2a2a2a;
+        }
+        
+        .test-section h2 {
+            color: #E50914;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .test-button {
+            background: #E50914;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .test-button:hover {
+            background: #c41a23;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(229, 9, 20, 0.4);
+        }
+        
+        .test-button:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            background: #0f0f0f;
+            border-radius: 8px;
+            border-left: 4px solid #E50914;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .result.success {
+            border-left-color: #46d369;
+        }
+        
+        .result.error {
+            border-left-color: #E50914;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status.success {
+            background: rgba(70, 211, 105, 0.2);
+            color: #46d369;
+        }
+        
+        .status.error {
+            background: rgba(229, 9, 20, 0.2);
+            color: #E50914;
+        }
+        
+        .status.loading {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+        }
+        
+        .movies-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .movie-card {
+            background: #0f0f0f;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .movie-card img {
+            width: 100%;
+            height: 225px;
+            object-fit: cover;
+        }
+        
+        .movie-card h3 {
+            padding: 10px;
+            font-size: 0.9rem;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .info-box {
+            background: rgba(229, 9, 20, 0.1);
+            border: 1px solid rgba(229, 9, 20, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .info-box strong {
+            color: #E50914;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Teste TMDB API</h1>
+            <p>Verificação da integração com The Movie Database</p>
+        </div>
+
+        <!-- Teste 1: Filmes Populares -->
+        <div class="test-section">
+            <h2>📽️ Teste 1: Filmes Populares</h2>
+            <button class="test-button" onclick="testPopularMovies()">Executar Teste</button>
+            <div id="movies-result"></div>
+        </div>
+
+        <!-- Teste 2: Séries Populares -->
+        <div class="test-section">
+            <h2>📺 Teste 2: Séries Populares</h2>
+            <button class="test-button" onclick="testPopularSeries()">Executar Teste</button>
+            <div id="series-result"></div>
+        </div>
+
+        <!-- Teste 3: Detalhes de Filme -->
+        <div class="test-section">
+            <h2>🎯 Teste 3: Detalhes de Filme Específico</h2>
+            <button class="test-button" onclick="testMovieDetails()">Executar Teste</button>
+            <div id="details-result"></div>
+        </div>
+
+        <!-- Teste 4: Busca por Texto -->
+        <div class="test-section">
+            <h2>🔍 Teste 4: Busca por Texto</h2>
+            <input type="text" id="search-input" placeholder="Digite um título..." style="padding: 10px; border-radius: 8px; border: 1px solid #2a2a2a; background: #0f0f0f; color: white; width: 300px; margin-right: 10px;">
+            <button class="test-button" onclick="testSearch()">Buscar</button>
+            <div id="search-result"></div>
+        </div>
+
+        <!-- Teste 5: Imagens -->
+        <div class="test-section">
+            <h2>🖼️ Teste 5: Carregamento de Imagens</h2>
+            <button class="test-button" onclick="testImages()">Executar Teste</button>
+            <div id="images-result"></div>
+        </div>
+
+        <!-- Informações da API -->
+        <div class="info-box">
+            <strong>📋 Informações da API:</strong><br>
+            API Key: ddb1bdf6aa91bdf335797853884b0c1d<br>
+            Endpoint Base: https://api.themoviedb.org/3<br>
+            Idioma: pt-BR (Português Brasil)<br>
+            Rate Limit: 40 requisições por 10 segundos
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = 'ddb1bdf6aa91bdf335797853884b0c1d';
+        const BASE_URL = 'https://api.themoviedb.org/3';
+        const IMAGE_BASE = 'https://image.tmdb.org/t/p/w342';
+
+        function setResult(elementId, html, type = 'info') {
+            document.getElementById(elementId).innerHTML = html;
+        }
+
+        function formatJSON(obj) {
+            return JSON.stringify(obj, null, 2);
+        }
+
+        async function testPopularMovies() {
+            const resultDiv = document.getElementById('movies-result');
+            setResult('movies-result', '<div class="result"><span class="status loading">Carregando...</span> Buscando filmes populares...</div>');
+            
+            try {
+                const response = await fetch(`${BASE_URL}/discover/movie?api_key=${API_KEY}&language=pt-BR&sort_by=popularity.desc&page=1`);
+                const data = await response.json();
+                
+                if (response.ok && data.results) {
+                    let html = `<div class="result success">
+                        <span class="status success">✓ SUCESSO</span>
+                        <br><br>
+                        <strong>Total de filmes recebidos:</strong> ${data.results.length}<br>
+                        <strong>Total de páginas disponíveis:</strong> ${data.total_pages}<br>
+                        <strong>Total de resultados:</strong> ${data.total_results.toLocaleString('pt-BR')}<br>
+                        <br>
+                        <strong>Primeiros 5 filmes:</strong><br>
+                    `;
+                    
+                    data.results.slice(0, 5).forEach((movie, i) => {
+                        html += `${i + 1}. ${movie.title} (${movie.release_date?.split('-')[0] || 'N/A'}) - Nota: ${movie.vote_average}/10<br>`;
+                    });
+                    
+                    html += '</div>';
+                    
+                    // Adicionar grid de posters
+                    html += '<div class="movies-grid">';
+                    data.results.slice(0, 10).forEach(movie => {
+                        if (movie.poster_path) {
+                            html += `
+                                <div class="movie-card">
+                                    <img src="${IMAGE_BASE}${movie.poster_path}" alt="${movie.title}">
+                                    <h3>${movie.title}</h3>
+                                </div>
+                            `;
+                        }
+                    });
+                    html += '</div>';
+                    
+                    setResult('movies-result', html);
+                } else {
+                    throw new Error(data.status_message || 'Erro desconhecido');
+                }
+            } catch (error) {
+                setResult('movies-result', `<div class="result error"><span class="status error">✗ ERRO</span><br><br>${error.message}</div>`);
+            }
+        }
+
+        async function testPopularSeries() {
+            setResult('series-result', '<div class="result"><span class="status loading">Carregando...</span> Buscando séries populares...</div>');
+            
+            try {
+                const response = await fetch(`${BASE_URL}/discover/tv?api_key=${API_KEY}&language=pt-BR&sort_by=popularity.desc&page=1`);
+                const data = await response.json();
+                
+                if (response.ok && data.results) {
+                    let html = `<div class="result success">
+                        <span class="status success">✓ SUCESSO</span>
+                        <br><br>
+                        <strong>Total de séries recebidas:</strong> ${data.results.length}<br>
+                        <strong>Total de páginas disponíveis:</strong> ${data.total_pages}<br>
+                        <strong>Total de resultados:</strong> ${data.total_results.toLocaleString('pt-BR')}<br>
+                        <br>
+                        <strong>Primeiras 5 séries:</strong><br>
+                    `;
+                    
+                    data.results.slice(0, 5).forEach((series, i) => {
+                        html += `${i + 1}. ${series.name} (${series.first_air_date?.split('-')[0] || 'N/A'}) - Nota: ${series.vote_average}/10<br>`;
+                    });
+                    
+                    html += '</div>';
+                    setResult('series-result', html);
+                } else {
+                    throw new Error(data.status_message || 'Erro desconhecido');
+                }
+            } catch (error) {
+                setResult('series-result', `<div class="result error"><span class="status error">✗ ERRO</span><br><br>${error.message}</div>`);
+            }
+        }
+
+        async function testMovieDetails() {
+            setResult('details-result', '<div class="result"><span class="status loading">Carregando...</span> Buscando detalhes do filme...</div>');
+            
+            try {
+                const movieId = 278; // The Shawshank Redemption
+                const response = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}&language=pt-BR&append_to_response=images,credits,videos`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    let html = `<div class="result success">
+                        <span class="status success">✓ SUCESSO</span>
+                        <br><br>
+                        <strong>Título:</strong> ${data.title}<br>
+                        <strong>Título Original:</strong> ${data.original_title}<br>
+                        <strong>Lançamento:</strong> ${data.release_date}<br>
+                        <strong>Duração:</strong> ${data.runtime} minutos<br>
+                        <strong>Nota:</strong> ${data.vote_average}/10 (${data.vote_count.toLocaleString('pt-BR')} votos)<br>
+                        <strong>Orçamento:</strong> $${data.budget.toLocaleString('en-US')}<br>
+                        <strong>Receita:</strong> $${data.revenue.toLocaleString('en-US')}<br>
+                        <strong>Gêneros:</strong> ${data.genres.map(g => g.name).join(', ')}<br>
+                        <br>
+                        <strong>Sinopse:</strong><br>
+                        ${data.overview || 'Não disponível'}<br>
+                        <br>
+                        <strong>Total de imagens:</strong> ${data.images?.backdrops?.length || 0} backdrops, ${data.images?.posters?.length || 0} posters<br>
+                        <strong>Total de vídeos:</strong> ${data.videos?.results?.length || 0}<br>
+                    </div>`;
+                    
+                    setResult('details-result', html);
+                } else {
+                    throw new Error(data.status_message || 'Erro desconhecido');
+                }
+            } catch (error) {
+                setResult('details-result', `<div class="result error"><span class="status error">✗ ERRO</span><br><br>${error.message}</div>`);
+            }
+        }
+
+        async function testSearch() {
+            const query = document.getElementById('search-input').value;
+            if (!query) {
+                setResult('search-result', '<div class="result error"><span class="status error">✗ ERRO</span><br><br>Digite um termo de busca</div>');
+                return;
+            }
+            
+            setResult('search-result', '<div class="result"><span class="status loading">Carregando...</span> Buscando...</div>');
+            
+            try {
+                const response = await fetch(`${BASE_URL}/search/multi?api_key=${API_KEY}&language=pt-BR&query=${encodeURIComponent(query)}&page=1`);
+                const data = await response.json();
+                
+                if (response.ok && data.results) {
+                    let html = `<div class="result success">
+                        <span class="status success">✓ SUCESSO</span>
+                        <br><br>
+                        <strong>Resultados encontrados:</strong> ${data.total_results.toLocaleString('pt-BR')}<br>
+                        <br>
+                        <strong>Primeiros 10 resultados:</strong><br>
+                    `;
+                    
+                    data.results.slice(0, 10).forEach((item, i) => {
+                        const title = item.title || item.name || 'Sem título';
+                        const type = item.media_type === 'movie' ? '🎬 Filme' : item.media_type === 'tv' ? '📺 Série' : '👤 Pessoa';
+                        const year = item.release_date?.split('-')[0] || item.first_air_date?.split('-')[0] || 'N/A';
+                        html += `${i + 1}. ${type}: ${title} (${year})<br>`;
+                    });
+                    
+                    html += '</div>';
+                    setResult('search-result', html);
+                } else {
+                    throw new Error(data.status_message || 'Erro desconhecido');
+                }
+            } catch (error) {
+                setResult('search-result', `<div class="result error"><span class="status error">✗ ERRO</span><br><br>${error.message}</div>`);
+            }
+        }
+
+        async function testImages() {
+            setResult('images-result', '<div class="result"><span class="status loading">Carregando...</span> Testando carregamento de imagens...</div>');
+            
+            try {
+                const response = await fetch(`${BASE_URL}/movie/popular?api_key=${API_KEY}&language=pt-BR&page=1`);
+                const data = await response.json();
+                
+                if (response.ok && data.results) {
+                    let html = '<div class="result success"><span class="status success">✓ SUCESSO</span><br><br>Imagens carregadas com sucesso:</div>';
+                    html += '<div class="movies-grid">';
+                    
+                    data.results.slice(0, 12).forEach(movie => {
+                        if (movie.poster_path) {
+                            html += `
+                                <div class="movie-card">
+                                    <img src="${IMAGE_BASE}${movie.poster_path}" alt="${movie.title}">
+                                    <h3>${movie.title}</h3>
+                                </div>
+                            `;
+                        }
+                    });
+                    
+                    html += '</div>';
+                    setResult('images-result', html);
+                } else {
+                    throw new Error(data.status_message || 'Erro desconhecido');
+                }
+            } catch (error) {
+                setResult('images-result', `<div class="result error"><span class="status error">✗ ERRO</span><br><br>${error.message}</div>`);
+            }
+        }
+
+        // Auto-executar teste 1 ao carregar
+        window.addEventListener('load', () => {
+            console.log('🎬 Página de testes TMDB carregada');
+            console.log('API Key:', API_KEY);
+            console.log('Base URL:', BASE_URL);
+        });
+    </script>
+</body>
+</html>

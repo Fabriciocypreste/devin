@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedFlix - Efeito Hover Perfeito</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #141414;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+    /* ==================== HEADER ==================== */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 70px;
+      padding: 0 4%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(0,0,0,.7) 10%, rgba(0,0,0,0));
+      z-index: 999;
+      transition: background-color 0.4s;
+    }
+    
+    .header.black {
+      background-color: #141414;
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+    
+    .logo {
+      height: 25px;
+      cursor: pointer;
+    }
+    
+    .nav {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    
+    .nav a {
+      color: #e5e5e5;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 400;
+      transition: color 0.4s;
+    }
+    
+    .nav a:hover,
+    .nav a.active {
+      color: #b3b3b3;
+    }
+    
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .icon {
+      cursor: pointer;
+      color: #fff;
+    }
+    
+    .profile {
+      width: 32px;
+      height: 32px;
+      background: #E50914;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    /* ==================== HERO BANNER ==================== */
+    .hero {
+      position: relative;
+      height: 56.25vw;
+      max-height: 800px;
+      background-size: cover;
+      background-position: center;
+      margin-bottom: 20px;
+    }
+    
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(77deg, rgba(0,0,0,.6) 0, transparent 85%);
+    }
+    
+    .hero-fade {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 14.7vw;
+      background: linear-gradient(180deg, transparent, rgba(20,20,20,.5) 50%, #141414);
+    }
+    
+    .hero-content {
+      position: absolute;
+      bottom: 35%;
+      left: 4%;
+      max-width: 36%;
+      z-index: 10;
+    }
+    
+    .hero-logo {
+      max-width: 500px;
+      width: 100%;
+      margin-bottom: 1.2vw;
+    }
+    
+    .hero-title {
+      font-size: 3.5vw;
+      font-weight: 700;
+      margin-bottom: 1.2vw;
+      text-shadow: 2px 2px 4px rgba(0,0,0,.45);
+    }
+    
+    .hero-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1.2vw;
+      font-size: 1.2vw;
+    }
+    
+    .hero-match {
+      color: #46d369;
+      font-weight: 700;
+    }
+    
+    .hero-year {
+      color: #46d369;
+    }
+    
+    .hero-rating {
+      border: 1px solid rgba(255,255,255,.4);
+      padding: 0 6px;
+      font-size: 1vw;
+    }
+    
+    .hero-duration {
+      color: #e5e5e5;
+    }
+    
+    .hero-quality {
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.4);
+      padding: 2px 8px;
+      font-size: 0.8vw;
+      border-radius: 2px;
+    }
+    
+    .hero-overview {
+      font-size: 1.2vw;
+      line-height: 1.4;
+      margin-bottom: 1.5vw;
+      text-shadow: 2px 2px 4px rgba(0,0,0,.45);
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .btn {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2vw;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+    }
+    
+    .btn-play {
+      background: #fff;
+      color: #000;
+    }
+    
+    .btn-play:hover {
+      background: rgba(255,255,255,.75);
+    }
+    
+    .btn-info {
+      background: rgba(109,109,110,.7);
+      color: #fff;
+    }
+    
+    .btn-info:hover {
+      background: rgba(109,109,110,.4);
+    }
+    
+    /* ==================== ROWS ==================== */
+    .rows {
+      position: relative;
+      margin-top: -150px;
+      z-index: 10;
+      padding-bottom: 100px;
+    }
+    
+    .row {
+      margin-bottom: 3vw;
+    }
+    
+    .row-header {
+      font-size: 1.4vw;
+      font-weight: 700;
+      margin-bottom: 0.5em;
+      padding: 0 4%;
+      color: #e5e5e5;
+    }
+    
+    .row-posters {
+      position: relative;
+      padding: 0 4%;
+      overflow: visible;
+    }
+    
+    .row-container {
+      display: flex;
+      gap: 0.5vw;
+      overflow-x: scroll;
+      overflow-y: visible;
+      scroll-behavior: smooth;
+      padding: 50px 0 100px 0;
+    }
+    
+    .row-container::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* ==================== TOP 10 ==================== */
+    .top10-item {
+      position: relative;
+      min-width: 15vw;
+      display: flex;
+      align-items: flex-end;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.5, 0, 0.1, 1);
+      transform-origin: center;
+    }
+    
+    .top10-item:hover {
+      transform: scale(1.25) translateY(-20px);
+      z-index: 100;
+      transition-delay: 0.5s;
+    }
+    
+    .top10-number {
+      font-size: 13vw;
+      font-weight: 900;
+      line-height: 0.75;
+      color: #000;
+      -webkit-text-fill-color: transparent;
+      -webkit-text-stroke-width: 5px;
+      -webkit-text-stroke-color: #464646;
+      margin-right: -1.2vw;
+      z-index: 1;
+    }
+    
+    .top10-poster {
+      width: 9vw;
+      height: 13.5vw;
+      object-fit: cover;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0,0,0,.5);
+      z-index: 2;
+    }
+    
+    .top10-item:hover .top10-poster {
+      box-shadow: 0 8px 24px rgba(0,0,0,.8);
+    }
+    
+    /* ==================== MOVIE CARDS - EFEITO HOVER PERFEITO ==================== */
+    .movie-card {
+      position: relative;
+      min-width: 16vw;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.5, 0, 0.1, 1), z-index 0s;
+      transform-origin: center center;
+      border-radius: 4px;
+    }
+    
+    /* Primeiro card da linha: expande para direita */
+    .movie-card:first-child:hover {
+      transform-origin: left center;
+    }
+    
+    /* Último card: expande para esquerda */
+    .movie-card:last-child:hover {
+      transform-origin: right center;
+    }
+    
+    .movie-card:hover {
+      transform: scale(1.5) translateY(-30px);
+      z-index: 999;
+      transition-delay: 0.5s;
+    }
+    
+    .movie-poster {
+      width: 100%;
+      height: 9vw;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+    }
+    
+    .movie-card:hover .movie-poster {
+      border-radius: 4px 4px 0 0;
+    }
+    
+    /* ==================== INFO CARD - EXPANSÃO PARA BAIXO ==================== */
+    .movie-info {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #181818;
+      border-radius: 0 0 4px 4px;
+      padding: 1em;
+      opacity: 0;
+      visibility: hidden;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: all 0.3s cubic-bezier(0.5, 0, 0.1, 1);
+      box-shadow: 0 3px 10px rgba(0,0,0,.5);
+    }
+    
+    .movie-card:hover .movie-info {
+      opacity: 1;
+      visibility: visible;
+      transform: scaleY(1);
+      transition-delay: 0.5s;
+      box-shadow: 0 8px 24px rgba(0,0,0,.8);
+    }
+    
+    .movie-controls {
+      display: flex;
+      gap: 0.5em;
+      margin-bottom: 0.8em;
+    }
+    
+    .control-btn {
+      width: 2.2em;
+      height: 2.2em;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.5);
+      background: rgba(42,42,42,.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .control-btn:hover {
+      border-color: #fff;
+      background: rgba(42,42,42,.9);
+      transform: scale(1.15);
+    }
+    
+    .control-btn.play {
+      background: #fff;
+      border: none;
+    }
+    
+    .control-btn.play:hover {
+      background: rgba(255,255,255,.85);
+    }
+    
+    .control-btn.more {
+      margin-left: auto;
+    }
+    
+    .movie-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      font-size: 0.9em;
+      margin-bottom: 0.6em;
+    }
+    
+    .match {
+      color: #46d369;
+      font-weight: 700;
+    }
+    
+    .age-rating {
+      border: 1px solid rgba(255,255,255,.4);
+      padding: 0 0.3em;
+      font-size: 0.85em;
+    }
+    
+    .movie-genres {
+      font-size: 0.75em;
+      color: #d2d2d2;
+      display: flex;
+      gap: 0.3em;
+      flex-wrap: wrap;
+    }
+    
+    .genre-dot {
+      color: #646464;
+    }
+    
+    /* ==================== NAV ARROWS ==================== */
+    .nav-btn {
+      position: absolute;
+      top: 0;
+      bottom: 100px;
+      width: 4%;
+      background: rgba(0,0,0,.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 50;
+    }
+    
+    .row-posters:hover .nav-btn {
+      opacity: 1;
+    }
+    
+    .nav-btn:hover {
+      background: rgba(0,0,0,.8);
+    }
+    
+    .nav-btn.left {
+      left: 0;
+    }
+    
+    .nav-btn.right {
+      right: 0;
+    }
+    
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 1400px) {
+      .movie-card {
+        min-width: 20vw;
+      }
+      
+      .movie-poster {
+        height: 11.25vw;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav {
+        display: none;
+      }
+      
+      .hero {
+        height: 400px;
+      }
+      
+      .hero-content {
+        max-width: 50%;
+      }
+      
+      .hero-title {
+        font-size: 24px;
+      }
+      
+      .hero-overview {
+        font-size: 14px;
+      }
+      
+      .btn {
+        font-size: 14px;
+        padding: 8px 20px;
+      }
+      
+      .movie-card {
+        min-width: 35vw;
+      }
+      
+      .movie-poster {
+        height: 20vw;
+      }
+      
+      .top10-item {
+        min-width: 30vw;
+      }
+      
+      .top10-number {
+        font-size: 25vw;
+      }
+      
+      .top10-poster {
+        width: 18vw;
+        height: 27vw;
+      }
+      
+      .row-header {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-left">
+    <img src="http://chemorena.com/redfliz.png" alt="RedFlix" class="logo">
+    
+    <nav class="nav">
+      <a href="#" class="active">Início</a>
+      <a href="#">Séries</a>
+      <a href="#">Filmes</a>
+      <a href="#">Bombando</a>
+      <a href="#">Minha lista</a>
+      <a href="#">Navegar por idiomas</a>
+    </nav>
+  </div>
+  
+  <div class="header-right">
+    <div class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+    </div>
+    <div class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+      </svg>
+    </div>
+    <div class="profile"></div>
+  </div>
+</header>
+
+<!-- HERO BANNER -->
+<div class="hero" id="hero">
+  <div class="hero-gradient"></div>
+  <div class="hero-fade"></div>
+  <div class="hero-content">
+    <img id="heroLogo" class="hero-logo" style="display:none;">
+    <h1 id="heroTitle" class="hero-title"></h1>
+    
+    <div class="hero-info">
+      <span class="hero-match">98% relevante</span>
+      <span class="hero-year" id="heroYear">2024</span>
+      <span class="hero-rating">16</span>
+      <span class="hero-duration" id="heroDuration">2h 28m</span>
+      <span class="hero-quality">HD</span>
+    </div>
+    
+    <p id="heroOverview" class="hero-overview"></p>
+    
+    <div class="hero-buttons">
+      <button class="btn btn-play">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        Assistir
+      </button>
+      
+      <button class="btn btn-info">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        Mais informações
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT ROWS -->
+<div class="rows">
+  
+  <!-- TOP 10 -->
+  <div class="row">
+    <h2 class="row-header">Top 10 no Brasil hoje</h2>
+    <div class="row-posters">
+      <div class="row-container" id="top10"></div>
+      <div class="nav-btn left" onclick="scrollRow('top10', -600)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="nav-btn right" onclick="scrollRow('top10', 600)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- EM ALTA -->
+  <div class="row">
+    <h2 class="row-header">Em alta</h2>
+    <div class="row-posters">
+      <div class="row-container" id="trending"></div>
+      <div class="nav-btn left" onclick="scrollRow('trending', -800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="nav-btn right" onclick="scrollRow('trending', 800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- AÇÃO -->
+  <div class="row">
+    <h2 class="row-header">Filmes de ação</h2>
+    <div class="row-posters">
+      <div class="row-container" id="action"></div>
+      <div class="nav-btn left" onclick="scrollRow('action', -800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="nav-btn right" onclick="scrollRow('action', 800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- COMÉDIA -->
+  <div class="row">
+    <h2 class="row-header">Comédias</h2>
+    <div class="row-posters">
+      <div class="row-container" id="comedy"></div>
+      <div class="nav-btn left" onclick="scrollRow('comedy', -800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="nav-btn right" onclick="scrollRow('comedy', 800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- TERROR -->
+  <div class="row">
+    <h2 class="row-header">Filmes de terror</h2>
+    <div class="row-posters">
+      <div class="row-container" id="horror"></div>
+      <div class="nav-btn left" onclick="scrollRow('horror', -800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="nav-btn right" onclick="scrollRow('horror', 800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- DOCUMENTÁRIOS -->
+  <div class="row">
+    <h2 class="row-header">Documentários</h2>
+    <div class="row-posters">
+      <div class="row-container" id="documentary"></div>
+      <div class="nav-btn left" onclick="scrollRow('documentary', -800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="nav-btn right" onclick="scrollRow('documentary', 800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ROMANCE -->
+  <div class="row">
+    <h2 class="row-header">Filmes românticos</h2>
+    <div class="row-posters">
+      <div class="row-container" id="romance"></div>
+      <div class="nav-btn left" onclick="scrollRow('romance', -800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="nav-btn right" onclick="scrollRow('romance', 800)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  const API_KEY = 'ddb1bdf6aa91bdf335797853884b0c1d';
+  const BASE_URL = 'https://api.themoviedb.org/3';
+  const IMG_BASE = 'https://image.tmdb.org/t/p';
+  
+  // Fetch movies
+  async function fetchMovies(url) {
+    try {
+      const res = await fetch(`${BASE_URL}${url}?api_key=${API_KEY}&language=pt-BR`);
+      const data = await res.json();
+      return data.results;
+    } catch (err) {
+      console.error('Erro ao buscar filmes:', err);
+      return [];
+    }
+  }
+  
+  // Load hero banner
+  async function loadHero() {
+    try {
+      const res = await fetch(`${BASE_URL}/movie/558449?api_key=${API_KEY}&language=pt-BR&append_to_response=images`);
+      const movie = await res.json();
+      
+      // Background
+      document.getElementById('hero').style.backgroundImage = `url(${IMG_BASE}/original${movie.backdrop_path})`;
+      
+      // Try to get logo
+      const logoRes = await fetch(`${BASE_URL}/movie/558449/images?api_key=${API_KEY}`);
+      const images = await logoRes.json();
+      const logo = images.logos?.find(l => l.iso_639_1 === 'en' || l.iso_639_1 === null);
+      
+      if (logo) {
+        document.getElementById('heroLogo').src = `${IMG_BASE}/original${logo.file_path}`;
+        document.getElementById('heroLogo').style.display = 'block';
+        document.getElementById('heroTitle').style.display = 'none';
+      } else {
+        document.getElementById('heroTitle').textContent = movie.title;
+      }
+      
+      // Info
+      document.getElementById('heroOverview').textContent = movie.overview;
+      document.getElementById('heroYear').textContent = movie.release_date?.split('-')[0] || '2024';
+      
+      const hours = Math.floor(movie.runtime / 60);
+      const mins = movie.runtime % 60;
+      document.getElementById('heroDuration').textContent = `${hours}h ${mins}m`;
+      
+    } catch (err) {
+      console.error('Erro ao carregar hero:', err);
+    }
+  }
+  
+  // Create Top 10 card
+  function createTop10Card(movie, index) {
+    if (!movie.poster_path) return '';
+    
+    return `
+      <div class="top10-item">
+        <div class="top10-number">${index + 1}</div>
+        <img class="top10-poster" src="${IMG_BASE}/w300${movie.poster_path}" alt="${movie.title}">
+      </div>
+    `;
+  }
+  
+  // Create movie card with hover effect
+  function createMovieCard(movie) {
+    if (!movie.backdrop_path) return '';
+    
+    const match = Math.floor(Math.random() * 20) + 75;
+    const year = movie.release_date?.split('-')[0] || '2024';
+    
+    return `
+      <div class="movie-card">
+        <img class="movie-poster" src="${IMG_BASE}/w500${movie.backdrop_path}" alt="${movie.title}">
+        
+        <div class="movie-info">
+          <div class="movie-controls">
+            <div class="control-btn play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="black">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+            
+            <div class="control-btn">
+              <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </div>
+            
+            <div class="control-btn">
+              <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+              </svg>
+            </div>
+            
+            <div class="control-btn more">
+              <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="movie-meta">
+            <span class="match">${match}% relevante</span>
+            <span class="age-rating">16</span>
+            <span>${year}</span>
+          </div>
+          
+          <div class="movie-genres">
+            <span>Empolgante</span>
+            <span class="genre-dot">•</span>
+            <span>Emocionante</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  // Load row
+  async function loadRow(id, url, isTop10 = false) {
+    const movies = await fetchMovies(url);
+    const container = document.getElementById(id);
+    
+    container.innerHTML = movies
+      .slice(0, isTop10 ? 10 : 20)
+      .map((movie, index) => 
+        isTop10 ? createTop10Card(movie, index) : createMovieCard(movie)
+      )
+      .filter(html => html !== '')
+      .join('');
+  }
+  
+  // Scroll row
+  function scrollRow(id, amount) {
+    const container = document.getElementById(id);
+    container.scrollBy({ left: amount, behavior: 'smooth' });
+  }
+  
+  // Header scroll effect
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    if (window.scrollY > 0) {
+      header.classList.add('black');
+    } else {
+      header.classList.remove('black');
+    }
+  });
+  
+  // Initialize
+  loadHero();
+  loadRow('top10', '/trending/movie/week', true);
+  loadRow('trending', '/trending/movie/day');
+  loadRow('action', '/discover/movie&with_genres=28');
+  loadRow('comedy', '/discover/movie&with_genres=35');
+  loadRow('horror', '/discover/movie&with_genres=27');
+  loadRow('documentary', '/discover/movie&with_genres=99');
+  loadRow('romance', '/discover/movie&with_genres=10749');
+</script>
+
+</body>
+</html>

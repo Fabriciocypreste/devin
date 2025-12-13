@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Séries - RedFlix</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+      background: #141414;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+    /* ==================== HEADER ==================== */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 68px;
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(0,0,0,0.7) 10%, transparent);
+      z-index: 999;
+      transition: background-color 0.4s;
+    }
+    
+    .header.scrolled {
+      background: #141414;
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .logo {
+      height: 25px;
+      cursor: pointer;
+    }
+    
+    .nav {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    
+    .nav a {
+      color: #e5e5e5;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.4s;
+    }
+    
+    .nav a:hover,
+    .nav a.active {
+      color: #b3b3b3;
+      font-weight: 500;
+    }
+    
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+    
+    .icon {
+      cursor: pointer;
+    }
+    
+    .profile {
+      width: 32px;
+      height: 32px;
+      background: #E50914;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    /* ==================== GENRE FILTER ==================== */
+    .genre-filter {
+      position: absolute;
+      top: 120px;
+      left: 60px;
+      z-index: 15;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    
+    .series-title {
+      font-size: 3vw;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    
+    .genre-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .genre-button {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.7);
+      padding: 8px 16px;
+      font-size: 1.1vw;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+      border-radius: 0;
+    }
+    
+    .genre-button:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: #fff;
+    }
+    
+    .genre-button svg:first-child {
+      display: none;
+    }
+    
+    .genre-button svg:last-child {
+      transition: transform 0.3s;
+    }
+    
+    .genre-button.active svg:last-child {
+      transform: rotate(180deg);
+    }
+    
+    .genre-menu {
+      position: absolute;
+      top: calc(100% + 10px);
+      left: 0;
+      background: rgba(0,0,0,0.95);
+      border: 1px solid rgba(255,255,255,0.25);
+      min-width: 600px;
+      padding: 20px;
+      display: none;
+      z-index: 1000;
+      border-radius: 4px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.8);
+    }
+    
+    .genre-menu.active {
+      display: block;
+    }
+    
+    .genre-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px 24px;
+    }
+    
+    .genre-item {
+      padding: 8px 12px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    
+    .genre-item:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .genre-item.selected {
+      background: transparent;
+      color: #fff;
+      font-weight: 700;
+    }
+    
+    /* ==================== HERO BANNER ==================== */
+    .billboard {
+      position: relative;
+      height: 56.25vw;
+      display: flex;
+      align-items: center;
+      background-size: cover;
+      background-position: center center;
+      margin-top: 68px;
+    }
+    
+    .billboard-vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(77deg, rgba(0,0,0,0.6) 0, transparent 85%);
+    }
+    
+    .billboard-bottom {
+      position: absolute;
+      bottom: -1px;
+      width: 100%;
+      height: 14.7vw;
+      background: linear-gradient(180deg, hsla(0,0%,8%,0) 0, hsla(0,0%,8%,.15) 15%, hsla(0,0%,8%,.35) 29%, hsla(0,0%,8%,.58) 44%, #141414 68%, #141414);
+    }
+    
+    .billboard-info {
+      position: relative;
+      z-index: 10;
+      width: 36%;
+      margin-left: 60px;
+      margin-bottom: 20vh;
+    }
+    
+    .billboard-logo {
+      width: 100%;
+      max-width: 500px;
+      margin-bottom: 1.2vw;
+    }
+    
+    .billboard-title {
+      font-size: 3vw;
+      font-weight: 700;
+      margin-bottom: 1.2vw;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.45);
+    }
+    
+    .billboard-synopsis {
+      font-size: 1.2vw;
+      line-height: 1.4;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.45);
+      margin-bottom: 1.2vw;
+    }
+    
+    .billboard-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 1.5vw;
+    }
+    
+    .play-button {
+      background: #fff;
+      color: #000;
+      padding: 0.8rem 2rem 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2vw;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .play-button:hover {
+      background: rgba(255,255,255,0.75);
+    }
+    
+    .more-info-button {
+      background: rgba(109,109,110,0.7);
+      color: #fff;
+      padding: 0.8rem 2rem 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.2vw;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .more-info-button:hover {
+      background: rgba(109,109,110,0.4);
+    }
+    
+    /* ==================== LOLOMO (ROWS) ==================== */
+    .lolomo {
+      position: relative;
+      margin-top: -9vw;
+      z-index: 20;
+      padding-bottom: 100px;
+    }
+    
+    .lolomo-row {
+      margin-bottom: 3vw;
+      position: relative;
+    }
+    
+    .row-header {
+      font-size: 1.4vw;
+      color: #e5e5e5;
+      font-weight: 700;
+      line-height: 1.25vw;
+      margin-bottom: 0.5em;
+      padding: 0 60px;
+    }
+    
+    .row-with-x-columns {
+      position: relative;
+    }
+    
+    .slider {
+      padding: 0 60px;
+      overflow: visible;
+    }
+    
+    .slider-content {
+      display: flex;
+      gap: 4px;
+      overflow-x: scroll;
+      overflow-y: visible;
+      scroll-behavior: smooth;
+      padding: 5vw 0 15vw 0;
+    }
+    
+    .slider-content::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* ==================== TITLE CARD - EFEITO HOVER REAL ==================== */
+    .title-card {
+      position: relative;
+      min-width: 16vw;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.5, 0, 0.1, 1);
+      transform-origin: center center;
+    }
+    
+    /* Primeiro card expande para direita */
+    .title-card:first-child {
+      transform-origin: left center;
+    }
+    
+    /* Último card expande para esquerda */
+    .title-card:last-child {
+      transform-origin: right center;
+    }
+    
+    .title-card:hover {
+      transform: scale(1.5) translateY(-2vw);
+      z-index: 999;
+      transition-delay: 0.5s;
+    }
+    
+    .card-image {
+      width: 100%;
+      height: 9vw;
+      object-fit: cover;
+      border-radius: 4px;
+      display: block;
+      transition: border-radius 0.3s;
+    }
+    
+    .title-card:hover .card-image {
+      border-radius: 4px 4px 0 0;
+      transition-delay: 0.5s;
+    }
+    
+    /* Logo sobreposto na imagem (canto inferior esquerdo) */
+    .card-image-logo {
+      position: absolute;
+      bottom: 8px;
+      left: 8px;
+      height: 2.5vw;
+      max-height: 50px;
+      width: auto;
+      max-width: 50%;
+      object-fit: contain;
+      z-index: 2;
+      opacity: 1;
+      transition: opacity 0.3s;
+    }
+    
+    /* Info que aparece EMBAIXO da imagem */
+    .card-info {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #181818;
+      border-radius: 0 0 4px 4px;
+      padding: 1em;
+      opacity: 0;
+      visibility: hidden;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: all 0.3s cubic-bezier(0.5, 0, 0.1, 1);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+    }
+    
+    .title-card:hover .card-info {
+      opacity: 1;
+      visibility: visible;
+      transform: scaleY(1);
+      transition-delay: 0.5s;
+    }
+    
+    .card-logo {
+      width: 100%;
+      max-width: 120px;
+      margin-bottom: 0.8em;
+    }
+    
+    .card-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 1em;
+    }
+    
+    .card-button {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.5);
+      background: rgba(42,42,42,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .card-button:hover {
+      border-color: #fff;
+      background: rgba(42,42,42,0.9);
+      transform: scale(1.1);
+    }
+    
+    .card-button.play {
+      background: #fff;
+      border: none;
+    }
+    
+    .card-button.play:hover {
+      background: rgba(255,255,255,0.8);
+    }
+    
+    .card-button.chevron {
+      margin-left: auto;
+    }
+    
+    .card-metadata {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 0.8em;
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+    
+    .match-score {
+      color: #46d369;
+      font-weight: 700;
+    }
+    
+    .maturity-rating {
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 0 4px;
+      font-size: 11px;
+    }
+    
+    .duration-label {
+      color: #e5e5e5;
+    }
+    
+    .card-genres {
+      display: flex;
+      gap: 6px;
+      font-size: 12px;
+      color: #d2d2d2;
+      flex-wrap: wrap;
+    }
+    
+    .genre-separator {
+      color: #646464;
+    }
+    
+    /* ==================== NAV ARROWS ==================== */
+    .slider-nav {
+      position: absolute;
+      top: 0;
+      bottom: 10vw;
+      width: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.5);
+      opacity: 0;
+      transition: opacity 0.3s;
+      cursor: pointer;
+      z-index: 50;
+    }
+    
+    .row-with-x-columns:hover .slider-nav {
+      opacity: 1;
+    }
+    
+    .slider-nav:hover {
+      background: rgba(0,0,0,0.8);
+    }
+    
+    .slider-nav.prev {
+      left: 0;
+    }
+    
+    .slider-nav.next {
+      right: 0;
+    }
+    
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 1024px) {
+      .billboard {
+        height: 70vw;
+      }
+      
+      .billboard-info {
+        width: 50%;
+      }
+      
+      .title-card {
+        min-width: 25vw;
+      }
+      
+      .card-image {
+        height: 14vw;
+      }
+      
+      .nav {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .billboard {
+        height: 80vw;
+      }
+      
+      .billboard-info {
+        width: 80%;
+      }
+      
+      .billboard-title {
+        font-size: 24px;
+      }
+      
+      .billboard-synopsis {
+        font-size: 14px;
+      }
+      
+      .play-button,
+      .more-info-button {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+      
+      .title-card {
+        min-width: 40vw;
+      }
+      
+      .card-image {
+        height: 22.5vw;
+      }
+      
+      .row-header {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-left">
+    <img src="http://chemorena.com/redfliz.png" alt="RedFlix" class="logo" onclick="window.location.href='/index.html'">
+    
+    <nav class="nav">
+      <a href="/index.html">Início</a>
+      <a href="/series.html" class="active">Séries</a>
+      <a href="#">Filmes</a>
+      <a href="#">Bombando</a>
+      <a href="#">Minha lista</a>
+      <a href="#">Navegar por idiomas</a>
+    </nav>
+  </div>
+  
+  <div class="header-right">
+    <div class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+    </div>
+    <div class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/>
+      </svg>
+    </div>
+    <div class="profile"></div>
+  </div>
+</header>
+
+<!-- GENRE FILTER -->
+<div class="genre-filter" id="genreFilter">
+  <h1 class="series-title">Séries</h1>
+  <div class="genre-dropdown">
+    <button class="genre-button" id="genreButton">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="12 2 2 7 12 12 22 7 12 2"/>
+        <polyline points="2 17 12 22 22 17"/>
+        <polyline points="2 12 12 17 22 12"/>
+      </svg>
+      <span>Gêneros</span>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7 10l5 5 5-5z"/>
+      </svg>
+    </button>
+    
+    <div class="genre-menu" id="genreMenu">
+      <div class="genre-grid">
+        <div class="genre-item selected" data-genre="all">Todos os gêneros</div>
+        <div class="genre-item" data-genre="10759">Ação & Aventura</div>
+        <div class="genre-item" data-genre="16">Animação</div>
+        <div class="genre-item" data-genre="35">Comédia</div>
+        <div class="genre-item" data-genre="80">Crime</div>
+        <div class="genre-item" data-genre="99">Documentário</div>
+        <div class="genre-item" data-genre="18">Drama</div>
+        <div class="genre-item" data-genre="10751">Família</div>
+        <div class="genre-item" data-genre="10765">Fantasia</div>
+        <div class="genre-item" data-genre="10762">Infantil</div>
+        <div class="genre-item" data-genre="9648">Mistério</div>
+        <div class="genre-item" data-genre="10763">News</div>
+        <div class="genre-item" data-genre="10764">Reality</div>
+        <div class="genre-item" data-genre="10765">Sci-Fi & Fantasia</div>
+        <div class="genre-item" data-genre="10766">Soap</div>
+        <div class="genre-item" data-genre="10767">Talk Show</div>
+        <div class="genre-item" data-genre="10768">Guerra & Política</div>
+        <div class="genre-item" data-genre="37">Western</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BILLBOARD (HERO) -->
+<div class="billboard" id="billboard">
+  <div class="billboard-vignette"></div>
+  <div class="billboard-bottom"></div>
+  
+  <div class="billboard-info">
+    <img id="billboardLogo" class="billboard-logo" style="display:none;">
+    <h1 id="billboardTitle" class="billboard-title"></h1>
+    <p id="billboardSynopsis" class="billboard-synopsis"></p>
+    
+    <div class="billboard-links">
+      <button class="play-button">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        Assistir
+      </button>
+      
+      <button class="more-info-button">
+        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="16" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12.01" y2="8"/>
+        </svg>
+        Mais informações
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- LOLOMO (CONTENT ROWS) -->
+<div class="lolomo">
+  
+  <!-- SÉRIES EM ALTA -->
+  <div class="lolomo-row">
+    <h2 class="row-header">Séries em alta</h2>
+    <div class="row-with-x-columns">
+      <div class="slider">
+        <div class="slider-content" id="trendingRow"></div>
+      </div>
+      <div class="slider-nav prev" onclick="slide('trendingRow', -1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="slider-nav next" onclick="slide('trendingRow', 1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- DRAMAS -->
+  <div class="lolomo-row">
+    <h2 class="row-header">Dramas</h2>
+    <div class="row-with-x-columns">
+      <div class="slider">
+        <div class="slider-content" id="dramaRow"></div>
+      </div>
+      <div class="slider-nav prev" onclick="slide('dramaRow', -1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="slider-nav next" onclick="slide('dramaRow', 1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- COMÉDIA -->
+  <div class="lolomo-row">
+    <h2 class="row-header">Comédias</h2>
+    <div class="row-with-x-columns">
+      <div class="slider">
+        <div class="slider-content" id="comedyRow"></div>
+      </div>
+      <div class="slider-nav prev" onclick="slide('comedyRow', -1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="slider-nav next" onclick="slide('comedyRow', 1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- AÇÃO & AVENTURA -->
+  <div class="lolomo-row">
+    <h2 class="row-header">Ação & Aventura</h2>
+    <div class="row-with-x-columns">
+      <div class="slider">
+        <div class="slider-content" id="actionRow"></div>
+      </div>
+      <div class="slider-nav prev" onclick="slide('actionRow', -1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="slider-nav next" onclick="slide('actionRow', 1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- CRIME -->
+  <div class="lolomo-row">
+    <h2 class="row-header">Crime</h2>
+    <div class="row-with-x-columns">
+      <div class="slider">
+        <div class="slider-content" id="crimeRow"></div>
+      </div>
+      <div class="slider-nav prev" onclick="slide('crimeRow', -1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="slider-nav next" onclick="slide('crimeRow', 1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- FICÇÃO CIENTÍFICA & FANTASIA -->
+  <div class="lolomo-row">
+    <h2 class="row-header">Ficção científica & Fantasia</h2>
+    <div class="row-with-x-columns">
+      <div class="slider">
+        <div class="slider-content" id="scifiRow"></div>
+      </div>
+      <div class="slider-nav prev" onclick="slide('scifiRow', -1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="slider-nav next" onclick="slide('scifiRow', 1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- MISTÉRIO -->
+  <div class="lolomo-row">
+    <h2 class="row-header">Mistério</h2>
+    <div class="row-with-x-columns">
+      <div class="slider">
+        <div class="slider-content" id="mysteryRow"></div>
+      </div>
+      <div class="slider-nav prev" onclick="slide('mysteryRow', -1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="slider-nav next" onclick="slide('mysteryRow', 1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ANIMAÇÃO -->
+  <div class="lolomo-row">
+    <h2 class="row-header">Animação</h2>
+    <div class="row-with-x-columns">
+      <div class="slider">
+        <div class="slider-content" id="animationRow"></div>
+      </div>
+      <div class="slider-nav prev" onclick="slide('animationRow', -1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="slider-nav next" onclick="slide('animationRow', 1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- DOCUMENTÁRIOS -->
+  <div class="lolomo-row">
+    <h2 class="row-header">Documentários</h2>
+    <div class="row-with-x-columns">
+      <div class="slider">
+        <div class="slider-content" id="docRow"></div>
+      </div>
+      <div class="slider-nav prev" onclick="slide('docRow', -1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </div>
+      <div class="slider-nav next" onclick="slide('docRow', 1)">
+        <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  const API_KEY = 'ddb1bdf6aa91bdf335797853884b0c1d';
+  const BASE = 'https://api.themoviedb.org/3';
+  const IMG = 'https://image.tmdb.org/t/p';
+  
+  // Fetch TV shows
+  async function fetchShows(endpoint) {
+    try {
+      const res = await fetch(`${BASE}${endpoint}?api_key=${API_KEY}&language=pt-BR`);
+      const data = await res.json();
+      return data.results || [];
+    } catch (err) {
+      console.error('Erro:', err);
+      return [];
+    }
+  }
+  
+  // Load billboard
+  async function loadBillboard() {
+    try {
+      // Usar série popular do TMDB (Stranger Things)
+      const res = await fetch(`${BASE}/tv/66732?api_key=${API_KEY}&language=pt-BR`);
+      const show = await res.json();
+      
+      document.getElementById('billboard').style.backgroundImage = 
+        `url(${IMG}/original${show.backdrop_path})`;
+      
+      // Try logo
+      const imgRes = await fetch(`${BASE}/tv/66732/images?api_key=${API_KEY}`);
+      const images = await imgRes.json();
+      const logo = images.logos?.find(l => l.iso_639_1 === 'en' || l.iso_639_1 === null);
+      
+      if (logo) {
+        document.getElementById('billboardLogo').src = `${IMG}/original${logo.file_path}`;
+        document.getElementById('billboardLogo').style.display = 'block';
+      } else {
+        document.getElementById('billboardTitle').textContent = show.name;
+      }
+      
+      // Limitar synopsis a 150 caracteres
+      const synopsis = show.overview || '';
+      const truncatedSynopsis = synopsis.length > 150 
+        ? synopsis.substring(0, 150) + '...' 
+        : synopsis;
+      
+      document.getElementById('billboardSynopsis').textContent = truncatedSynopsis;
+    } catch (err) {
+      console.error('Erro billboard:', err);
+    }
+  }
+  
+  // Create title card
+  function createTitleCard(show) {
+    if (!show.backdrop_path) return '';
+    
+    const match = Math.floor(Math.random() * 20) + 75;
+    const year = show.first_air_date?.split('-')[0] || '2024';
+    
+    return `
+      <div class="title-card" data-id="${show.id}" data-type="tv">
+        <img class="card-image" src="${IMG}/w500${show.backdrop_path}" alt="${show.name}">
+        <div class="card-image-logo-container"></div>
+        
+        <div class="card-info">
+          <div class="card-buttons">
+            <button class="card-button play">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="black">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+            
+            <button class="card-button" title="Adicionar à Minha Lista">
+              <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </button>
+            
+            <button class="card-button" title="Gostei">
+              <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+              </svg>
+            </button>
+            
+            <button class="card-button" title="Assistir depois">
+              <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </button>
+            
+            <button class="card-button chevron">
+              <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+          </div>
+          
+          <div class="card-metadata">
+            <span class="match-score">${match}% relevante</span>
+            <span class="maturity-rating">16</span>
+            <span>${year}</span>
+          </div>
+          
+          <div class="card-genres">
+            <span>Drama</span>
+            <span class="genre-separator">•</span>
+            <span>Emocionante</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  // Load row with detailed info
+  async function loadRow(id, endpoint) {
+    const shows = await fetchShows(endpoint);
+    const container = document.getElementById(id);
+    
+    if (!shows.length) return;
+    
+    // Render initial cards
+    container.innerHTML = shows
+      .slice(0, 20)
+      .map(show => createTitleCard(show))
+      .filter(html => html !== '')
+      .join('');
+    
+    // Load detailed info for each card
+    const cards = container.querySelectorAll('.title-card');
+    cards.forEach(async (card) => {
+      const showId = card.dataset.id;
+      
+      try {
+        const detailRes = await fetch(`${BASE}/tv/${showId}?api_key=${API_KEY}&language=pt-BR&append_to_response=images`);
+        const details = await detailRes.json();
+        
+        const infoDiv = card.querySelector('.card-info');
+        const logoContainer = card.querySelector('.card-image-logo-container');
+        
+        // Add logo sobreposto na imagem (canto inferior esquerdo)
+        if (details.images?.logos?.length > 0) {
+          const logo = details.images.logos.find(l => l.iso_639_1 === 'pt' || l.iso_639_1 === 'en' || l.iso_639_1 === null);
+          if (logo) {
+            // Logo na imagem
+            const imageLogo = document.createElement('img');
+            imageLogo.src = `${IMG}/w200${logo.file_path}`;
+            imageLogo.className = 'card-image-logo';
+            imageLogo.alt = details.name;
+            logoContainer.appendChild(imageLogo);
+            
+            // Logo no card-info (hover)
+            const infoLogo = document.createElement('img');
+            infoLogo.src = `${IMG}/w200${logo.file_path}`;
+            infoLogo.className = 'card-logo';
+            infoLogo.alt = details.name;
+            infoDiv.insertBefore(infoLogo, infoDiv.firstChild);
+          }
+        }
+        
+        // Update metadata with more details
+        const metadataDiv = card.querySelector('.card-metadata');
+        const match = Math.floor(Math.random() * 20) + 75;
+        const year = details.first_air_date?.split('-')[0] || '2024';
+        
+        // Para séries: mostrar temporadas e episódios
+        const seasons = details.number_of_seasons || 1;
+        const episodes = details.number_of_episodes || 0;
+        
+        let durationInfo = '';
+        if (episodes > 0) {
+          durationInfo = `<span class="duration-label">${seasons} temporada${seasons > 1 ? 's' : ''}</span>`;
+          durationInfo += `<span class="duration-label"> • ${episodes} episódio${episodes > 1 ? 's' : ''}</span>`;
+        } else {
+          durationInfo = `<span class="duration-label">${seasons} temporada${seasons > 1 ? 's' : ''}</span>`;
+        }
+        
+        metadataDiv.innerHTML = `
+          <span class="match-score">${match}% relevante</span>
+          <span class="maturity-rating">16</span>
+          <span>${year}</span>
+          ${durationInfo}
+        `;
+        
+        // Update genres
+        if (details.genres?.length > 0) {
+          const genresDiv = card.querySelector('.card-genres');
+          genresDiv.innerHTML = details.genres.slice(0, 3).map((g, i) => 
+            `<span>${g.name}</span>${i < Math.min(details.genres.length, 3) - 1 ? '<span class="genre-separator">•</span>' : ''}`
+          ).join('');
+        }
+        
+      } catch (err) {
+        console.error('Erro ao carregar detalhes:', err);
+      }
+    });
+  }
+  
+  // Slide navigation
+  function slide(id, direction) {
+    const container = document.getElementById(id);
+    const scrollAmount = container.offsetWidth * 0.8;
+    container.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+  }
+  
+  // Header scroll
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    header.classList.toggle('scrolled', window.scrollY > 0);
+  });
+  
+  // Genre filter functionality
+  const genreButton = document.getElementById('genreButton');
+  const genreMenu = document.getElementById('genreMenu');
+  const genreItems = document.querySelectorAll('.genre-item');
+  
+  genreButton.addEventListener('click', (e) => {
+    e.stopPropagation();
+    genreMenu.classList.toggle('active');
+    genreButton.classList.toggle('active');
+  });
+  
+  document.addEventListener('click', () => {
+    genreMenu.classList.remove('active');
+    genreButton.classList.remove('active');
+  });
+  
+  genreMenu.addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+  
+  genreItems.forEach(item => {
+    item.addEventListener('click', async () => {
+      const genreId = item.dataset.genre;
+      const genreName = item.textContent;
+      
+      // Update selected state
+      genreItems.forEach(i => i.classList.remove('selected'));
+      item.classList.add('selected');
+      
+      // Update button text
+      genreButton.querySelector('span').textContent = genreName;
+      
+      // Close menu
+      genreMenu.classList.remove('active');
+      genreButton.classList.remove('active');
+      
+      // Load filtered content
+      if (genreId === 'all') {
+        loadRow('trendingRow', '/trending/tv/week');
+      } else {
+        loadRow('trendingRow', `/discover/tv&with_genres=${genreId}`);
+      }
+    });
+  });
+  
+  // Initialize
+  loadBillboard();
+  loadRow('trendingRow', '/trending/tv/week');
+  loadRow('dramaRow', '/discover/tv&with_genres=18');
+  loadRow('comedyRow', '/discover/tv&with_genres=35');
+  loadRow('actionRow', '/discover/tv&with_genres=10759');
+  loadRow('crimeRow', '/discover/tv&with_genres=80');
+  loadRow('scifiRow', '/discover/tv&with_genres=10765');
+  loadRow('mysteryRow', '/discover/tv&with_genres=9648');
+  loadRow('animationRow', '/discover/tv&with_genres=16');
+  loadRow('docRow', '/discover/tv&with_genres=99');
+</script>
+
+</body>
+</html>

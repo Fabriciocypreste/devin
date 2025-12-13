@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedFlix - Streaming</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Netflix+Sans:wght@400;500;700;900&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Netflix Sans', 'Helvetica Neue', Arial, sans-serif;
+      background-color: #141414;
+      overflow-x: hidden;
+    }
+    
+    /* SCROLL HORIZONTAL */
+    .row-container {
+      position: relative;
+      padding: 0 4%;
+      margin-bottom: 3vw;
+    }
+    
+    .row-slider {
+      display: flex;
+      gap: 0.5vw;
+      overflow-x: auto;
+      overflow-y: visible;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding: 0 0 3rem 0;
+    }
+    
+    .row-slider::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* MOVIE CARD - TAMANHO REAL NETFLIX */
+    .movie-card {
+      position: relative;
+      min-width: 16vw;
+      width: 16vw;
+      flex-shrink: 0;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, z-index 0s 0.3s;
+    }
+    
+    .movie-card img {
+      width: 100%;
+      height: 9vw;
+      object-fit: cover;
+      border-radius: 0.2vw;
+    }
+    
+    /* HOVER EFFECT - EXATAMENTE COMO NETFLIX */
+    .movie-card:hover {
+      transform: scale(1.5) translateY(-5vw);
+      z-index: 10;
+      transition: transform 0.3s ease-in-out, z-index 0s 0s;
+    }
+    
+    /* Card expandido */
+    .card-info {
+      position: absolute;
+      top: 9vw;
+      left: 0;
+      right: 0;
+      background: #181818;
+      border-radius: 0 0 0.2vw 0.2vw;
+      padding: 1vw;
+      opacity: 0;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: all 0.3s ease-in-out;
+    }
+    
+    .movie-card:hover .card-info {
+      opacity: 1;
+      transform: scaleY(1);
+    }
+    
+    /* TOP 10 - ESTILO NETFLIX CORRETO */
+    .top10-card {
+      min-width: 20vw;
+      width: 20vw;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+    }
+    
+    .top10-number {
+      font-size: 15vw;
+      font-weight: 900;
+      line-height: 0.75;
+      color: transparent;
+      -webkit-text-stroke: 0.2vw #4a5568;
+      text-stroke: 0.2vw #4a5568;
+      margin-right: -1vw;
+      z-index: 1;
+      align-self: flex-end;
+      font-family: 'Netflix Sans', sans-serif;
+    }
+    
+    .top10-poster {
+      width: 12vw;
+      height: 18vw;
+      object-fit: cover;
+      border-radius: 0.2vw;
+      z-index: 2;
+      position: relative;
+    }
+    
+    .top10-card:hover {
+      transform: scale(1.3);
+      z-index: 10;
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    /* BANNER HERO */
+    .hero-banner {
+      position: relative;
+      height: 56.25vw;
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .hero-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(77deg, rgba(0,0,0,0.6) 0%, transparent 85%);
+    }
+    
+    .hero-gradient-bottom {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 14.7vw;
+      background: linear-gradient(180deg, transparent 0%, rgba(20,20,20,0.5) 50%, #141414 100%);
+    }
+    
+    .hero-content {
+      position: absolute;
+      bottom: 35%;
+      left: 4%;
+      width: 36%;
+      z-index: 2;
+    }
+    
+    .hero-logo {
+      width: 100%;
+      margin-bottom: 1.2vw;
+    }
+    
+    .hero-description {
+      font-size: 1.2vw;
+      line-height: 1.4;
+      margin-bottom: 1.2vw;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.45);
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 1vw;
+    }
+    
+    .hero-button {
+      font-size: 1.2vw;
+      padding: 0.8vw 2vw;
+      border-radius: 0.2vw;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.8vw;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    
+    .hero-button-play {
+      background: white;
+      color: black;
+    }
+    
+    .hero-button-play:hover {
+      background: rgba(255,255,255,0.75);
+    }
+    
+    .hero-button-info {
+      background: rgba(109,109,110,0.7);
+      color: white;
+    }
+    
+    .hero-button-info:hover {
+      background: rgba(109,109,110,0.4);
+    }
+    
+    /* NAV ARROWS */
+    .nav-arrow {
+      position: absolute;
+      top: 0;
+      bottom: 3rem;
+      width: 4%;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 5;
+    }
+    
+    .row-container:hover .nav-arrow {
+      opacity: 1;
+    }
+    
+    .nav-arrow:hover {
+      background: rgba(0,0,0,0.7);
+    }
+    
+    .nav-arrow.left {
+      left: 0;
+    }
+    
+    .nav-arrow.right {
+      right: 0;
+    }
+    
+    /* HEADER */
+    .main-header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 0 4%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(0,0,0,0.7) 10%, transparent);
+      transition: background 0.3s;
+    }
+    
+    .main-header.scrolled {
+      background: #141414;
+    }
+    
+    /* ACTION BUTTONS */
+    .action-buttons {
+      display: flex;
+      gap: 0.5vw;
+      margin-top: 0.5vw;
+    }
+    
+    .action-btn {
+      width: 2.5vw;
+      height: 2.5vw;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      border: 0.15vw solid rgba(255,255,255,0.5);
+      background: rgba(42,42,42,0.6);
+    }
+    
+    .action-btn:hover {
+      border-color: white;
+      background: rgba(42,42,42,0.9);
+      transform: scale(1.1);
+    }
+    
+    .action-btn.play {
+      background: white;
+      border: none;
+    }
+    
+    .action-btn.play:hover {
+      background: rgba(255,255,255,0.75);
+    }
+    
+    /* MATCH SCORE */
+    .match-score {
+      color: #46d369;
+      font-weight: 700;
+      font-size: 1vw;
+      margin-right: 0.5vw;
+    }
+    
+    /* MATURITY RATING */
+    .maturity-rating {
+      border: 1px solid rgba(255,255,255,0.4);
+      padding: 0 0.4vw;
+      font-size: 0.8vw;
+      margin-right: 0.5vw;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="main-header" id="mainHeader">
+  <div style="display: flex; align-items: center; gap: 2.5vw;">
+    <img src="http://chemorena.com/redfliz.png" alt="RedFlix" style="height: 2.5vw; cursor: pointer;">
+    
+    <nav style="display: flex; gap: 1.5vw; font-size: 0.9vw;">
+      <a href="#" style="color: white; text-decoration: none; font-weight: 500;">Início</a>
+      <a href="#" style="color: #e5e5e5; text-decoration: none;">Séries</a>
+      <a href="#" style="color: #e5e5e5; text-decoration: none;">Filmes</a>
+      <a href="#" style="color: #e5e5e5; text-decoration: none;">Bombando</a>
+      <a href="#" style="color: #e5e5e5; text-decoration: none;">Minha lista</a>
+    </nav>
+  </div>
+  
+  <div style="display: flex; align-items: center; gap: 1.5vw;">
+    <svg style="width: 1.5vw; height: 1.5vw; cursor: pointer;" fill="white" viewBox="0 0 24 24">
+      <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+    </svg>
+    
+    <div style="width: 2vw; height: 2vw; background: #E50914; border-radius: 0.2vw; cursor: pointer;"></div>
+  </div>
+</header>
+
+<!-- HERO BANNER -->
+<div class="hero-banner" id="heroBanner">
+  <div class="hero-gradient"></div>
+  <div class="hero-gradient-bottom"></div>
+  
+  <div class="hero-content">
+    <img id="heroLogo" class="hero-logo" alt="Logo" style="display: none;">
+    <h1 id="heroTitle" style="font-size: 3vw; font-weight: 700; margin-bottom: 1.2vw; display: none;"></h1>
+    
+    <div style="display: flex; align-items: center; gap: 0.5vw; margin-bottom: 1vw;">
+      <span class="match-score">98% relevante</span>
+      <span style="color: #46d369; font-size: 1vw;">2024</span>
+      <span class="maturity-rating">16</span>
+      <span style="color: #e5e5e5; font-size: 1vw;">2h 28m</span>
+      <span style="background: rgba(255,255,255,0.2); padding: 0.1vw 0.4vw; font-size: 0.7vw; border-radius: 0.1vw; border: 1px solid rgba(255,255,255,0.4);">HD</span>
+    </div>
+    
+    <p id="heroDescription" class="hero-description text-white"></p>
+    
+    <div class="hero-buttons">
+      <button class="hero-button hero-button-play">
+        <svg style="width: 1.5vw; height: 1.5vw;" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        Assistir
+      </button>
+      
+      <button class="hero-button hero-button-info">
+        <svg style="width: 1.5vw; height: 1.5vw;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="16" x2="12" y2="12"></line>
+          <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        Mais informações
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT ROWS -->
+<div style="margin-top: -8vw; position: relative; z-index: 3;">
+  
+  <!-- TOP 10 NO BRASIL HOJE -->
+  <div class="row-container">
+    <h2 style="color: #e5e5e5; font-size: 1.4vw; font-weight: 700; margin-bottom: 0.5vw; margin-left: 4%;">Top 10 no Brasil hoje</h2>
+    
+    <div class="row-slider" id="top10Row"></div>
+    
+    <div class="nav-arrow left" onclick="scrollRow('top10Row', -1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </div>
+    <div class="nav-arrow right" onclick="scrollRow('top10Row', 1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    </div>
+  </div>
+  
+  <!-- EM ALTA -->
+  <div class="row-container">
+    <h2 style="color: #e5e5e5; font-size: 1.4vw; font-weight: 700; margin-bottom: 0.5vw; margin-left: 4%;">Em alta</h2>
+    
+    <div class="row-slider" id="trendingRow"></div>
+    
+    <div class="nav-arrow left" onclick="scrollRow('trendingRow', -1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </div>
+    <div class="nav-arrow right" onclick="scrollRow('trendingRow', 1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    </div>
+  </div>
+  
+  <!-- AÇÃO -->
+  <div class="row-container">
+    <h2 style="color: #e5e5e5; font-size: 1.4vw; font-weight: 700; margin-bottom: 0.5vw; margin-left: 4%;">Filmes de ação</h2>
+    
+    <div class="row-slider" id="actionRow"></div>
+    
+    <div class="nav-arrow left" onclick="scrollRow('actionRow', -1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </div>
+    <div class="nav-arrow right" onclick="scrollRow('actionRow', 1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    </div>
+  </div>
+  
+  <!-- COMÉDIAS -->
+  <div class="row-container">
+    <h2 style="color: #e5e5e5; font-size: 1.4vw; font-weight: 700; margin-bottom: 0.5vw; margin-left: 4%;">Comédias</h2>
+    
+    <div class="row-slider" id="comedyRow"></div>
+    
+    <div class="nav-arrow left" onclick="scrollRow('comedyRow', -1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </div>
+    <div class="nav-arrow right" onclick="scrollRow('comedyRow', 1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    </div>
+  </div>
+  
+  <!-- TERROR -->
+  <div class="row-container">
+    <h2 style="color: #e5e5e5; font-size: 1.4vw; font-weight: 700; margin-bottom: 0.5vw; margin-left: 4%;">Terror</h2>
+    
+    <div class="row-slider" id="horrorRow"></div>
+    
+    <div class="nav-arrow left" onclick="scrollRow('horrorRow', -1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </div>
+    <div class="nav-arrow right" onclick="scrollRow('horrorRow', 1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    </div>
+  </div>
+  
+  <!-- DOCUMENTÁRIOS -->
+  <div class="row-container">
+    <h2 style="color: #e5e5e5; font-size: 1.4vw; font-weight: 700; margin-bottom: 0.5vw; margin-left: 4%;">Documentários</h2>
+    
+    <div class="row-slider" id="docRow"></div>
+    
+    <div class="nav-arrow left" onclick="scrollRow('docRow', -1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+      </svg>
+    </div>
+    <div class="nav-arrow right" onclick="scrollRow('docRow', 1)">
+      <svg style="width: 3vw; height: 3vw;" fill="white" viewBox="0 0 24 24">
+        <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+      </svg>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  const API_KEY = 'ddb1bdf6aa91bdf335797853884b0c1d';
+  const BASE_URL = 'https://api.themoviedb.org/3';
+  const IMG_URL = 'https://image.tmdb.org/t/p';
+  
+  // Carregar banner hero
+  async function loadHeroBanner() {
+    try {
+      const res = await fetch(`${BASE_URL}/movie/558449?api_key=${API_KEY}&language=pt-BR&append_to_response=images`);
+      const movie = await res.json();
+      
+      // Background
+      document.getElementById('heroBanner').style.backgroundImage = 
+        `url(${IMG_URL}/original${movie.backdrop_path})`;
+      
+      // Tentar carregar logo
+      const imagesRes = await fetch(`${BASE_URL}/movie/558449/images?api_key=${API_KEY}`);
+      const images = await imagesRes.json();
+      
+      const logo = images.logos?.find(l => l.iso_639_1 === 'en' || l.iso_639_1 === 'pt');
+      
+      if (logo) {
+        document.getElementById('heroLogo').src = `${IMG_URL}/original${logo.file_path}`;
+        document.getElementById('heroLogo').style.display = 'block';
+      } else {
+        document.getElementById('heroTitle').textContent = movie.title;
+        document.getElementById('heroTitle').style.display = 'block';
+      }
+      
+      // Descrição
+      document.getElementById('heroDescription').textContent = movie.overview;
+      
+    } catch (err) {
+      console.error('Erro ao carregar banner:', err);
+    }
+  }
+  
+  // Criar card Top 10
+  function createTop10Card(movie, index) {
+    return `
+      <div class="top10-card">
+        <div class="top10-number">${index + 1}</div>
+        <img class="top10-poster" src="${IMG_URL}/w500${movie.poster_path}" alt="${movie.title}">
+      </div>
+    `;
+  }
+  
+  // Criar card normal
+  function createMovieCard(movie) {
+    const match = Math.floor(Math.random() * 20) + 75;
+    const year = movie.release_date?.split('-')[0] || '2024';
+    
+    return `
+      <div class="movie-card">
+        <img src="${IMG_URL}/w500${movie.backdrop_path}" alt="${movie.title}">
+        
+        <div class="card-info">
+          <div class="action-buttons">
+            <button class="action-btn play">
+              <svg style="width: 1.2vw; height: 1.2vw;" viewBox="0 0 24 24" fill="black">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+            
+            <button class="action-btn">
+              <svg style="width: 1vw; height: 1vw;" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+            
+            <button class="action-btn">
+              <svg style="width: 1vw; height: 1vw;" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+              </svg>
+            </button>
+            
+            <button class="action-btn" style="margin-left: auto;">
+              <svg style="width: 1vw; height: 1vw;" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+          
+          <div style="margin-top: 0.8vw; display: flex; align-items: center; gap: 0.5vw;">
+            <span class="match-score">${match}% relevante</span>
+            <span class="maturity-rating">16</span>
+            <span style="color: #e5e5e5; font-size: 0.9vw;">${year}</span>
+          </div>
+          
+          <div style="margin-top: 0.5vw; display: flex; gap: 0.3vw; flex-wrap: wrap;">
+            <span style="color: #e5e5e5; font-size: 0.8vw;">Empolgante</span>
+            <span style="color: #777; font-size: 0.8vw;">•</span>
+            <span style="color: #e5e5e5; font-size: 0.8vw;">Dramático</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  // Carregar filmes de uma categoria
+  async function loadMovies(category, endpoint) {
+    try {
+      const res = await fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=pt-BR&page=1`);
+      const data = await res.json();
+      return data.results.slice(0, 20);
+    } catch (err) {
+      console.error(`Erro ao carregar ${category}:`, err);
+      return [];
+    }
+  }
+  
+  // Renderizar todas as linhas
+  async function renderAllRows() {
+    // Top 10
+    const trending = await loadMovies('trending', '/trending/movie/week');
+    document.getElementById('top10Row').innerHTML = 
+      trending.slice(0, 10).map((m, i) => createTop10Card(m, i)).join('');
+    
+    // Em alta
+    document.getElementById('trendingRow').innerHTML = 
+      trending.map(m => createMovieCard(m)).join('');
+    
+    // Ação
+    const action = await loadMovies('action', '/discover/movie?with_genres=28');
+    document.getElementById('actionRow').innerHTML = 
+      action.map(m => createMovieCard(m)).join('');
+    
+    // Comédia
+    const comedy = await loadMovies('comedy', '/discover/movie?with_genres=35');
+    document.getElementById('comedyRow').innerHTML = 
+      comedy.map(m => createMovieCard(m)).join('');
+    
+    // Terror
+    const horror = await loadMovies('horror', '/discover/movie?with_genres=27');
+    document.getElementById('horrorRow').innerHTML = 
+      horror.map(m => createMovieCard(m)).join('');
+    
+    // Documentários
+    const doc = await loadMovies('documentary', '/discover/movie?with_genres=99');
+    document.getElementById('docRow').innerHTML = 
+      doc.map(m => createMovieCard(m)).join('');
+  }
+  
+  // Scroll de linha
+  function scrollRow(rowId, direction) {
+    const row = document.getElementById(rowId);
+    const scrollAmount = row.offsetWidth * 0.8;
+    row.scrollBy({
+      left: direction * scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+  
+  // Header scroll
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('mainHeader');
+    if (window.scrollY > 0) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+  
+  // Inicializar
+  loadHeroBanner();
+  renderAllRows();
+</script>
+
+</body>
+</html>

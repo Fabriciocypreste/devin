@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RedFlix - Streaming</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'redflix': '#E50914',
+            'redflix-dark': '#B20710',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #141414;
+      overflow-x: hidden;
+    }
+    
+    /* Scroll horizontal suave */
+    .scroll-container {
+      display: flex;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 0 4%;
+      gap: 0.5rem;
+    }
+    
+    .scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Card de filme */
+    .movie-card {
+      min-width: 244px;
+      width: 244px;
+      flex-shrink: 0;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .movie-card:hover {
+      transform: scale(1.5);
+      z-index: 100;
+    }
+    
+    .movie-card img {
+      width: 100%;
+      height: 137px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+    
+    /* Overlay do card */
+    .card-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 50%, transparent 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      padding: 1rem;
+      border-radius: 4px;
+    }
+    
+    .movie-card:hover .card-overlay {
+      opacity: 1;
+    }
+    
+    /* Top 10 Numbers */
+    .top10-number {
+      position: absolute;
+      bottom: 0;
+      left: -15px;
+      font-size: 10rem;
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 2px #4A5568;
+      text-stroke: 2px #4A5568;
+      line-height: 0.8;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .top10-card {
+      position: relative;
+      padding-left: 50px;
+    }
+    
+    /* Botões de ação */
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    
+    .action-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    /* Setas de navegação */
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.7);
+      color: white;
+      width: 50px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 50;
+      opacity: 0;
+      transition: all 0.3s;
+    }
+    
+    .row-container:hover .nav-arrow {
+      opacity: 1;
+    }
+    
+    .nav-arrow:hover {
+      background: rgba(0,0,0,0.9);
+    }
+    
+    .nav-arrow.left {
+      left: 0;
+    }
+    
+    .nav-arrow.right {
+      right: 0;
+    }
+    
+    /* Hero gradient */
+    .hero-gradient {
+      background: linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%),
+                  linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+    }
+    
+    /* Rating Badge */
+    .rating-badge {
+      background: rgba(0,0,0,0.8);
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER FIXO -->
+<header id="header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-gradient-to-b from-black/80 to-transparent">
+  <div class="flex items-center justify-between px-12 h-[68px]">
+    <!-- Logo + Menu -->
+    <div class="flex items-center gap-10">
+      <img
+        src="http://chemorena.com/redfliz.png"
+        alt="RedFlix"
+        class="h-8 cursor-pointer hover:opacity-80 transition-opacity"
+      />
+      
+      <nav class="flex items-center gap-5">
+        <button class="text-sm text-white font-semibold">Início</button>
+        <button class="text-sm text-gray-300 hover:text-gray-200 transition-colors">Séries</button>
+        <button class="text-sm text-gray-300 hover:text-gray-200 transition-colors">Filmes</button>
+        <button class="text-sm text-gray-300 hover:text-gray-200 transition-colors">Bombando</button>
+        <button class="text-sm text-gray-300 hover:text-gray-200 transition-colors">Minha lista</button>
+      </nav>
+    </div>
+    
+    <!-- Right Icons -->
+    <div class="flex items-center gap-6">
+      <button class="text-white hover:text-gray-300 transition-colors">
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+      </button>
+      
+      <div class="w-8 h-8 bg-[#E50914] rounded flex items-center justify-center cursor-pointer">
+        <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+          <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO SLIDER -->
+<section class="relative w-full h-screen overflow-hidden">
+  <div 
+    class="absolute inset-0 bg-cover bg-center"
+    style="background-image: url('https://image.tmdb.org/t/p/original/628Dep6AxEtDxjZoGP78TsOxYbK.jpg')"
+  >
+    <div class="absolute inset-0 hero-gradient"></div>
+  </div>
+  
+  <div class="relative z-10 h-full flex items-center px-16">
+    <div class="max-w-2xl">
+      <h1 class="text-7xl font-bold text-white mb-6 drop-shadow-2xl">
+        Gladiador II
+      </h1>
+      
+      <div class="flex gap-2 mb-4">
+        <span class="text-white text-lg">Ação</span>
+        <span class="text-white text-lg">•</span>
+        <span class="text-white text-lg">Aventura</span>
+        <span class="text-white text-lg">•</span>
+        <span class="text-white text-lg">Drama</span>
+      </div>
+      
+      <p class="text-white text-xl mb-8 line-clamp-3 drop-shadow-lg max-w-xl">
+        Anos após testemunhar a morte do reverenciado herói Maximus pelas mãos de seu tio, Lucius é forçado a entrar no Coliseu depois que sua casa é conquistada pelos imperadores tiranos que agora lideram Roma.
+      </p>
+      
+      <div class="flex gap-4">
+        <button class="bg-white hover:bg-gray-200 text-black px-8 py-3 rounded flex items-center gap-2 transition-all hover:scale-105 font-semibold active:scale-95">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+          Assistir
+        </button>
+        
+        <button class="bg-gray-500/70 hover:bg-gray-500/90 text-white px-8 py-3 rounded flex items-center gap-2 transition-all hover:scale-105 font-semibold backdrop-blur-sm active:scale-95">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+          </svg>
+          Mais Info
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="absolute bottom-8 right-8 flex gap-2 z-20">
+    <div class="w-12 h-1 bg-white rounded-full"></div>
+    <div class="w-8 h-1 bg-white/50 rounded-full"></div>
+    <div class="w-8 h-1 bg-white/50 rounded-full"></div>
+  </div>
+</section>
+
+<!-- CONTENT ROWS -->
+<div class="relative bg-gradient-to-b from-black via-black to-[#141414] pb-20 -mt-32">
+  
+  <!-- TOP 10 NO BRASIL HOJE -->
+  <div class="mb-12">
+    <h2 class="text-white font-bold text-2xl mb-4 px-16">Top 10 no Brasil Hoje</h2>
+    
+    <div class="row-container relative">
+      <div id="top10-row" class="scroll-container">
+        <!-- Cards Top 10 inseridos via JS -->
+      </div>
+      
+      <div class="nav-arrow left" onclick="scrollRow('top10-row', -1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+      <div class="nav-arrow right" onclick="scrollRow('top10-row', 1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- EM ALTA AGORA -->
+  <div class="mb-12">
+    <h2 class="text-white font-bold text-2xl mb-4 px-16">Em Alta Agora</h2>
+    
+    <div class="row-container relative">
+      <div id="trending-row" class="scroll-container">
+        <!-- Cards inseridos via JS -->
+      </div>
+      
+      <div class="nav-arrow left" onclick="scrollRow('trending-row', -1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+      <div class="nav-arrow right" onclick="scrollRow('trending-row', 1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- AÇÃO E AVENTURA -->
+  <div class="mb-12">
+    <h2 class="text-white font-bold text-2xl mb-4 px-16">Ação e Aventura</h2>
+    
+    <div class="row-container relative">
+      <div id="action-row" class="scroll-container">
+        <!-- Cards inseridos via JS -->
+      </div>
+      
+      <div class="nav-arrow left" onclick="scrollRow('action-row', -1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+      <div class="nav-arrow right" onclick="scrollRow('action-row', 1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- COMÉDIAS -->
+  <div class="mb-12">
+    <h2 class="text-white font-bold text-2xl mb-4 px-16">Comédias</h2>
+    
+    <div class="row-container relative">
+      <div id="comedy-row" class="scroll-container">
+        <!-- Cards inseridos via JS -->
+      </div>
+      
+      <div class="nav-arrow left" onclick="scrollRow('comedy-row', -1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+      <div class="nav-arrow right" onclick="scrollRow('comedy-row', 1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- TERROR -->
+  <div class="mb-12">
+    <h2 class="text-white font-bold text-2xl mb-4 px-16">Terror</h2>
+    
+    <div class="row-container relative">
+      <div id="horror-row" class="scroll-container">
+        <!-- Cards inseridos via JS -->
+      </div>
+      
+      <div class="nav-arrow left" onclick="scrollRow('horror-row', -1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+      <div class="nav-arrow right" onclick="scrollRow('horror-row', 1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- DOCUMENTÁRIOS -->
+  <div class="mb-12">
+    <h2 class="text-white font-bold text-2xl mb-4 px-16">Documentários</h2>
+    
+    <div class="row-container relative">
+      <div id="documentary-row" class="scroll-container">
+        <!-- Cards inseridos via JS -->
+      </div>
+      
+      <div class="nav-arrow left" onclick="scrollRow('documentary-row', -1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+      <div class="nav-arrow right" onclick="scrollRow('documentary-row', 1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+  <!-- ROMANCE -->
+  <div class="mb-12">
+    <h2 class="text-white font-bold text-2xl mb-4 px-16">Romance</h2>
+    
+    <div class="row-container relative">
+      <div id="romance-row" class="scroll-container">
+        <!-- Cards inseridos via JS -->
+      </div>
+      
+      <div class="nav-arrow left" onclick="scrollRow('romance-row', -1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+      <div class="nav-arrow right" onclick="scrollRow('romance-row', 1)">
+        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  // Dados dos filmes
+  const movies = [
+    { id: 1, title: 'Venom: A Última Rodada', poster: 'https://image.tmdb.org/t/p/w500/aosm8NMQ3UyoBVpSxyimorCQykC.jpg', rating: 6.8, genre: 'Ação' },
+    { id: 2, title: 'Terrifier 3', poster: 'https://image.tmdb.org/t/p/w500/7NDHoebflLwL1CcgLJ9wZbbDrmV.jpg', rating: 7.2, genre: 'Terror' },
+    { id: 3, title: 'Apocalipse Zumbi 2', poster: 'https://image.tmdb.org/t/p/w500/xlkclSE4aq7r3JsFIJRgs21zUew.jpg', rating: 6.5, genre: 'Ação' },
+    { id: 4, title: 'Gladiador II', poster: 'https://image.tmdb.org/t/p/w500/2cxhvwyEwRlysAmRH4iodkvo0z5.jpg', rating: 7.5, genre: 'Ação' },
+    { id: 5, title: 'Robô Selvagem', poster: 'https://image.tmdb.org/t/p/w500/8dkuf9IuVh0VZjDTk7kAY67lU0U.jpg', rating: 8.1, genre: 'Animação' },
+    { id: 6, title: 'Moana 2', poster: 'https://image.tmdb.org/t/p/w500/m3TGJNSem6qHoD1D0iH26lQtGQm.jpg', rating: 7.0, genre: 'Animação' },
+    { id: 7, title: 'Deadpool & Wolverine', poster: 'https://image.tmdb.org/t/p/w500/9TFSqghEHrlBMRR63yTx80Orxva.jpg', rating: 7.8, genre: 'Ação' },
+    { id: 8, title: 'Coringa: Delírio a Dois', poster: 'https://image.tmdb.org/t/p/w500/byDXrm0pY6vSGCjFZfURHCGndMz.jpg', rating: 5.9, genre: 'Drama' },
+    { id: 9, title: 'Wicked', poster: 'https://image.tmdb.org/t/p/w500/xDGbZ0JJ3mYaGKy4Nzd9Kph6M9L.jpg', rating: 7.6, genre: 'Musical' },
+    { id: 10, title: 'Red One', poster: 'https://image.tmdb.org/t/p/w500/cdqLnri3NEGcmfnqwk2TSIYtddg.jpg', rating: 6.7, genre: 'Ação' },
+    { id: 11, title: 'Operação Natal', poster: 'https://image.tmdb.org/t/p/w500/fQVequbGPlPlZU3omOGQ2DKlV3.jpg', rating: 6.4, genre: 'Comédia' },
+    { id: 12, title: 'Arcane', poster: 'https://image.tmdb.org/t/p/w500/abf8tHznhSvl9BAElD2cQeRr7do.jpg', rating: 8.7, genre: 'Animação' },
+    { id: 13, title: 'Sonic 3', poster: 'https://image.tmdb.org/t/p/w500/d8Ryb8AunYAujoRinca6pZREsJJ.jpg', rating: 7.9, genre: 'Aventura' },
+    { id: 14, title: 'Armor', poster: 'https://image.tmdb.org/t/p/w500/pnXLFioDeftqjlCVlRmXvIdMsdP.jpg', rating: 5.5, genre: 'Ação' },
+  ];
+  
+  // Criar card normal
+  function createMovieCard(movie) {
+    return `
+      <div class="movie-card">
+        <img src="${movie.poster}" alt="${movie.title}" loading="lazy" />
+        
+        <div class="card-overlay">
+          <h3 class="text-white font-bold text-sm mb-2">${movie.title}</h3>
+          
+          <div class="flex items-center gap-2 mb-3">
+            <span class="rating-badge text-green-400">
+              <svg class="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+              ${movie.rating}
+            </span>
+            <span class="text-gray-400 text-xs">${movie.genre}</span>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <button class="action-btn bg-white hover:bg-gray-200">
+              <svg class="w-4 h-4 text-black ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+            
+            <button class="action-btn bg-gray-800/80 border-2 border-gray-400 hover:border-white">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+            
+            <button class="action-btn bg-gray-800/80 border-2 border-gray-400 hover:border-white">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  // Criar card Top 10
+  function createTop10Card(movie, position) {
+    return `
+      <div class="top10-card movie-card">
+        <div class="top10-number">${position}</div>
+        <img src="${movie.poster}" alt="${movie.title}" loading="lazy" />
+        
+        <div class="card-overlay">
+          <h3 class="text-white font-bold text-sm mb-2">${movie.title}</h3>
+          
+          <div class="flex items-center gap-2 mb-3">
+            <span class="rating-badge text-green-400">
+              <svg class="w-3 h-3 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+              ${movie.rating}
+            </span>
+            <span class="text-gray-400 text-xs">${movie.genre}</span>
+          </div>
+          
+          <div class="flex items-center gap-2">
+            <button class="action-btn bg-white hover:bg-gray-200">
+              <svg class="w-4 h-4 text-black ml-0.5" fill="currentColor" viewBox="0 0 24 24">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </button>
+            
+            <button class="action-btn bg-gray-800/80 border-2 border-gray-400 hover:border-white">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </button>
+            
+            <button class="action-btn bg-gray-800/80 border-2 border-gray-400 hover:border-white">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  // Renderizar linhas
+  function renderRows() {
+    // Top 10
+    const top10 = movies.slice(0, 10);
+    document.getElementById('top10-row').innerHTML = top10.map((m, i) => createTop10Card(m, i + 1)).join('');
+    
+    // Em Alta
+    document.getElementById('trending-row').innerHTML = movies.map(m => createMovieCard(m)).join('');
+    
+    // Ação
+    document.getElementById('action-row').innerHTML = movies.map(m => createMovieCard(m)).join('');
+    
+    // Comédia
+    document.getElementById('comedy-row').innerHTML = movies.map(m => createMovieCard(m)).join('');
+    
+    // Terror
+    document.getElementById('horror-row').innerHTML = movies.map(m => createMovieCard(m)).join('');
+    
+    // Documentários
+    document.getElementById('documentary-row').innerHTML = movies.map(m => createMovieCard(m)).join('');
+    
+    // Romance
+    document.getElementById('romance-row').innerHTML = movies.map(m => createMovieCard(m)).join('');
+  }
+  
+  // Scroll da linha
+  function scrollRow(rowId, direction) {
+    const row = document.getElementById(rowId);
+    const scrollAmount = 244 * 5; // 5 cards
+    row.scrollBy({
+      left: direction * scrollAmount,
+      behavior: 'smooth'
+    });
+  }
+  
+  // Header scroll effect
+  window.addEventListener('scroll', function() {
+    const header = document.getElementById('header');
+    if (window.scrollY > 0) {
+      header.classList.add('bg-[#141414]');
+      header.classList.remove('bg-gradient-to-b', 'from-black/80', 'to-transparent');
+    } else {
+      header.classList.remove('bg-[#141414]');
+      header.classList.add('bg-gradient-to-b', 'from-black/80', 'to-transparent');
+    }
+  });
+  
+  // Inicializar
+  document.addEventListener('DOMContentLoaded', renderRows);
+</script>
+
+</body>
+</html>

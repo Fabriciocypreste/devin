@@ -1,0 +1,92 @@
+[
+  {
+    "nome": "Globo",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Logotipo_da_Rede_Globo.svg/200px-Logotipo_da_Rede_Globo.svg.png",
+    "categoria": "aberto",
+    "url": "https://cdn.jmvstream.com/w/LVW-10842/LVW10842_ABqSmartTv/playlist.m3u8"
+  },
+  {
+    "nome": "SBT",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Logo_SBT.svg/200px-Logo_SBT.svg.png",
+    "categoria": "aberto",
+    "url": "https://cdn.jmvstream.com/w/LVW-10801/LVW10801_Xvg4R0u57n/playlist.m3u8"
+  },
+  {
+    "nome": "Record",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Rede_Record_logo_2021.svg/200px-Rede_Record_logo_2021.svg.png",
+    "categoria": "aberto",
+    "url": "https://cdn.jmvstream.com/w/LVW-10984/LVW10984_mj7z9VqILm/playlist.m3u8"
+  },
+  {
+    "nome": "Band",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Rede_Bandeirantes_logo_2022.svg/200px-Rede_Bandeirantes_logo_2022.svg.png",
+    "categoria": "aberto",
+    "url": "https://cdn.jmvstream.com/w/LVW-10990/LVW10990_Xvg4R0u57n/playlist.m3u8"
+  },
+  {
+    "nome": "RedeTV!",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/RedeTV%21_logo_2021.svg/200px-RedeTV%21_logo_2021.svg.png",
+    "categoria": "aberto",
+    "url": "https://cdn.jmvstream.com/w/LVW-10848/LVW10848_Xvg4R0u57n/playlist.m3u8"
+  },
+  {
+    "nome": "GloboNews",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/GloboNews_logo_2021.svg/200px-GloboNews_logo_2021.svg.png",
+    "categoria": "noticias",
+    "url": "https://cdn.jmvstream.com/w/LVW-10843/LVW10843_513N26MDBL/playlist.m3u8"
+  },
+  {
+    "nome": "BandNews",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/BandNews_TV_logo_2022.svg/200px-BandNews_TV_logo_2022.svg.png",
+    "categoria": "noticias",
+    "url": "https://cdn.jmvstream.com/w/LVW-10991/LVW10991_Xvg4R0u57n/playlist.m3u8"
+  },
+  {
+    "nome": "ESPN",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/200px-ESPN_wordmark.svg.png",
+    "categoria": "esportes",
+    "url": "https://cdn.jmvstream.com/w/LVW-8389/LVW8389_AcLVAxWy5J/playlist.m3u8"
+  },
+  {
+    "nome": "SporTV",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/SporTV_logo_2021.svg/200px-SporTV_logo_2021.svg.png",
+    "categoria": "esportes",
+    "url": "https://cdn.jmvstream.com/w/LVW-11112/LVW11112_mL1YAzZsJW/playlist.m3u8"
+  },
+  {
+    "nome": "Discovery Channel",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/2019_Discovery_logo.svg/200px-2019_Discovery_logo.svg.png",
+    "categoria": "documentarios",
+    "url": "https://cdn.jmvstream.com/w/LVW-9715/LVW9715_HbtQtezcaw/playlist.m3u8"
+  },
+  {
+    "nome": "National Geographic",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/Natgeologo.svg/200px-Natgeologo.svg.png",
+    "categoria": "documentarios",
+    "url": "https://cdn.jmvstream.com/w/LVW-10639/LVW10639_pT6PxLiK4r/playlist.m3u8"
+  },
+  {
+    "nome": "Cartoon Network",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Cartoon_Network_2010_logo.svg/200px-Cartoon_Network_2010_logo.svg.png",
+    "categoria": "infantil",
+    "url": "https://cdn.jmvstream.com/w/LVW-8376/LVW8376_pL0T1dSQxR/playlist.m3u8"
+  },
+  {
+    "nome": "Nickelodeon",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Nickelodeon_2009_logo.svg/200px-Nickelodeon_2009_logo.svg.png",
+    "categoria": "infantil",
+    "url": "https://cdn.jmvstream.com/w/LVW-9730/LVW9730_6gnmcPRd8Q/playlist.m3u8"
+  },
+  {
+    "nome": "Multishow",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Multishow_2019_logo.svg/200px-Multishow_2019_logo.svg.png",
+    "categoria": "entretenimento",
+    "url": "https://cdn.jmvstream.com/w/LVW-10844/LVW10844_513N26MDBL/playlist.m3u8"
+  },
+  {
+    "nome": "HBO",
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/HBO_logo.svg/200px-HBO_logo.svg.png",
+    "categoria": "filmes",
+    "url": "https://cdn.jmvstream.com/w/LVW-9721/LVW9721_HbtQtezcaw/playlist.m3u8"
+  }
+]

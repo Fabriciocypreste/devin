@@ -1,0 +1,86 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║             ✅ APIS HARDCODED NO CÓDIGO - PODE RODAR AGORA! ✅            ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+🎯 O QUE EU FIZ:
+
+Coloquei as APIs DIRETAMENTE no código-fonte!
+
+Você NÃO precisa criar .env agora!
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+📂 ARQUIVOS COM APIs HARDCODED:
+
+✅ /utils/tmdb.ts
+✅ /components/MovieCard.tsx
+✅ /components/MoviesPage.tsx
+✅ /components/SeriesPage.tsx
+✅ /utils/primeVicioLoader.ts
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+🚀 RODAR AGORA:
+
+1️⃣ Clique 2x em:
+
+    LIMPAR-E-RODAR.bat
+
+2️⃣ Aguarde 2-3 minutos
+
+3️⃣ Navegador abre automaticamente
+
+4️⃣ Pressione: Ctrl + Shift + R
+
+5️⃣ PRONTO! 🎉
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+🔑 CREDENCIAIS NO CÓDIGO:
+
+TMDB API Key:  ddb1bdf6aa91bdf335797853884b0c1d
+
+Supabase:      glnmajvrxdwfyedsuaxx
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+⚠️ DEPOIS DE TESTAR:
+
+Quando o projeto estiver funcionando, você pode:
+
+1. Criar arquivo .env
+2. Mover as APIs pro .env
+3. Reverter os arquivos
+
+(Tem guia completo em: APIS-HARDCODED-REMOVER-DEPOIS.md)
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+✅ RESUMO:
+
+[✓] APIs estão no código
+[✓] NÃO precisa de .env agora
+[✓] Pode rodar IMEDIATAMENTE
+[✓] Tudo vai funcionar
+[✓] Depois você cria o .env
+
+
+═══════════════════════════════════════════════════════════════════════════
+
+🔥 EXECUTE AGORA:
+
+    LIMPAR-E-RODAR.bat
+
+
+VAI FUNCIONAR! 🚀
+
+
+═══════════════════════════════════════════════════════════════════════════

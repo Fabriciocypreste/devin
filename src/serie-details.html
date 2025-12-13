@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes da Série - RedFlix</title>
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: Netflix Sans, Helvetica Neue, Segoe UI, Roboto, Ubuntu, sans-serif;
+      background: #141414;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    
+    /* ==================== HEADER ==================== */
+    .header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 68px;
+      padding: 0 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(0,0,0,0.7) 10%, transparent);
+      z-index: 999;
+      transition: background-color 0.4s;
+    }
+    
+    .header.scrolled {
+      background: #141414;
+    }
+    
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    
+    .logo {
+      height: 25px;
+      cursor: pointer;
+    }
+    
+    .nav {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    
+    .nav a {
+      color: #e5e5e5;
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.4s;
+    }
+    
+    .nav a:hover {
+      color: #b3b3b3;
+    }
+    
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+    
+    .icon {
+      cursor: pointer;
+    }
+    
+    .profile {
+      width: 32px;
+      height: 32px;
+      background: #E50914;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    
+    /* ==================== HERO SECTION ==================== */
+    .hero {
+      position: relative;
+      height: 90vh;
+      background-size: cover;
+      background-position: center center;
+      display: flex;
+      align-items: center;
+      padding-bottom: 0;
+    }
+    
+    .hero-vignette-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 150px;
+      background: linear-gradient(180deg, #141414 0%, transparent 100%);
+      z-index: 8;
+    }
+    
+    .hero-vignette {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(77deg, rgba(0,0,0,0.75) 0, rgba(0,0,0,0.3) 40%, transparent 100%);
+      z-index: 9;
+    }
+    
+    .hero-bottom-shadow {
+      position: absolute;
+      bottom: -1px;
+      width: 100%;
+      height: 14.7vw;
+      background: linear-gradient(180deg, transparent 0%, rgba(20,20,20,0.5) 30%, #141414 100%);
+      z-index: 10;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 11;
+      width: 40%;
+      margin-left: 60px;
+      margin-top: 8vh;
+      transform: scale(0.8);
+      transform-origin: left center;
+    }
+    
+    .hero-logo {
+      max-width: 240px;
+      width: 100%;
+      margin-bottom: 1.5vw;
+    }
+    
+    .hero-title {
+      font-size: 2.8vw;
+      font-weight: 700;
+      margin-bottom: 1.5vw;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    }
+    
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5vw;
+      font-size: 1vw;
+    }
+    
+    .match-score {
+      color: #46d369;
+      font-weight: 700;
+    }
+    
+    .year {
+      color: #fff;
+    }
+    
+    .seasons-info {
+      color: #fff;
+      border-left: 2px solid rgba(255,255,255,0.5);
+      padding-left: 12px;
+    }
+    
+    .maturity-rating {
+      border: 1px solid rgba(255,255,255,0.7);
+      padding: 0 6px;
+      font-size: 1vw;
+      color: rgba(255,255,255,0.9);
+    }
+    
+    .hero-quality {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.7);
+      padding: 0 6px;
+      font-size: 1vw;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+    }
+    
+    .hero-overview {
+      max-width: 100%;
+      font-size: 1.4vw;
+      line-height: 1.5;
+      color: #fff;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+      margin-bottom: 1.5vw;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .play-button {
+      background: #fff;
+      color: #000;
+      padding: 0.8vw 2.3vw;
+      border: none;
+      border-radius: 4px;
+      font-size: 1.4vw;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    
+    .play-button:hover {
+      background: rgba(255,255,255,0.75);
+    }
+    
+    .icon-button {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.7);
+      background: rgba(42,42,42,0.6);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .icon-button:hover {
+      border-color: #fff;
+      background: rgba(255,255,255,0.2);
+      transform: scale(1.1);
+    }
+    
+    .volume-button {
+      margin-left: auto;
+    }
+    
+    /* ==================== CONTENT ==================== */
+    .content-wrapper {
+      background: #141414;
+      position: relative;
+      z-index: 12;
+      padding: 0 60px 100px;
+    }
+    
+    .content-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+    
+    /* ==================== EPISODES SECTION ==================== */
+    .section-title {
+      font-size: 1.8vw;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+    
+    .season-selector {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    
+    .season-button {
+      background: transparent;
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.7);
+      padding: 10px 20px;
+      font-size: 1vw;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: 0;
+      transition: all 0.3s;
+      min-width: 200px;
+      justify-content: space-between;
+    }
+    
+    .season-button:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .season-menu {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 0;
+      background: rgba(0,0,0,0.98);
+      border: 1px solid rgba(255,255,255,0.15);
+      min-width: 100%;
+      max-height: 400px;
+      overflow-y: auto;
+      display: none;
+      z-index: 100;
+    }
+    
+    .season-menu.active {
+      display: block;
+    }
+    
+    .season-item {
+      padding: 12px 20px;
+      color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+    
+    .season-item:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    
+    .season-item.selected {
+      font-weight: 700;
+    }
+    
+    .episodes-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid #404040;
+    }
+    
+    .episode-card {
+      display: grid;
+      grid-template-columns: 50px 200px 1fr;
+      gap: 20px;
+      padding: 24px 0;
+      border-bottom: 1px solid #404040;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-items: start;
+    }
+    
+    .episode-card:hover {
+      background: rgba(255,255,255,0.05);
+    }
+    
+    .episode-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #d2d2d2;
+      padding-top: 5px;
+    }
+    
+    .episode-thumbnail-wrapper {
+      position: relative;
+      width: 200px;
+      height: 113px;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #000;
+    }
+    
+    .episode-thumbnail {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    .episode-card:hover .episode-thumbnail {
+      transform: scale(1.05);
+    }
+    
+    .episode-play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    
+    .episode-card:hover .episode-play-icon {
+      opacity: 1;
+    }
+    
+    .episode-info {
+      flex: 1;
+      padding-top: 5px;
+    }
+    
+    .episode-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+    
+    .episode-title {
+      font-size: 16px;
+      font-weight: 700;
+      flex: 1;
+    }
+    
+    .episode-duration {
+      color: #d2d2d2;
+      font-size: 14px;
+      white-space: nowrap;
+      margin-left: 20px;
+    }
+    
+    .episode-overview {
+      font-size: 14px;
+      color: #d2d2d2;
+      line-height: 1.6;
+    }
+    
+    /* ==================== SIDEBAR ==================== */
+    .sidebar {
+      position: sticky;
+      top: 88px;
+      height: fit-content;
+    }
+    
+    .about-section {
+      margin-bottom: 25px;
+    }
+    
+    .about-title {
+      font-size: 14px;
+      color: #777;
+      margin-bottom: 8px;
+    }
+    
+    .about-content {
+      font-size: 14px;
+      color: #fff;
+      line-height: 1.6;
+    }
+    
+    .about-link {
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .about-link:hover {
+      text-decoration: underline;
+    }
+    
+    .genre-tag {
+      color: #fff;
+    }
+    
+    .genre-separator {
+      color: #777;
+      margin: 0 5px;
+    }
+    
+    /* ==================== CAST SECTION ==================== */
+    .cast-section {
+      padding: 30px 0 50px;
+      border-bottom: 1px solid #404040;
+      margin-bottom: 50px;
+    }
+    
+    .cast-title {
+      font-size: 1.8vw;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    
+    .cast-scroll {
+      display: flex;
+      gap: 20px;
+      overflow-x: scroll;
+      overflow-y: visible;
+      scroll-behavior: smooth;
+      padding: 10px 0 20px;
+    }
+    
+    .cast-scroll::-webkit-scrollbar {
+      height: 8px;
+    }
+    
+    .cast-scroll::-webkit-scrollbar-track {
+      background: #2f2f2f;
+      border-radius: 10px;
+    }
+    
+    .cast-scroll::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 10px;
+    }
+    
+    .cast-scroll::-webkit-scrollbar-thumb:hover {
+      background: #777;
+    }
+    
+    .cast-card {
+      min-width: 140px;
+      max-width: 140px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    
+    .cast-card:hover {
+      transform: scale(1.05);
+    }
+    
+    .cast-photo {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #2f2f2f;
+      margin-bottom: 12px;
+      border: 3px solid transparent;
+      transition: border-color 0.3s;
+    }
+    
+    .cast-card:hover .cast-photo {
+      border-color: rgba(255,255,255,0.5);
+    }
+    
+    .cast-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .cast-character {
+      font-size: 12px;
+      color: #777;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    /* ==================== SIMILAR SECTION ==================== */
+    .similar-title {
+      font-size: 1.8vw;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+    
+    .similar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    
+    .similar-card {
+      position: relative;
+      cursor: pointer;
+      border-radius: 6px;
+      overflow: hidden;
+      background: #2f2f2f;
+      transition: transform 0.3s;
+    }
+    
+    .similar-card:hover {
+      transform: scale(1.02);
+    }
+    
+    .similar-image {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .similar-content {
+      padding: 15px;
+    }
+    
+    .similar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .similar-match {
+      color: #46d369;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    
+    .similar-year {
+      color: #d2d2d2;
+      font-size: 14px;
+    }
+    
+    .similar-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+    
+    .similar-overview {
+      font-size: 12px;
+      color: #d2d2d2;
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    
+    /* ==================== LOADING ==================== */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 200px;
+      font-size: 16px;
+      color: #d2d2d2;
+    }
+    
+    /* ==================== RESPONSIVE ==================== */
+    @media (max-width: 1400px) {
+      .content-grid {
+        grid-template-columns: 1.5fr 1fr;
+      }
+    }
+    
+    @media (max-width: 1024px) {
+      .hero-content {
+        width: 50%;
+      }
+      
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar {
+        position: relative;
+        top: 0;
+      }
+      
+      .episode-card {
+        grid-template-columns: 40px 150px 1fr;
+        gap: 15px;
+      }
+      
+      .episode-thumbnail-wrapper {
+        width: 150px;
+        height: 85px;
+      }
+      
+      .similar-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .header {
+        padding: 0 30px;
+      }
+      
+      .hero {
+        height: 70vh;
+      }
+      
+      .hero-content {
+        width: 80%;
+        margin-left: 30px;
+      }
+      
+      .hero-title {
+        font-size: 28px;
+      }
+      
+      .hero-overview {
+        font-size: 14px;
+      }
+      
+      .hero-meta {
+        font-size: 14px;
+      }
+      
+      .play-button {
+        font-size: 16px;
+        padding: 10px 24px;
+      }
+      
+      .content-wrapper {
+        padding: 0 30px 60px;
+      }
+      
+      .episode-card {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      
+      .episode-number {
+        display: none;
+      }
+      
+      .episode-thumbnail-wrapper {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16/9;
+      }
+      
+      .similar-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="header-left">
+    <img src="http://chemorena.com/redfliz.png" alt="RedFlix" class="logo" onclick="window.location.href='/index.html'">
+    
+    <nav class="nav">
+      <a href="/index.html">Início</a>
+      <a href="/series.html">Séries</a>
+      <a href="#">Filmes</a>
+      <a href="#">Bombando</a>
+      <a href="#">Minha lista</a>
+    </nav>
+  </div>
+  
+  <div class="header-right">
+    <div class="icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+        <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+      </svg>
+    </div>
+    <div class="profile"></div>
+  </div>
+</header>
+
+<!-- HERO SECTION -->
+<div class="hero" id="hero">
+  <div class="hero-vignette-top"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-bottom-shadow"></div>
+  
+  <div class="hero-content">
+    <img id="heroLogo" class="hero-logo" style="display:none;">
+    <h1 id="heroTitle" class="hero-title"></h1>
+    
+    <div class="hero-meta">
+      <span id="matchScore" class="match-score"></span>
+      <span id="year" class="year"></span>
+      <span class="maturity-rating">16+</span>
+      <span id="seasonsInfo" class="seasons-info"></span>
+      <span class="hero-quality">HD</span>
+    </div>
+    
+    <p id="heroOverview" class="hero-overview"></p>
+    
+    <div class="hero-buttons">
+      <button class="play-button" onclick="playShow()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        Assistir
+      </button>
+      
+      <button class="icon-button" title="Adicionar à Minha Lista">
+        <svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+          <line x1="12" y1="5" x2="12" y2="19"/>
+          <line x1="5" y1="12" x2="19" y2="12"/>
+        </svg>
+      </button>
+      
+      <button class="icon-button" title="Gostei">
+        <svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/>
+        </svg>
+      </button>
+      
+      <button class="icon-button volume-button" title="Som" id="volumeButton">
+        <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
+          <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content-wrapper">
+  
+  <!-- CAST (ELENCO PRINCIPAL) -->
+  <div class="cast-section">
+    <h2 class="cast-title">Elenco Principal</h2>
+    <div class="cast-scroll" id="castScroll">
+      <div class="loading">Carregando elenco...</div>
+    </div>
+  </div>
+  
+  <!-- EPISODES & SIDEBAR -->
+  <div class="content-grid">
+    
+    <!-- LEFT: EPISODES -->
+    <div class="episodes-section">
+      <h2 class="section-title">Episódios</h2>
+      
+      <div class="season-selector">
+        <button class="season-button" id="seasonButton">
+          <span id="seasonButtonText">Temporada 1</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white">
+            <path d="M7 10l5 5 5-5z"/>
+          </svg>
+        </button>
+        <div class="season-menu" id="seasonMenu"></div>
+      </div>
+      
+      <div class="episodes-list" id="episodesList">
+        <div class="loading">Carregando episódios...</div>
+      </div>
+    </div>
+    
+    <!-- RIGHT: SIDEBAR INFO -->
+    <div class="sidebar">
+      <div class="about-section">
+        <div class="about-title">Elenco:</div>
+        <div class="about-content" id="castText"></div>
+      </div>
+      
+      <div class="about-section">
+        <div class="about-title">Gêneros:</div>
+        <div class="about-content" id="genres"></div>
+      </div>
+      
+      <div class="about-section">
+        <div class="about-title">Este programa é:</div>
+        <div class="about-content" id="keywords"></div>
+      </div>
+      
+      <div class="about-section">
+        <div class="about-title">Criadores:</div>
+        <div class="about-content" id="creators"></div>
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- SIMILAR -->
+  <div class="similar-section">
+    <h2 class="similar-title">Títulos semelhantes</h2>
+    <div class="similar-grid" id="similarGrid">
+      <div class="loading">Carregando...</div>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+  const API_KEY = 'ddb1bdf6aa91bdf335797853884b0c1d';
+  const BASE = 'https://api.themoviedb.org/3';
+  const IMG = 'https://image.tmdb.org/t/p';
+  
+  // Get series ID from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const seriesId = urlParams.get('id') || '66732'; // Default: Stranger Things
+  
+  let currentSeason = 1;
+  let showData = {};
+  
+  // Load show details
+  async function loadShowDetails() {
+    try {
+      const res = await fetch(`${BASE}/tv/${seriesId}?api_key=${API_KEY}&language=pt-BR&append_to_response=images,credits,similar,keywords`);
+      const data = await res.json();
+      showData = data;
+      
+      console.log('Show data:', data);
+      
+      // Hero background
+      document.getElementById('hero').style.backgroundImage = 
+        `url(${IMG}/original${data.backdrop_path})`;
+      
+      // Logo or title
+      const logo = data.images?.logos?.find(l => l.iso_639_1 === 'pt' || l.iso_639_1 === 'en' || l.iso_639_1 === null);
+      if (logo) {
+        document.getElementById('heroLogo').src = `${IMG}/original${logo.file_path}`;
+        document.getElementById('heroLogo').style.display = 'block';
+      } else {
+        document.getElementById('heroTitle').textContent = data.name;
+      }
+      
+      // Meta
+      const match = Math.floor(Math.random() * 20) + 75;
+      document.getElementById('matchScore').textContent = `${match}% relevante`;
+      document.getElementById('year').textContent = data.first_air_date?.split('-')[0] || '';
+      document.getElementById('seasonsInfo').textContent = 
+        `${data.number_of_seasons} temporada${data.number_of_seasons > 1 ? 's' : ''}`;
+      
+      // Overview
+      document.getElementById('heroOverview').textContent = data.overview || 'Sem descrição disponível.';
+      
+      // Sidebar - Cast (text)
+      const castNames = data.credits.cast.slice(0, 4).map(c => c.name).join(', ');
+      const moreCount = data.credits.cast.length - 4;
+      document.getElementById('castText').innerHTML = 
+        `${castNames}${moreCount > 0 ? `, <span class="about-link">mais ${moreCount}</span>` : ''}`;
+      
+      // Sidebar - Genres
+      document.getElementById('genres').innerHTML = 
+        data.genres.map(g => `<span class="genre-tag">${g.name}</span>`).join('<span class="genre-separator">•</span>');
+      
+      // Sidebar - Keywords (Este programa é)
+      const keywords = data.keywords?.results?.slice(0, 5).map(k => k.name).join(', ') || 'Emocionante, Viciante';
+      document.getElementById('keywords').textContent = keywords;
+      
+      // Sidebar - Creators
+      const creators = data.created_by?.map(c => c.name).join(', ') || 'Desconhecido';
+      document.getElementById('creators').textContent = creators;
+      
+      // Cast scroll
+      loadCast(data.credits.cast);
+      
+      // Seasons menu
+      loadSeasonsMenu(data.number_of_seasons);
+      
+      // Similar
+      loadSimilar(data.similar.results);
+      
+      // Load first season
+      loadEpisodes(1);
+      
+    } catch (err) {
+      console.error('Erro ao carregar série:', err);
+    }
+  }
+  
+  // Load cast scroll
+  function loadCast(cast) {
+    const container = document.getElementById('castScroll');
+    const topCast = cast.slice(0, 15);
+    
+    container.innerHTML = topCast.map(person => `
+      <div class="cast-card">
+        <img class="cast-photo" 
+             src="${person.profile_path ? IMG + '/w300' + person.profile_path : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="140" height="140"%3E%3Crect fill="%232f2f2f" width="140" height="140"/%3E%3C/svg%3E'}" 
+             alt="${person.name}">
+        <div class="cast-name">${person.name}</div>
+        <div class="cast-character">${person.character || 'N/A'}</div>
+      </div>
+    `).join('');
+  }
+  
+  // Load seasons menu
+  function loadSeasonsMenu(totalSeasons) {
+    const menu = document.getElementById('seasonMenu');
+    let html = '';
+    
+    for (let i = 1; i <= totalSeasons; i++) {
+      html += `<div class="season-item ${i === 1 ? 'selected' : ''}" data-season="${i}">Temporada ${i}</div>`;
+    }
+    
+    menu.innerHTML = html;
+    
+    // Click handlers
+    menu.querySelectorAll('.season-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const season = parseInt(item.dataset.season);
+        currentSeason = season;
+        
+        // Update UI
+        menu.querySelectorAll('.season-item').forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+        document.getElementById('seasonButtonText').textContent = `Temporada ${season}`;
+        document.getElementById('seasonMenu').classList.remove('active');
+        
+        // Load episodes
+        loadEpisodes(season);
+      });
+    });
+  }
+  
+  // Load episodes
+  async function loadEpisodes(season) {
+    const container = document.getElementById('episodesList');
+    container.innerHTML = '<div class="loading">Carregando episódios...</div>';
+    
+    try {
+      const res = await fetch(`${BASE}/tv/${seriesId}/season/${season}?api_key=${API_KEY}&language=pt-BR`);
+      const data = await res.json();
+      
+      if (!data.episodes || data.episodes.length === 0) {
+        container.innerHTML = '<div class="loading">Nenhum episódio encontrado.</div>';
+        return;
+      }
+      
+      container.innerHTML = data.episodes.map(ep => `
+        <div class="episode-card" onclick="playEpisode(${ep.season_number}, ${ep.episode_number})">
+          <div class="episode-number">${ep.episode_number}</div>
+          
+          <div class="episode-thumbnail-wrapper">
+            <img class="episode-thumbnail" 
+                 src="${ep.still_path ? IMG + '/w300' + ep.still_path : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="113"%3E%3Crect fill="%23000" width="200" height="113"/%3E%3C/svg%3E'}" 
+                 alt="${ep.name}">
+            <div class="episode-play-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+          </div>
+          
+          <div class="episode-info">
+            <div class="episode-header">
+              <div class="episode-title">${ep.name}</div>
+              <div class="episode-duration">${ep.runtime ? ep.runtime + ' min' : ''}</div>
+            </div>
+            <div class="episode-overview">${ep.overview || 'Sem descrição disponível.'}</div>
+          </div>
+        </div>
+      `).join('');
+      
+    } catch (err) {
+      console.error('Erro ao carregar episódios:', err);
+      container.innerHTML = '<div class="loading">Erro ao carregar episódios.</div>';
+    }
+  }
+  
+  // Load similar
+  function loadSimilar(similar) {
+    const grid = document.getElementById('similarGrid');
+    const shows = similar.slice(0, 9);
+    
+    if (shows.length === 0) {
+      grid.innerHTML = '<div class="loading">Nenhuma série similar encontrada.</div>';
+      return;
+    }
+    
+    grid.innerHTML = shows.map(show => {
+      const match = Math.floor(Math.random() * 20) + 75;
+      return `
+        <div class="similar-card" onclick="window.location.href='/serie-details.html?id=${show.id}'">
+          <img class="similar-image" 
+               src="${show.backdrop_path ? IMG + '/w500' + show.backdrop_path : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="225"%3E%3Crect fill="%232f2f2f" width="400" height="225"/%3E%3C/svg%3E'}" 
+               alt="${show.name}">
+          <div class="similar-content">
+            <div class="similar-header">
+              <span class="similar-match">${match}% relevante</span>
+              <span class="similar-year">${show.first_air_date?.split('-')[0] || ''}</span>
+            </div>
+            <div class="similar-name">${show.name}</div>
+            <div class="similar-overview">${show.overview || 'Sem descrição disponível.'}</div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+  
+  // Play functions
+  function playShow() {
+    playEpisode(1, 1);
+  }
+  
+  function playEpisode(season, episode) {
+    alert(`Reproduzindo: Temporada ${season}, Episódio ${episode}`);
+  }
+  
+  // Season selector
+  document.getElementById('seasonButton').addEventListener('click', (e) => {
+    e.stopPropagation();
+    document.getElementById('seasonMenu').classList.toggle('active');
+  });
+  
+  document.addEventListener('click', () => {
+    document.getElementById('seasonMenu').classList.remove('active');
+  });
+  
+  document.getElementById('seasonMenu').addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+  
+  // Header scroll
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    header.classList.toggle('scrolled', window.scrollY > 50);
+  });
+  
+  // Initialize
+  loadShowDetails();
+</script>
+
+</body>
+</html>

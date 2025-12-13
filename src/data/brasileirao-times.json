@@ -1,0 +1,224 @@
+{
+  "serie_a_2025": [
+    {
+      "id": "atletico-mg",
+      "nome": "Atlético Mineiro",
+      "apelido": "Galo",
+      "cidade": "Belo Horizonte",
+      "estado": "MG",
+      "cores": ["preto", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/2/2b/Clube_Atl%C3%A9tico_Mineiro_logo.svg",
+      "estadio": "Arena MRV",
+      "fundacao": "1908-03-25"
+    },
+    {
+      "id": "bahia",
+      "nome": "Bahia",
+      "apelido": "Esquadrão",
+      "cidade": "Salvador",
+      "estado": "BA",
+      "cores": ["azul", "vermelho", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/a/a8/Esporte_Clube_Bahia_logo.svg",
+      "estadio": "Arena Fonte Nova",
+      "fundacao": "1931-01-01"
+    },
+    {
+      "id": "botafogo",
+      "nome": "Botafogo",
+      "apelido": "Fogão",
+      "cidade": "Rio de Janeiro",
+      "estado": "RJ",
+      "cores": ["preto", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/1/1f/Botafogo_de_Futebol_e_Regatas_logo.svg",
+      "estadio": "Nilton Santos",
+      "fundacao": "1904-08-12"
+    },
+    {
+      "id": "ceara",
+      "nome": "Ceará",
+      "apelido": "Vozão",
+      "cidade": "Fortaleza",
+      "estado": "CE",
+      "cores": ["preto", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/6/6c/Cear%C3%A1_Sporting_Club_logo.svg",
+      "estadio": "Arena Castelão",
+      "fundacao": "1914-06-02"
+    },
+    {
+      "id": "corinthians",
+      "nome": "Corinthians",
+      "apelido": "Timão",
+      "cidade": "São Paulo",
+      "estado": "SP",
+      "cores": ["preto", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/9/9f/Corinthians_logo.svg",
+      "estadio": "Neo Química Arena",
+      "fundacao": "1910-09-01"
+    },
+    {
+      "id": "cruzeiro",
+      "nome": "Cruzeiro",
+      "apelido": "Raposa",
+      "cidade": "Belo Horizonte",
+      "estado": "MG",
+      "cores": ["azul", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/8/88/Cruzeiro_Esporte_Clube_%28logo%29.svg",
+      "estadio": "Mineirão",
+      "fundacao": "1921-01-02"
+    },
+    {
+      "id": "flamengo",
+      "nome": "Flamengo",
+      "apelido": "Mengão",
+      "cidade": "Rio de Janeiro",
+      "estado": "RJ",
+      "cores": ["vermelho", "preto"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/2/2e/CR_Flamengo_logo.svg",
+      "estadio": "Maracanã",
+      "fundacao": "1895-11-17"
+    },
+    {
+      "id": "fluminense",
+      "nome": "Fluminense",
+      "apelido": "Flu",
+      "cidade": "Rio de Janeiro",
+      "estado": "RJ",
+      "cores": ["verde", "grená", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/8/88/Fluminense_FC_logo.svg",
+      "estadio": "Maracanã",
+      "fundacao": "1902-07-21"
+    },
+    {
+      "id": "fortaleza",
+      "nome": "Fortaleza",
+      "apelido": "Leão do Pici",
+      "cidade": "Fortaleza",
+      "estado": "CE",
+      "cores": ["azul", "vermelho", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/1/1c/Fortaleza_EC_%28shield%29.svg",
+      "estadio": "Arena Castelão",
+      "fundacao": "1918-10-18"
+    },
+    {
+      "id": "gremio",
+      "nome": "Grêmio",
+      "apelido": "Imortal",
+      "cidade": "Porto Alegre",
+      "estado": "RS",
+      "cores": ["azul", "preto", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/5/54/Gremio_logo.svg",
+      "estadio": "Arena do Grêmio",
+      "fundacao": "1903-09-15"
+    },
+    {
+      "id": "internacional",
+      "nome": "Internacional",
+      "apelido": "Colorado",
+      "cidade": "Porto Alegre",
+      "estado": "RS",
+      "cores": ["vermelho", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/9/9c/SC_Internacional_logo.svg",
+      "estadio": "Beira-Rio",
+      "fundacao": "1909-04-04"
+    },
+    {
+      "id": "juventude",
+      "nome": "Juventude",
+      "apelido": "Jaconero",
+      "cidade": "Caxias do Sul",
+      "estado": "RS",
+      "cores": ["verde", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/e/e1/EC_Juventude_logo.svg",
+      "estadio": "Alfredo Jaconi",
+      "fundacao": "1913-06-29"
+    },
+    {
+      "id": "mirassol",
+      "nome": "Mirassol",
+      "apelido": "Leão",
+      "cidade": "Mirassol",
+      "estado": "SP",
+      "cores": ["amarelo", "verde"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/2/2a/Mirassol_Futebol_Clube_logo.svg",
+      "estadio": "José Maria de Campos Maia",
+      "fundacao": "1925-11-09"
+    },
+    {
+      "id": "palmeiras",
+      "nome": "Palmeiras",
+      "apelido": "Verdão",
+      "cidade": "São Paulo",
+      "estado": "SP",
+      "cores": ["verde", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/1/10/SE_Palmeiras_logo.svg",
+      "estadio": "Allianz Parque",
+      "fundacao": "1914-08-26"
+    },
+    {
+      "id": "bragantino",
+      "nome": "Red Bull Bragantino",
+      "apelido": "Massa Bruta",
+      "cidade": "Bragança Paulista",
+      "estado": "SP",
+      "cores": ["branco", "vermelho"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/f/f7/Red_Bull_Bragantino_logo.svg",
+      "estadio": "Nabi Abi Chedid",
+      "fundacao": "1928-01-08"
+    },
+    {
+      "id": "santos",
+      "nome": "Santos",
+      "apelido": "Peixe",
+      "cidade": "Santos",
+      "estado": "SP",
+      "cores": ["preto", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/3/35/Santos_logo.svg",
+      "estadio": "Vila Belmiro",
+      "fundacao": "1912-04-14"
+    },
+    {
+      "id": "sao-paulo",
+      "nome": "São Paulo",
+      "apelido": "Tricolor",
+      "cidade": "São Paulo",
+      "estado": "SP",
+      "cores": ["vermelho", "preto", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/1/1f/Sao_Paulo_FC_logo.svg",
+      "estadio": "Morumbi",
+      "fundacao": "1930-01-25"
+    },
+    {
+      "id": "sport",
+      "nome": "Sport Recife",
+      "apelido": "Leão",
+      "cidade": "Recife",
+      "estado": "PE",
+      "cores": ["vermelho", "preto"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/3/38/Sport_Club_do_Recife_logo.svg",
+      "estadio": "Ilha do Retiro",
+      "fundacao": "1905-05-13"
+    },
+    {
+      "id": "vasco",
+      "nome": "Vasco da Gama",
+      "apelido": "Gigante da Colina",
+      "cidade": "Rio de Janeiro",
+      "estado": "RJ",
+      "cores": ["preto", "branco"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/6/6a/CR_Vasco_da_Gama_logo.svg",
+      "estadio": "São Januário",
+      "fundacao": "1898-08-21"
+    },
+    {
+      "id": "vitoria",
+      "nome": "Vitória",
+      "apelido": "Leão",
+      "cidade": "Salvador",
+      "estado": "BA",
+      "cores": ["vermelho", "preto"],
+      "logo_url": "https://upload.wikimedia.org/wikipedia/en/5/5a/Esporte_Clube_Vit%C3%B3ria_logo.svg",
+      "estadio": "Barradão",
+      "fundacao": "1899-05-13"
+    }
+  ]
+}

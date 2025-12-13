@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset RedFlix - Voltar para Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #E50914 0%, #8B0000 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        
+        h1 {
+            color: #E50914;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #E50914;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        .btn:hover {
+            background: #C41A23;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(229,9,20,0.3);
+        }
+        
+        .btn-secondary {
+            background: #333;
+        }
+        
+        .btn-secondary:hover {
+            background: #555;
+        }
+        
+        .success {
+            background: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+        
+        .info-box {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: left;
+        }
+        
+        .info-box h3 {
+            color: #E50914;
+            margin-bottom: 10px;
+        }
+        
+        .info-box ul {
+            margin-left: 20px;
+            color: #666;
+        }
+        
+        .info-box li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://chemorena.com/redfliz.png" alt="RedFlix Logo" class="logo">
+        
+        <h1>🔄 Resetar RedFlix</h1>
+        
+        <p>Clique no botão abaixo para limpar todos os dados salvos e voltar para a tela de login inicial.</p>
+        
+        <div class="success" id="successMessage">
+            ✅ Dados limpos com sucesso! Redirecionando...
+        </div>
+        
+        <button class="btn" onclick="resetAndRedirect()">
+            🔄 Limpar e Voltar para Login
+        </button>
+        
+        <button class="btn btn-secondary" onclick="window.location.href='/'">
+            🏠 Ir para Página Inicial (sem limpar)
+        </button>
+        
+        <div class="info-box">
+            <h3>ℹ️ O que será limpo:</h3>
+            <ul>
+                <li>✅ Estado de autenticação</li>
+                <li>✅ Dados de perfil temporários</li>
+                <li>✅ Cache de navegação</li>
+                <li>✅ Cookies de sessão</li>
+                <li>✅ Histórico de formulários</li>
+            </ul>
+            <p style="margin-top: 15px; color: #E50914; font-weight: bold;">
+                ⚠️ Seus dados de cadastro não serão excluídos!
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function resetAndRedirect() {
+            console.log('🔄 Iniciando reset do RedFlix...');
+            
+            // Limpar localStorage
+            localStorage.clear();
+            console.log('✅ localStorage limpo');
+            
+            // Limpar sessionStorage
+            sessionStorage.clear();
+            console.log('✅ sessionStorage limpo');
+            
+            // Limpar cookies
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
+            console.log('✅ Cookies limpos');
+            
+            // Mostrar mensagem de sucesso
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            
+            // Redirecionar para a página inicial após 1 segundo
+            setTimeout(() => {
+                console.log('🔄 Redirecionando para login...');
+                window.location.href = '/';
+                
+                // Forçar reload completo se não funcionar
+                setTimeout(() => {
+                    window.location.reload(true);
+                }, 500);
+            }, 1000);
+        }
+        
+        // Verificar estado atual
+        window.addEventListener('load', () => {
+            console.log('📊 Estado atual do localStorage:', localStorage);
+            console.log('📊 Estado atual do sessionStorage:', sessionStorage);
+        });
+    </script>
+</body>
+</html>
