@@ -1,0 +1,4206 @@
+[
+  {
+    "id": "Agromais HD.br",
+    "name": "Agro+",
+    "title": "Agro+",
+    "logo": "http://api.cdnapp.fun:80/images/60e4c6de48e6b39693eb8904f87d136d.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/1.ts"
+  },
+  {
+    "id": "Canal.Brasil.br",
+    "name": "Canal Brasil HD",
+    "title": "Canal Brasil HD",
+    "logo": "http://api.cdnapp.fun:80/images/7f026fb107674792ccfc4b30a1bdd53f.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/2.ts"
+  },
+  {
+    "id": "Canal.do.Boi.br",
+    "name": "Canal do Boi",
+    "title": "Canal do Boi",
+    "logo": "http://api.cdnapp.fun:80/images/b0afd02e391059b3987823c25682da37.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/3.ts"
+  },
+  {
+    "id": "Canal.Rural.br",
+    "name": "Canal Rural",
+    "title": "Canal Rural",
+    "logo": "http://api.cdnapp.fun:80/images/11d1b2d8331c26b75cb245062d541382.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/4.ts"
+  },
+  {
+    "id": "Cultura.br",
+    "name": "Cultura",
+    "title": "Cultura",
+    "logo": null,
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/5.ts",
+    "poster": "http://api.cdnapp.fun:80/images/9563345ec7cd63944d9900e9c091e661.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/mX9QW5M6DXseQ2bbdVjhi0bHpAA.jpg",
+    "release_date": "2008-09-09",
+    "tmdb_id": 19365
+  },
+  {
+    "id": "Futura.br",
+    "name": "Futura",
+    "title": "Futura",
+    "logo": null,
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/6.ts",
+    "poster": "http://api.cdnapp.fun:80/images/0ce1a71491d9cfd18efde140e191edd7.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/e0yr2sFadltZvoShUGHc3fpCEVF.jpg",
+    "release_date": "2021-06-17",
+    "tmdb_id": 574491
+  },
+  {
+    "id": "Redetv.br",
+    "name": "RedeTV!",
+    "title": "RedeTV!",
+    "logo": "http://api.cdnapp.fun:80/images/0cb21e2d7c03d3fceb868d1a1eeb0ea5.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/7.ts"
+  },
+  {
+    "id": "Terra Viva",
+    "name": "Terra Viva",
+    "title": "Terra Viva",
+    "logo": null,
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/8.ts",
+    "poster": "http://api.cdnapp.fun:80/images/48495739d3bd50bd0e569323a38a9de6.png",
+    "backdrop": null,
+    "release_date": "2018-01-01",
+    "tmdb_id": 989316
+  },
+  {
+    "id": "TV.Brasil.br",
+    "name": "TV Brasil",
+    "title": "TV Brasil",
+    "logo": null,
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/9.ts",
+    "poster": "http://api.cdnapp.fun:80/images/1b2bf380a89568389c84e4a9d1a35720.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/3GfCn7h35v7fftp962Dkn0zfcQi.jpg",
+    "release_date": "2022-01-26",
+    "tmdb_id": 219291
+  },
+  {
+    "id": "TV Câmara",
+    "name": "TV Camara",
+    "title": "TV Camara",
+    "logo": "http://api.cdnapp.fun:80/images/22253704d7ee1ec2fa2f38b699890c5f.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/10.ts"
+  },
+  {
+    "id": "Tvjustica.br",
+    "name": "TV Justica",
+    "title": "TV Justica",
+    "logo": "http://api.cdnapp.fun:80/images/9f56c3fb6376b91a1dd2b4cb74d74e97.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/11.ts"
+  },
+  {
+    "id": "TV Pampa HD.br",
+    "name": "TV Pampa",
+    "title": "TV Pampa",
+    "logo": null,
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/12.ts",
+    "poster": "http://api.cdnapp.fun:80/images/2f1340be944c07163f12f5eaf1705dfa.png",
+    "backdrop": null,
+    "release_date": null,
+    "tmdb_id": 7165
+  },
+  {
+    "id": "TV.Senado.br",
+    "name": "TV Senado",
+    "title": "TV Senado",
+    "logo": "http://api.cdnapp.fun:80/images/68cd2a1cfe9ce0698909f8aa3e0225a0.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/13.ts"
+  },
+  {
+    "id": "TVE.br",
+    "name": "TVE",
+    "title": "TVE",
+    "logo": null,
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/14.ts",
+    "poster": "http://api.cdnapp.fun:80/images/0d125070eeb27c6f7670325e186306ba.png",
+    "backdrop": null,
+    "release_date": "2023-09-08",
+    "tmdb_id": 1185979
+  },
+  {
+    "id": "Band Sao Paulo.br",
+    "name": "Band SP HD",
+    "title": "Band SP HD",
+    "logo": "http://api.cdnapp.fun:80/images/0c0fdf1d9fabeb1bd3e468f6ceeafcc6.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/15.ts"
+  },
+  {
+    "id": "Band Bahia",
+    "name": "Band BA",
+    "title": "Band BA",
+    "logo": "https://image.tmdb.org/t/p/original/cjjRkIjs6igAImfxrPJ8rqpSOa8.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/16.ts",
+    "poster": "http://api.cdnapp.fun:80/images/0c0fdf1d9fabeb1bd3e468f6ceeafcc6.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/2YOnE2qmoyyOUqQsFit12gDSauk.jpg",
+    "release_date": "2025-10-08",
+    "tmdb_id": 1242419
+  },
+  {
+    "id": "Band Minas",
+    "name": "Band MG",
+    "title": "Band MG",
+    "logo": "http://api.cdnapp.fun:80/images/0c0fdf1d9fabeb1bd3e468f6ceeafcc6.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/17.ts"
+  },
+  {
+    "id": "Band Paraná",
+    "name": "Band PR",
+    "title": "Band PR",
+    "logo": null,
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/18.ts",
+    "poster": "http://api.cdnapp.fun:80/images/0c0fdf1d9fabeb1bd3e468f6ceeafcc6.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/TWchvpMO36QZTIiNjFBm4MYsmQ.jpg",
+    "release_date": "2005-11-23",
+    "tmdb_id": 8274
+  },
+  {
+    "id": "Band Rio",
+    "name": "Band RJ",
+    "title": "Band RJ",
+    "logo": "http://api.cdnapp.fun:80/images/0c0fdf1d9fabeb1bd3e468f6ceeafcc6.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/19.ts"
+  },
+  {
+    "id": "Band RS",
+    "name": "BAND RS",
+    "title": "BAND RS",
+    "logo": "http://api.cdnapp.fun:80/images/0c0fdf1d9fabeb1bd3e468f6ceeafcc6.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/20.ts"
+  },
+  {
+    "id": "Record SP HD",
+    "name": "Record SP HD",
+    "title": "Record SP HD",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/21.ts"
+  },
+  {
+    "id": "Record RJ HD",
+    "name": "Record RJ HD",
+    "title": "Record RJ HD",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/22.ts"
+  },
+  {
+    "id": "Record RS HD",
+    "name": "Record RS HD",
+    "title": "Record RS HD",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/23.ts"
+  },
+  {
+    "id": "Record BA HD",
+    "name": "Record BA HD",
+    "title": "Record BA HD",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/24.ts"
+  },
+  {
+    "id": "Record DF HD",
+    "name": "Record DF HD",
+    "title": "Record DF HD",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/25.ts"
+  },
+  {
+    "id": "Record.TV.br",
+    "name": "Record GO HD",
+    "title": "Record GO HD",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/26.ts"
+  },
+  {
+    "id": "Record MG SD",
+    "name": "Record MG HD",
+    "title": "Record MG HD",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/27.ts"
+  },
+  {
+    "id": "Record TV",
+    "name": "Record PA HD",
+    "title": "Record PA HD",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/28.ts"
+  },
+  {
+    "id": "Record TV Campinas.br",
+    "name": "Record SP Campinas",
+    "title": "Record SP Campinas",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/29.ts"
+  },
+  {
+    "id": "Record 4K",
+    "name": "Record PR HD",
+    "title": "Record PR HD",
+    "logo": "http://api.cdnapp.fun:80/images/ad82afc305b7456ccfc0c5e882e2c479.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/30.ts"
+  },
+  {
+    "id": "SBT 4K",
+    "name": "SBT SP 4K",
+    "title": "SBT SP 4K",
+    "logo": "http://api.cdnapp.fun:80/images/b1e983d082e93e5a31d089e8db99f8bd.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/31.ts"
+  },
+  {
+    "id": "SBT Sao Paulo HD.br",
+    "name": "SBT SP HD",
+    "title": "SBT SP HD",
+    "logo": "http://api.cdnapp.fun:80/images/b1e983d082e93e5a31d089e8db99f8bd.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/32.ts"
+  },
+  {
+    "id": "SBT Rio HD.br",
+    "name": "SBT RJ HD",
+    "title": "SBT RJ HD",
+    "logo": "http://api.cdnapp.fun:80/images/b1e983d082e93e5a31d089e8db99f8bd.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/33.ts"
+  },
+  {
+    "id": "SBT RS HD.br",
+    "name": "SBT RS HD",
+    "title": "SBT RS HD",
+    "logo": "http://api.cdnapp.fun:80/images/b1e983d082e93e5a31d089e8db99f8bd.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/34.ts"
+  },
+  {
+    "id": "TV Aratu HD.br",
+    "name": "SBT BA HD",
+    "title": "SBT BA HD",
+    "logo": "http://api.cdnapp.fun:80/images/b1e983d082e93e5a31d089e8db99f8bd.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/35.ts"
+  },
+  {
+    "id": "SBT.br",
+    "name": "SBT CE JANGADEIRO",
+    "title": "SBT CE JANGADEIRO",
+    "logo": "http://api.cdnapp.fun:80/images/b1e983d082e93e5a31d089e8db99f8bd.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/36.ts"
+  },
+  {
+    "id": "SBT.br",
+    "name": "SBT PA TV Guajara",
+    "title": "SBT PA TV Guajara",
+    "logo": "http://api.cdnapp.fun:80/images/b1e983d082e93e5a31d089e8db99f8bd.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/37.ts"
+  },
+  {
+    "id": "SBT Piaui.br",
+    "name": "SBT PI",
+    "title": "SBT PI",
+    "logo": "http://api.cdnapp.fun:80/images/b1e983d082e93e5a31d089e8db99f8bd.png",
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/38.ts"
+  },
+  {
+    "id": "SBT Pará.br",
+    "name": "SBT PR",
+    "title": "SBT PR",
+    "logo": null,
+    "group": "Canais - Abertos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/39.ts",
+    "poster": "http://api.cdnapp.fun:80/images/b1e983d082e93e5a31d089e8db99f8bd.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/fKnLQXi0JTfX4tQoXZYItYvmP2x.jpg",
+    "release_date": "2025-08-09",
+    "tmdb_id": 297209
+  },
+  {
+    "id": "Discovery.br",
+    "name": "Discovery Channel 4K",
+    "title": "Discovery Channel 4K",
+    "logo": "http://api.cdnapp.fun:80/images/28a05132fb2c78cc4e0c6a208b2cdfae.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/40.ts"
+  },
+  {
+    "id": "Discovery.br",
+    "name": "Discovery Channel HD",
+    "title": "Discovery Channel HD",
+    "logo": "http://api.cdnapp.fun:80/images/28a05132fb2c78cc4e0c6a208b2cdfae.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/41.ts"
+  },
+  {
+    "id": "Discovery.Home.&.Health.br",
+    "name": "Discovery Home & Health FHD",
+    "title": "Discovery Home & Health FHD",
+    "logo": "http://api.cdnapp.fun:80/images/55dd565d82ef03830765256b318f5149.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/42.ts"
+  },
+  {
+    "id": "Discovery.Home.&.Health.br",
+    "name": "Discovery Home & Health HD",
+    "title": "Discovery Home & Health HD",
+    "logo": "http://api.cdnapp.fun:80/images/55dd565d82ef03830765256b318f5149.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/43.ts"
+  },
+  {
+    "id": "Discovery Science",
+    "name": "Discovery Science FHD",
+    "title": "Discovery Science FHD",
+    "logo": "http://api.cdnapp.fun:80/images/fa42b2857e8cc2b8f5ebb7e650479c26.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/44.ts"
+  },
+  {
+    "id": "Discovery Science",
+    "name": "Discovery Science HD",
+    "title": "Discovery Science HD",
+    "logo": "http://api.cdnapp.fun:80/images/fa42b2857e8cc2b8f5ebb7e650479c26.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/45.ts"
+  },
+  {
+    "id": "Discovery Theater HD",
+    "name": "Discovery Theater FHD",
+    "title": "Discovery Theater FHD",
+    "logo": "http://api.cdnapp.fun:80/images/4bf75fadc3815cbb5b2cdbcc76b7eff6.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/46.ts"
+  },
+  {
+    "id": "Discovery Theater HD",
+    "name": "Discovery Theater HD",
+    "title": "Discovery Theater HD",
+    "logo": "http://api.cdnapp.fun:80/images/4bf75fadc3815cbb5b2cdbcc76b7eff6.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/47.ts"
+  },
+  {
+    "id": "Discovery.Turbo.br",
+    "name": "Discovery Turbo FHD",
+    "title": "Discovery Turbo FHD",
+    "logo": "http://api.cdnapp.fun:80/images/a0c738fc3897c1786498cb8112cacec8.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/48.ts"
+  },
+  {
+    "id": "Discovery.Turbo.br",
+    "name": "Discovery Turbo HD",
+    "title": "Discovery Turbo HD",
+    "logo": "http://api.cdnapp.fun:80/images/a0c738fc3897c1786498cb8112cacec8.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/49.ts"
+  },
+  {
+    "id": "Discovery.World.br",
+    "name": "Discovery World FHD",
+    "title": "Discovery World FHD",
+    "logo": "http://api.cdnapp.fun:80/images/610632284647ed3141d62a299ac7b763.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/50.ts"
+  },
+  {
+    "id": "Discovery.World.br",
+    "name": "Discovery World HD",
+    "title": "Discovery World HD",
+    "logo": "http://api.cdnapp.fun:80/images/610632284647ed3141d62a299ac7b763.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/51.ts"
+  },
+  {
+    "id": "Animal.Planet.br",
+    "name": "Animal Planet FHD",
+    "title": "Animal Planet FHD",
+    "logo": "http://api.cdnapp.fun:80/images/21de9490a6209d4f6ab195fa560e0f5b.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/52.ts"
+  },
+  {
+    "id": "Animal.Planet.br",
+    "name": "Animal Planet HD",
+    "title": "Animal Planet HD",
+    "logo": "http://api.cdnapp.fun:80/images/21de9490a6209d4f6ab195fa560e0f5b.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/53.ts"
+  },
+  {
+    "id": "Fish TV FHD",
+    "name": "Fish TV FHD",
+    "title": "Fish TV FHD",
+    "logo": "http://api.cdnapp.fun:80/images/f436fd39c7fe0ee187f924102d15a5ec.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/54.ts"
+  },
+  {
+    "id": "FishTV.br",
+    "name": "Fish TV HD",
+    "title": "Fish TV HD",
+    "logo": "http://api.cdnapp.fun:80/images/f436fd39c7fe0ee187f924102d15a5ec.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/55.ts"
+  },
+  {
+    "id": "HGTV.br",
+    "name": "HGTV FHD",
+    "title": "HGTV FHD",
+    "logo": "http://api.cdnapp.fun:80/images/cb8736951a43fba821edd8eeeb1bc9ee.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/56.ts"
+  },
+  {
+    "id": "HGTV.br",
+    "name": "HGTV HD",
+    "title": "HGTV HD",
+    "logo": "http://api.cdnapp.fun:80/images/cb8736951a43fba821edd8eeeb1bc9ee.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/57.ts"
+  },
+  {
+    "id": "H2.br",
+    "name": "History 2 FHD",
+    "title": "History 2 FHD",
+    "logo": "http://api.cdnapp.fun:80/images/7fd978d7bb581d92e8ce2e764af81cf6.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/58.ts"
+  },
+  {
+    "id": "H2.br",
+    "name": "History 2 HD",
+    "title": "History 2 HD",
+    "logo": "http://api.cdnapp.fun:80/images/7fd978d7bb581d92e8ce2e764af81cf6.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/59.ts"
+  },
+  {
+    "id": "HISTORY CHANNEL HD.br",
+    "name": "History FHD",
+    "title": "History FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e34ec168c74bca1fdd01c180ec9a4126.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/60.ts"
+  },
+  {
+    "id": "HISTORY CHANNEL HD.br",
+    "name": "History HD",
+    "title": "History HD",
+    "logo": null,
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/61.ts",
+    "poster": "http://api.cdnapp.fun:80/images/e34ec168c74bca1fdd01c180ec9a4126.png",
+    "backdrop": null,
+    "release_date": "2009-11-11",
+    "tmdb_id": 244352
+  },
+  {
+    "id": "Investigacao Discovery FHD",
+    "name": "Investigação Discovery FHD",
+    "title": "Investigação Discovery FHD",
+    "logo": "http://api.cdnapp.fun:80/images/095cc53a9e0b58cf822da98cc76136db.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/62.ts"
+  },
+  {
+    "id": "Investigacao Discovery HD",
+    "name": "Investigação Discovery HD",
+    "title": "Investigação Discovery HD",
+    "logo": "http://api.cdnapp.fun:80/images/095cc53a9e0b58cf822da98cc76136db.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/63.ts"
+  },
+  {
+    "id": "Prime Box Brazil HD",
+    "name": "Prime Box Brazil FHD",
+    "title": "Prime Box Brazil FHD",
+    "logo": "http://api.cdnapp.fun:80/images/15ee8a75402dda1af9dcc925f05f4c93.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/64.ts"
+  },
+  {
+    "id": "Prime Box Brazil HD",
+    "name": "Prime Box Brazil HD",
+    "title": "Prime Box Brazil HD",
+    "logo": "http://api.cdnapp.fun:80/images/15ee8a75402dda1af9dcc925f05f4c93.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/65.ts"
+  },
+  {
+    "id": "TLC.br",
+    "name": "TLC FHD",
+    "title": "TLC FHD",
+    "logo": "http://api.cdnapp.fun:80/images/d74a5cb4d44e5986a12b6b50aa058068.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/66.ts"
+  },
+  {
+    "id": "TLC.br",
+    "name": "TLC HD",
+    "title": "TLC HD",
+    "logo": "http://api.cdnapp.fun:80/images/d74a5cb4d44e5986a12b6b50aa058068.png",
+    "group": "Canais – Documentários",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/67.ts"
+  },
+  {
+    "id": "ESPN FHD",
+    "name": "ESPN 1 4K",
+    "title": "ESPN 1 4K",
+    "logo": "http://api.cdnapp.fun:80/images/e6e050c3bd8a18d931080c2bbb6bc9e9.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/68.ts"
+  },
+  {
+    "id": "ESPN.br",
+    "name": "ESPN 1 HD",
+    "title": "ESPN 1 HD",
+    "logo": "http://api.cdnapp.fun:80/images/e6e050c3bd8a18d931080c2bbb6bc9e9.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/69.ts"
+  },
+  {
+    "id": "ESPN.2.br",
+    "name": "ESPN 2 FHD",
+    "title": "ESPN 2 FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e552701dde430a6520a2c80ef59a4cbb.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/70.ts"
+  },
+  {
+    "id": "ESPN.2.br",
+    "name": "ESPN 2 HD",
+    "title": "ESPN 2 HD",
+    "logo": "http://api.cdnapp.fun:80/images/e552701dde430a6520a2c80ef59a4cbb.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/71.ts"
+  },
+  {
+    "id": "ESPN 3 HD",
+    "name": "ESPN 3 FHD",
+    "title": "ESPN 3 FHD",
+    "logo": "http://api.cdnapp.fun:80/images/3857295cf1ced64f1b7081f72965758b.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/72.ts"
+  },
+  {
+    "id": "ESPN 3 HD",
+    "name": "ESPN 3 HD",
+    "title": "ESPN 3 HD",
+    "logo": "http://api.cdnapp.fun:80/images/3857295cf1ced64f1b7081f72965758b.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/73.ts"
+  },
+  {
+    "id": "ESPN 4 4K",
+    "name": "ESPN 4 4K",
+    "title": "ESPN 4 4K",
+    "logo": "http://api.cdnapp.fun:80/images/7e6aa85fb669a2275b25cfdcc1fd9ef8.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/74.ts"
+  },
+  {
+    "id": "ESPN 4 FHD",
+    "name": "ESPN 4 HD",
+    "title": "ESPN 4 HD",
+    "logo": "http://api.cdnapp.fun:80/images/7e6aa85fb669a2275b25cfdcc1fd9ef8.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/75.ts"
+  },
+  {
+    "id": "ESPN.5.br",
+    "name": "ESPN 5 FHD",
+    "title": "ESPN 5 FHD",
+    "logo": "http://api.cdnapp.fun:80/images/888b299937f2be1ea921b5d4ec12c16a.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/76.ts"
+  },
+  {
+    "id": "ESPN.5.br",
+    "name": "ESPN 5 HD",
+    "title": "ESPN 5 HD",
+    "logo": "http://api.cdnapp.fun:80/images/888b299937f2be1ea921b5d4ec12c16a.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/77.ts"
+  },
+  {
+    "id": "BandSports.br",
+    "name": "Band Sports FHD",
+    "title": "Band Sports FHD",
+    "logo": "http://api.cdnapp.fun:80/images/122ccf217f196c48635c1aa648a5953b.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/78.ts"
+  },
+  {
+    "id": "BandSports.br",
+    "name": "Band Sports HD",
+    "title": "Band Sports HD",
+    "logo": "http://api.cdnapp.fun:80/images/122ccf217f196c48635c1aa648a5953b.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/79.ts"
+  },
+  {
+    "id": "SporTV.br",
+    "name": "SporTV 1 4K",
+    "title": "SporTV 1 4K",
+    "logo": "http://api.cdnapp.fun:80/images/827448d224d3dff5e00c588de090f1b7.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/80.ts"
+  },
+  {
+    "id": "SporTV.br",
+    "name": "SporTV 1 HD",
+    "title": "SporTV 1 HD",
+    "logo": "http://api.cdnapp.fun:80/images/827448d224d3dff5e00c588de090f1b7.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/81.ts"
+  },
+  {
+    "id": "SporTV2.br",
+    "name": "SporTV 2 FHD",
+    "title": "SporTV 2 FHD",
+    "logo": "http://api.cdnapp.fun:80/images/50478ffb95c658b27988cc289b743e71.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/82.ts"
+  },
+  {
+    "id": "SporTV2.br",
+    "name": "SporTV 2 HD",
+    "title": "SporTV 2 HD",
+    "logo": "http://api.cdnapp.fun:80/images/50478ffb95c658b27988cc289b743e71.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/83.ts"
+  },
+  {
+    "id": "SporTV3.br",
+    "name": "SporTV 3 FHD",
+    "title": "SporTV 3 FHD",
+    "logo": "http://api.cdnapp.fun:80/images/0ff7041db590d9c44038289306015487.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/84.ts"
+  },
+  {
+    "id": "SporTV3.br",
+    "name": "SporTV 3 HD",
+    "title": "SporTV 3 HD",
+    "logo": "http://api.cdnapp.fun:80/images/0ff7041db590d9c44038289306015487.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/85.ts"
+  },
+  {
+    "id": "",
+    "name": "CAZE 01",
+    "title": "CAZE 01",
+    "logo": "http://api.cdnapp.fun:80/images/1c731cc8a042d837699f7395415e08c2.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/86.ts"
+  },
+  {
+    "id": "",
+    "name": "CAZE 02",
+    "title": "CAZE 02",
+    "logo": "http://api.cdnapp.fun:80/images/1c731cc8a042d837699f7395415e08c2.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/87.ts"
+  },
+  {
+    "id": "",
+    "name": "CAZE 03",
+    "title": "CAZE 03",
+    "logo": "http://api.cdnapp.fun:80/images/1c731cc8a042d837699f7395415e08c2.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/88.ts"
+  },
+  {
+    "id": "",
+    "name": "DISNEY+ 1",
+    "title": "DISNEY+ 1",
+    "logo": null,
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/89.ts",
+    "poster": "http://api.cdnapp.fun:80/images/9348979760266a11c2dbd74f11494387.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/9iFlqEIa044ZMnjZhd1fvW8fb9k.jpg",
+    "release_date": "2023-12-14",
+    "tmdb_id": 1221257
+  },
+  {
+    "id": "",
+    "name": "DISNEY+ 2",
+    "title": "DISNEY+ 2",
+    "logo": null,
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/90.ts",
+    "poster": "http://api.cdnapp.fun:80/images/9348979760266a11c2dbd74f11494387.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/rLnv5QXUE3ITZTfrobsfXuAUtG.jpg",
+    "release_date": "2021-11-12",
+    "tmdb_id": 877188
+  },
+  {
+    "id": "",
+    "name": "DISNEY+ 3",
+    "title": "DISNEY+ 3",
+    "logo": null,
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/91.ts",
+    "poster": "http://api.cdnapp.fun:80/images/9348979760266a11c2dbd74f11494387.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/wh9a2zXYkZDSaPRSxgwsMGMRTnS.jpg",
+    "release_date": "2003-09-15",
+    "tmdb_id": 260340
+  },
+  {
+    "id": "",
+    "name": "DISNEY+ 4",
+    "title": "DISNEY+ 4",
+    "logo": null,
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/92.ts",
+    "poster": "http://api.cdnapp.fun:80/images/9348979760266a11c2dbd74f11494387.png",
+    "backdrop": null,
+    "release_date": null,
+    "tmdb_id": 28926
+  },
+  {
+    "id": "",
+    "name": "DISNEY+ 5",
+    "title": "DISNEY+ 5",
+    "logo": null,
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/93.ts",
+    "poster": "http://api.cdnapp.fun:80/images/9348979760266a11c2dbd74f11494387.png",
+    "backdrop": null,
+    "release_date": "1991-05-20",
+    "tmdb_id": 966435
+  },
+  {
+    "id": "",
+    "name": "DISNEY+ 6",
+    "title": "DISNEY+ 6",
+    "logo": null,
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/94.ts",
+    "poster": "http://api.cdnapp.fun:80/images/9348979760266a11c2dbd74f11494387.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/viCLTh75vYEVvyoKFU1Yjx6HvOW.jpg",
+    "release_date": "2004-05-31",
+    "tmdb_id": 260344
+  },
+  {
+    "id": "",
+    "name": "Canal Goat 01",
+    "title": "Canal Goat 01",
+    "logo": "http://api.cdnapp.fun:80/images/764197afa91ad57a6fd0279dbf450bf7.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/95.ts"
+  },
+  {
+    "id": "",
+    "name": "Canal Goat 02",
+    "title": "Canal Goat 02",
+    "logo": "http://api.cdnapp.fun:80/images/764197afa91ad57a6fd0279dbf450bf7.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/96.ts"
+  },
+  {
+    "id": "",
+    "name": "Canal Goat 03",
+    "title": "Canal Goat 03",
+    "logo": "http://api.cdnapp.fun:80/images/764197afa91ad57a6fd0279dbf450bf7.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/97.ts"
+  },
+  {
+    "id": "",
+    "name": "Canal Goat 04",
+    "title": "Canal Goat 04",
+    "logo": "http://api.cdnapp.fun:80/images/764197afa91ad57a6fd0279dbf450bf7.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/98.ts"
+  },
+  {
+    "id": "",
+    "name": "Canal Goat 05",
+    "title": "Canal Goat 05",
+    "logo": "http://api.cdnapp.fun:80/images/764197afa91ad57a6fd0279dbf450bf7.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/99.ts"
+  },
+  {
+    "id": "HBO Max 1",
+    "name": "HBO MAX 01",
+    "title": "HBO MAX 01",
+    "logo": "http://api.cdnapp.fun:80/images/7293cfecd3096c55b85c9e38e7209ebd.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/100.ts"
+  },
+  {
+    "id": "HBO Max 2",
+    "name": "HBO MAX 02",
+    "title": "HBO MAX 02",
+    "logo": "http://api.cdnapp.fun:80/images/7293cfecd3096c55b85c9e38e7209ebd.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/101.ts"
+  },
+  {
+    "id": "HBO Max 3",
+    "name": "HBO MAX 03",
+    "title": "HBO MAX 03",
+    "logo": "http://api.cdnapp.fun:80/images/7293cfecd3096c55b85c9e38e7209ebd.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/102.ts"
+  },
+  {
+    "id": "HBO Max 4",
+    "name": "HBO MAX 04",
+    "title": "HBO MAX 04",
+    "logo": "http://api.cdnapp.fun:80/images/7293cfecd3096c55b85c9e38e7209ebd.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/103.ts"
+  },
+  {
+    "id": "HBO Max 5",
+    "name": "HBO MAX 05",
+    "title": "HBO MAX 05",
+    "logo": "http://api.cdnapp.fun:80/images/7293cfecd3096c55b85c9e38e7209ebd.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/104.ts"
+  },
+  {
+    "id": "",
+    "name": "HBO MAX 06",
+    "title": "HBO MAX 06",
+    "logo": "http://api.cdnapp.fun:80/images/7293cfecd3096c55b85c9e38e7209ebd.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/105.ts"
+  },
+  {
+    "id": "",
+    "name": "Amazon Prime - 01",
+    "title": "Amazon Prime - 01",
+    "logo": "http://api.cdnapp.fun:80/images/86d8d60d1538574b6000a6ab68af4100.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/106.ts"
+  },
+  {
+    "id": "",
+    "name": "Amazon Prime - 02",
+    "title": "Amazon Prime - 02",
+    "logo": "http://api.cdnapp.fun:80/images/86d8d60d1538574b6000a6ab68af4100.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/107.ts"
+  },
+  {
+    "id": "",
+    "name": "Amazon Prime - 03",
+    "title": "Amazon Prime - 03",
+    "logo": "http://api.cdnapp.fun:80/images/86d8d60d1538574b6000a6ab68af4100.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/108.ts"
+  },
+  {
+    "id": "",
+    "name": "Amazon Prime - 04",
+    "title": "Amazon Prime - 04",
+    "logo": "http://api.cdnapp.fun:80/images/86d8d60d1538574b6000a6ab68af4100.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/109.ts"
+  },
+  {
+    "id": "",
+    "name": "Paramount+ 2",
+    "title": "Paramount+ 2",
+    "logo": null,
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/110.ts",
+    "poster": "http://api.cdnapp.fun:80/images/059b761b10b5b820ef69d5002fb27733.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/uZzghElD8xvmBAxMbIN5mEu6B95.jpg",
+    "release_date": "2016-09-23",
+    "tmdb_id": 616990
+  },
+  {
+    "id": "",
+    "name": "Paramount+ 3 HD",
+    "title": "Paramount+ 3 HD",
+    "logo": "http://api.cdnapp.fun:80/images/059b761b10b5b820ef69d5002fb27733.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/111.ts"
+  },
+  {
+    "id": "",
+    "name": "Paramount+ 4 HD",
+    "title": "Paramount+ 4 HD",
+    "logo": "http://api.cdnapp.fun:80/images/059b761b10b5b820ef69d5002fb27733.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/112.ts"
+  },
+  {
+    "id": "",
+    "name": "Paramount+ 5 HD",
+    "title": "Paramount+ 5 HD",
+    "logo": "http://api.cdnapp.fun:80/images/059b761b10b5b820ef69d5002fb27733.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/113.ts"
+  },
+  {
+    "id": "",
+    "name": "Paramount+ 6 HD",
+    "title": "Paramount+ 6 HD",
+    "logo": "http://api.cdnapp.fun:80/images/059b761b10b5b820ef69d5002fb27733.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/114.ts"
+  },
+  {
+    "id": "",
+    "name": "Nosso Futebol 1 HD",
+    "title": "Nosso Futebol 1 HD",
+    "logo": "http://api.cdnapp.fun:80/images/3191aa68aa225a359e2e6688381c2b0d.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/115.ts"
+  },
+  {
+    "id": "",
+    "name": "Nosso Futebol 2 HD",
+    "title": "Nosso Futebol 2 HD",
+    "logo": "http://api.cdnapp.fun:80/images/3191aa68aa225a359e2e6688381c2b0d.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/116.ts"
+  },
+  {
+    "id": "",
+    "name": "Nosso Futebol 3 HD",
+    "title": "Nosso Futebol 3 HD",
+    "logo": "http://api.cdnapp.fun:80/images/3191aa68aa225a359e2e6688381c2b0d.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/117.ts"
+  },
+  {
+    "id": "",
+    "name": "Nosso Futebol 4 HD",
+    "title": "Nosso Futebol 4 HD",
+    "logo": "http://api.cdnapp.fun:80/images/3191aa68aa225a359e2e6688381c2b0d.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/118.ts"
+  },
+  {
+    "id": "NBA League Pass 1 HD",
+    "name": "NBA TV 01",
+    "title": "NBA TV 01",
+    "logo": "http://api.cdnapp.fun:80/images/7c52c868fe3bdce9e8565a93419078da.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/119.ts"
+  },
+  {
+    "id": "NBA League Pass 2 HD",
+    "name": "NBA TV 02",
+    "title": "NBA TV 02",
+    "logo": "http://api.cdnapp.fun:80/images/7c52c868fe3bdce9e8565a93419078da.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/120.ts"
+  },
+  {
+    "id": "NBA League Pass 3 HD",
+    "name": "NBA TV 03",
+    "title": "NBA TV 03",
+    "logo": "http://api.cdnapp.fun:80/images/7c52c868fe3bdce9e8565a93419078da.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/121.ts"
+  },
+  {
+    "id": "",
+    "name": "APPLE TV",
+    "title": "APPLE TV",
+    "logo": null,
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/122.ts",
+    "poster": "http://api.cdnapp.fun:80/images/8a42018fc54cba3ec94fa9d533c3008e.png",
+    "backdrop": null,
+    "release_date": null,
+    "tmdb_id": 294722
+  },
+  {
+    "id": "",
+    "name": "DAZN 1 HD",
+    "title": "DAZN 1 HD",
+    "logo": "http://api.cdnapp.fun:80/images/07208713cf381fd72d5812b44b825172.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/123.ts"
+  },
+  {
+    "id": "",
+    "name": "DAZN 2 HD¹",
+    "title": "DAZN 2 HD¹",
+    "logo": "http://api.cdnapp.fun:80/images/07208713cf381fd72d5812b44b825172.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/124.ts"
+  },
+  {
+    "id": "",
+    "name": "DAZN 3 HD¹",
+    "title": "DAZN 3 HD¹",
+    "logo": "http://api.cdnapp.fun:80/images/07208713cf381fd72d5812b44b825172.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/125.ts"
+  },
+  {
+    "id": "",
+    "name": "ELEVEN SPORTS 1",
+    "title": "ELEVEN SPORTS 1",
+    "logo": "http://api.cdnapp.fun:80/images/6a14e6932364957e495d65db12954d7a.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/126.ts"
+  },
+  {
+    "id": "",
+    "name": "ELEVEN SPORTS 2",
+    "title": "ELEVEN SPORTS 2",
+    "logo": "http://api.cdnapp.fun:80/images/6a14e6932364957e495d65db12954d7a.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/127.ts"
+  },
+  {
+    "id": "",
+    "name": "ELEVEN SPORTS 3",
+    "title": "ELEVEN SPORTS 3",
+    "logo": "http://api.cdnapp.fun:80/images/6a14e6932364957e495d65db12954d7a.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/128.ts"
+  },
+  {
+    "id": "",
+    "name": "FLA TV (TESTE)",
+    "title": "FLA TV (TESTE)",
+    "logo": "http://api.cdnapp.fun:80/images/a7c2690f3df493057d121894417f86d6.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/129.ts"
+  },
+  {
+    "id": "",
+    "name": "Furacão TV",
+    "title": "Furacão TV",
+    "logo": "http://api.cdnapp.fun:80/images/33c4cdb0b02e523a155605e9e90c86a7.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/130.ts"
+  },
+  {
+    "id": "",
+    "name": "NSports HD",
+    "title": "NSports HD",
+    "logo": "http://api.cdnapp.fun:80/images/85881b9a7b5c15ae683820294f0806ae.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/131.ts"
+  },
+  {
+    "id": "",
+    "name": "Real Madrid TV",
+    "title": "Real Madrid TV",
+    "logo": "http://api.cdnapp.fun:80/images/7d8f9a2f101fe64e1b9659316ace5b28.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/132.ts"
+  },
+  {
+    "id": "",
+    "name": "Remo TV",
+    "title": "Remo TV",
+    "logo": "http://api.cdnapp.fun:80/images/f5988e01cbb95492024a8187df03ebe0.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/133.ts"
+  },
+  {
+    "id": "",
+    "name": "X-Sports",
+    "title": "X-Sports",
+    "logo": null,
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/134.ts",
+    "poster": "http://api.cdnapp.fun:80/images/3c390d4be4a93ee40bd47b5e3664eae6.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/p4PFlQQ738DXE9QC7t1Khgz0e56.jpg",
+    "release_date": "2023-05-04",
+    "tmdb_id": 1088147
+  },
+  {
+    "id": "",
+    "name": "Formula 1 TV",
+    "title": "Formula 1 TV",
+    "logo": "http://api.cdnapp.fun:80/images/cf57ff07277750dad87dc1263ce11793.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/135.ts"
+  },
+  {
+    "id": "",
+    "name": "GE FAST",
+    "title": "GE FAST",
+    "logo": "http://api.cdnapp.fun:80/images/f6c4776b2dc84b9ffadeaee7a8a50fed.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/136.ts"
+  },
+  {
+    "id": "A&E HD",
+    "name": "A&E FHD",
+    "title": "A&E FHD",
+    "logo": "http://api.cdnapp.fun:80/images/771d6fbaf4c4d7087c2f6e241074bc43.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/137.ts"
+  },
+  {
+    "id": "A&E FHD",
+    "name": "A&E HD",
+    "title": "A&E HD",
+    "logo": "http://api.cdnapp.fun:80/images/771d6fbaf4c4d7087c2f6e241074bc43.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/138.ts"
+  },
+  {
+    "id": "AMC.br",
+    "name": "AMC FHD",
+    "title": "AMC FHD",
+    "logo": "http://api.cdnapp.fun:80/images/4dc348ecf8513774e73d10051dc3e0f3.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/139.ts"
+  },
+  {
+    "id": "AMC.br",
+    "name": "AMC HD",
+    "title": "AMC HD",
+    "logo": "http://api.cdnapp.fun:80/images/4dc348ecf8513774e73d10051dc3e0f3.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/140.ts"
+  },
+  {
+    "id": "AXN.br",
+    "name": "AXN FHD",
+    "title": "AXN FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e62ac2b30333cfd262b752882a0f0875.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/141.ts"
+  },
+  {
+    "id": "AXN",
+    "name": "AXN HD",
+    "title": "AXN HD",
+    "logo": "http://api.cdnapp.fun:80/images/e62ac2b30333cfd262b752882a0f0875.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/142.ts"
+  },
+  {
+    "id": "Cinemax.br",
+    "name": "Cinemax FHD",
+    "title": "Cinemax FHD",
+    "logo": "http://api.cdnapp.fun:80/images/85ecdd025cbfab2d78df8f98b6830b0e.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/143.ts"
+  },
+  {
+    "id": "Cinemax.br",
+    "name": "Cinemax HD",
+    "title": "Cinemax HD",
+    "logo": "http://api.cdnapp.fun:80/images/85ecdd025cbfab2d78df8f98b6830b0e.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/144.ts"
+  },
+  {
+    "id": "Lifetime.br",
+    "name": "Lifetime FHD",
+    "title": "Lifetime FHD",
+    "logo": "http://api.cdnapp.fun:80/images/d6c23935817345e75d26701527d64d31.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/145.ts"
+  },
+  {
+    "id": "Lifetime.br",
+    "name": "Lifetime HD",
+    "title": "Lifetime HD",
+    "logo": "http://api.cdnapp.fun:80/images/d6c23935817345e75d26701527d64d31.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/146.ts"
+  },
+  {
+    "id": "Megapix.br",
+    "name": "Megapix FHD",
+    "title": "Megapix FHD",
+    "logo": "http://api.cdnapp.fun:80/images/1b661c0edb0faa5b437bc9401ebfe813.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/147.ts"
+  },
+  {
+    "id": "Megapix.br",
+    "name": "Megapix HD",
+    "title": "Megapix HD",
+    "logo": "http://api.cdnapp.fun:80/images/1b661c0edb0faa5b437bc9401ebfe813.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/148.ts"
+  },
+  {
+    "id": "Paramount Network.br",
+    "name": "Paramount Network FHD",
+    "title": "Paramount Network FHD",
+    "logo": "http://api.cdnapp.fun:80/images/fb79582cbe50128804e1bc07e16917ac.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/149.ts"
+  },
+  {
+    "id": "Paramount Network.br",
+    "name": "Paramount Network HD",
+    "title": "Paramount Network HD",
+    "logo": "http://api.cdnapp.fun:80/images/fb79582cbe50128804e1bc07e16917ac.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/150.ts"
+  },
+  {
+    "id": "Sony.br",
+    "name": "Sony Channel FHD",
+    "title": "Sony Channel FHD",
+    "logo": "http://api.cdnapp.fun:80/images/b50d42395f3b990a921db68730471fd9.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/151.ts"
+  },
+  {
+    "id": "Sony.br",
+    "name": "Sony Channel HD",
+    "title": "Sony Channel HD",
+    "logo": "http://api.cdnapp.fun:80/images/b50d42395f3b990a921db68730471fd9.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/152.ts"
+  },
+  {
+    "id": "SPACE.br",
+    "name": "Space FHD",
+    "title": "Space FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e53c3ccf18996202561e6af99a0e6861.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/153.ts"
+  },
+  {
+    "id": "SPACE.br",
+    "name": "Space HD",
+    "title": "Space HD",
+    "logo": null,
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/154.ts",
+    "poster": "http://api.cdnapp.fun:80/images/e53c3ccf18996202561e6af99a0e6861.png",
+    "backdrop": null,
+    "release_date": "2008-01-01",
+    "tmdb_id": 704727
+  },
+  {
+    "id": "TNT.br",
+    "name": "TNT FHD",
+    "title": "TNT FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e888dcf4ebd3fa76a6ec9edc24d01e50.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/155.ts"
+  },
+  {
+    "id": "TNT.br",
+    "name": "TNT HD",
+    "title": "TNT HD",
+    "logo": "http://api.cdnapp.fun:80/images/e888dcf4ebd3fa76a6ec9edc24d01e50.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/156.ts"
+  },
+  {
+    "id": "Novelas",
+    "name": "TNT Novelas FHD",
+    "title": "TNT Novelas FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e600cf0f636641dc05ef98a282d721aa.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/157.ts"
+  },
+  {
+    "id": "Novelas",
+    "name": "TNT Novelas HD",
+    "title": "TNT Novelas HD",
+    "logo": "http://api.cdnapp.fun:80/images/e600cf0f636641dc05ef98a282d721aa.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/158.ts"
+  },
+  {
+    "id": "TNT Séries",
+    "name": "TNT Séries FHD",
+    "title": "TNT Séries FHD",
+    "logo": "http://api.cdnapp.fun:80/images/9b46946a59249b2e48c1827909f2c4e7.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/159.ts"
+  },
+  {
+    "id": "TNT Series HD",
+    "name": "TNT Séries HD",
+    "title": "TNT Séries HD",
+    "logo": "http://api.cdnapp.fun:80/images/9b46946a59249b2e48c1827909f2c4e7.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/160.ts"
+  },
+  {
+    "id": "Studio.Universal.br",
+    "name": "Universal Studio FHD",
+    "title": "Universal Studio FHD",
+    "logo": "http://api.cdnapp.fun:80/images/c6e35a4f2ac6660ffa74eb716dd413fd.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/161.ts"
+  },
+  {
+    "id": "Studio.Universal.br",
+    "name": "Universal Studio HD",
+    "title": "Universal Studio HD",
+    "logo": "http://api.cdnapp.fun:80/images/c6e35a4f2ac6660ffa74eb716dd413fd.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/162.ts"
+  },
+  {
+    "id": "Telecine.Action.br",
+    "name": "Telecine Action FHD",
+    "title": "Telecine Action FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e8e962bb8dd9a3707ebe99d91b36870b.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/163.ts"
+  },
+  {
+    "id": "Telecine.Action.br",
+    "name": "Telecine Action HD",
+    "title": "Telecine Action HD",
+    "logo": "http://api.cdnapp.fun:80/images/e8e962bb8dd9a3707ebe99d91b36870b.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/164.ts"
+  },
+  {
+    "id": "Telecine.Cult.br",
+    "name": "Telecine Cult FHD",
+    "title": "Telecine Cult FHD",
+    "logo": "http://api.cdnapp.fun:80/images/1c2181dab78ddc8845bb2463a1967b7c.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/165.ts"
+  },
+  {
+    "id": "Telecine.Cult.br",
+    "name": "Telecine Cult HD",
+    "title": "Telecine Cult HD",
+    "logo": "http://api.cdnapp.fun:80/images/1c2181dab78ddc8845bb2463a1967b7c.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/166.ts"
+  },
+  {
+    "id": "Telecine.Fun.br",
+    "name": "Telecine Fun FHD",
+    "title": "Telecine Fun FHD",
+    "logo": "http://api.cdnapp.fun:80/images/b9d897f0214b1cb2ec80bbd72d994081.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/167.ts"
+  },
+  {
+    "id": "Telecine.Fun.br",
+    "name": "Telecine Fun HD",
+    "title": "Telecine Fun HD",
+    "logo": "http://api.cdnapp.fun:80/images/b9d897f0214b1cb2ec80bbd72d994081.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/168.ts"
+  },
+  {
+    "id": "Telecine.Pipoca.br",
+    "name": "Telecine Pipoca FHD",
+    "title": "Telecine Pipoca FHD",
+    "logo": "http://api.cdnapp.fun:80/images/18dee2e8b03ddd962322df002c991fcf.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/169.ts"
+  },
+  {
+    "id": "Telecine.Pipoca.br",
+    "name": "Telecine Pipoca HD",
+    "title": "Telecine Pipoca HD",
+    "logo": "http://api.cdnapp.fun:80/images/18dee2e8b03ddd962322df002c991fcf.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/170.ts"
+  },
+  {
+    "id": "Telecine.Premium.br",
+    "name": "Telecine Premium FHD",
+    "title": "Telecine Premium FHD",
+    "logo": "http://api.cdnapp.fun:80/images/096a021387bfce6cbf28090ca51a8d00.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/171.ts"
+  },
+  {
+    "id": "Telecine.Premium.br",
+    "name": "Telecine Premium HD",
+    "title": "Telecine Premium HD",
+    "logo": "http://api.cdnapp.fun:80/images/096a021387bfce6cbf28090ca51a8d00.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/172.ts"
+  },
+  {
+    "id": "Telecine.Touch.br",
+    "name": "Telecine Touch FHD",
+    "title": "Telecine Touch FHD",
+    "logo": "http://api.cdnapp.fun:80/images/6721ba75aaa369931cdd72d148e8f4eb.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/173.ts"
+  },
+  {
+    "id": "Telecine.Touch.br",
+    "name": "Telecine Touch HD",
+    "title": "Telecine Touch HD",
+    "logo": "http://api.cdnapp.fun:80/images/6721ba75aaa369931cdd72d148e8f4eb.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/174.ts"
+  },
+  {
+    "id": "HBO.br",
+    "name": "HBO FHD",
+    "title": "HBO FHD",
+    "logo": "http://api.cdnapp.fun:80/images/1fea778a66cf4957b55062ff892325cd.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/175.ts"
+  },
+  {
+    "id": "HBO.br",
+    "name": "HBO HD",
+    "title": "HBO HD",
+    "logo": "http://api.cdnapp.fun:80/images/1fea778a66cf4957b55062ff892325cd.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/176.ts"
+  },
+  {
+    "id": "HBO 2 FHD",
+    "name": "HBO 2 FHD",
+    "title": "HBO 2 FHD",
+    "logo": "http://api.cdnapp.fun:80/images/26281ea8f7ed04721788f189a30e5d7a.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/177.ts"
+  },
+  {
+    "id": "HBO 2",
+    "name": "HBO 2 HD",
+    "title": "HBO 2 HD",
+    "logo": "http://api.cdnapp.fun:80/images/26281ea8f7ed04721788f189a30e5d7a.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/178.ts"
+  },
+  {
+    "id": "HBO Family HD.br",
+    "name": "HBO Family FHD",
+    "title": "HBO Family FHD",
+    "logo": "http://api.cdnapp.fun:80/images/560f97e96ae0d27d373ec8bd7460e6c1.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/179.ts"
+  },
+  {
+    "id": "HBO Family HD.br",
+    "name": "HBO Family HD",
+    "title": "HBO Family HD",
+    "logo": "http://api.cdnapp.fun:80/images/560f97e96ae0d27d373ec8bd7460e6c1.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/180.ts"
+  },
+  {
+    "id": "HBO Mundi.br",
+    "name": "HBO Mundi FHD",
+    "title": "HBO Mundi FHD",
+    "logo": "http://api.cdnapp.fun:80/images/a8e27e1adb2ce5ae4226b7af86df8715.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/181.ts"
+  },
+  {
+    "id": "HBO Mundi HD",
+    "name": "HBO Mundi HD",
+    "title": "HBO Mundi HD",
+    "logo": "http://api.cdnapp.fun:80/images/a8e27e1adb2ce5ae4226b7af86df8715.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/182.ts"
+  },
+  {
+    "id": "HBO Plus HD.br",
+    "name": "HBO Plus FHD",
+    "title": "HBO Plus FHD",
+    "logo": "http://api.cdnapp.fun:80/images/f78ac1db238b6874e248cbdaf0c45296.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/183.ts"
+  },
+  {
+    "id": "HBO.Plus.br",
+    "name": "HBO Plus HD",
+    "title": "HBO Plus HD",
+    "logo": "http://api.cdnapp.fun:80/images/f78ac1db238b6874e248cbdaf0c45296.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/184.ts"
+  },
+  {
+    "id": "HBO Pop.br",
+    "name": "HBO Pop FHD",
+    "title": "HBO Pop FHD",
+    "logo": "http://api.cdnapp.fun:80/images/d23751c57812161dae3830a8215e99e6.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/185.ts"
+  },
+  {
+    "id": "HBO Pop.br",
+    "name": "HBO Pop HD",
+    "title": "HBO Pop HD",
+    "logo": "http://api.cdnapp.fun:80/images/d23751c57812161dae3830a8215e99e6.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/186.ts"
+  },
+  {
+    "id": "HBO.Signature.br",
+    "name": "HBO Signature FHD",
+    "title": "HBO Signature FHD",
+    "logo": "http://api.cdnapp.fun:80/images/07806d792a914330402876be7c56fb26.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/187.ts"
+  },
+  {
+    "id": "HBO Signature",
+    "name": "HBO Signature HD",
+    "title": "HBO Signature HD",
+    "logo": "http://api.cdnapp.fun:80/images/07806d792a914330402876be7c56fb26.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/188.ts"
+  },
+  {
+    "id": "HBO Xtreme HD",
+    "name": "HBO Xtreme FHD",
+    "title": "HBO Xtreme FHD",
+    "logo": "http://api.cdnapp.fun:80/images/39492a57284a55f050f6fb69d5a077eb.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/189.ts"
+  },
+  {
+    "id": "HBO Xtreme HD",
+    "name": "HBO Xtreme HD",
+    "title": "HBO Xtreme HD",
+    "logo": "http://api.cdnapp.fun:80/images/39492a57284a55f050f6fb69d5a077eb.png",
+    "group": "Canais – Filmes e Séries",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/190.ts"
+  },
+  {
+    "id": "Globo Brasilia FHD",
+    "name": "Globo DF TV Globo Brasília 4K",
+    "title": "Globo DF TV Globo Brasília 4K",
+    "logo": "http://api.cdnapp.fun:80/images/7dc27df0ee67488904b6a0f4ee36850a.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/191.ts"
+  },
+  {
+    "id": "Globo Brasilia HD",
+    "name": "Globo DF TV Globo Brasília HD",
+    "title": "Globo DF TV Globo Brasília HD",
+    "logo": "http://api.cdnapp.fun:80/images/7dc27df0ee67488904b6a0f4ee36850a.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/192.ts"
+  },
+  {
+    "id": "Globo 4k",
+    "name": "Globo GO Goiânia FHD",
+    "title": "Globo GO Goiânia FHD",
+    "logo": "http://api.cdnapp.fun:80/images/47182aab937b3ab0caff4b0577f34f70.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/193.ts"
+  },
+  {
+    "id": "TV Anhanguera HD.br",
+    "name": "Globo GO Goiânia HD",
+    "title": "Globo GO Goiânia HD",
+    "logo": "http://api.cdnapp.fun:80/images/47182aab937b3ab0caff4b0577f34f70.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/194.ts"
+  },
+  {
+    "id": "TV Morena - Ponta Pora",
+    "name": "Globo MS TV Morena FHD",
+    "title": "Globo MS TV Morena FHD",
+    "logo": "http://api.cdnapp.fun:80/images/84f0a21dfb1f9912f2209bb0c421473e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/195.ts"
+  },
+  {
+    "id": "TV Morena - Corumba",
+    "name": "Globo MS TV Morena HD",
+    "title": "Globo MS TV Morena HD",
+    "logo": "http://api.cdnapp.fun:80/images/84f0a21dfb1f9912f2209bb0c421473e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/196.ts"
+  },
+  {
+    "id": "Globo Centro America Cuiaba HD",
+    "name": "Globo MT Centro América FHD",
+    "title": "Globo MT Centro América FHD",
+    "logo": "http://api.cdnapp.fun:80/images/c6aee617dc29abcc0cf1e5d6c9fa0649.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/197.ts"
+  },
+  {
+    "id": "Globo Centro America Cuiaba FHD",
+    "name": "Globo MT Centro América HD",
+    "title": "Globo MT Centro América HD",
+    "logo": "http://api.cdnapp.fun:80/images/c6aee617dc29abcc0cf1e5d6c9fa0649.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/198.ts"
+  },
+  {
+    "id": "TV.Gazeta.br",
+    "name": "Globo AL TV Gazeta de Alagoas FHD",
+    "title": "Globo AL TV Gazeta de Alagoas FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8071c3e6f2ad7ca015a55c1b57f7488e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/199.ts"
+  },
+  {
+    "id": "TV.Gazeta.br",
+    "name": "Globo AL TV Gazeta de Alagoas HD",
+    "title": "Globo AL TV Gazeta de Alagoas HD",
+    "logo": "http://api.cdnapp.fun:80/images/8071c3e6f2ad7ca015a55c1b57f7488e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/200.ts"
+  },
+  {
+    "id": "TV Bahia HD.br",
+    "name": "Globo BA TV Bahia FHD",
+    "title": "Globo BA TV Bahia FHD",
+    "logo": "http://api.cdnapp.fun:80/images/1cfb4a65a16bb8548f363c6e727e36bb.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/201.ts"
+  },
+  {
+    "id": "TV Bahia HD.br",
+    "name": "Globo BA TV Bahia HD",
+    "title": "Globo BA TV Bahia HD",
+    "logo": "http://api.cdnapp.fun:80/images/1cfb4a65a16bb8548f363c6e727e36bb.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/202.ts"
+  },
+  {
+    "id": "Globo HD.br",
+    "name": "Globo CE Cariri FHD",
+    "title": "Globo CE Cariri FHD",
+    "logo": "http://api.cdnapp.fun:80/images/f784d68952b3a1f06a5bf042ffeb0c7e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/203.ts"
+  },
+  {
+    "id": "Globo",
+    "name": "Globo CE Cariri HD",
+    "title": "Globo CE Cariri HD",
+    "logo": "http://api.cdnapp.fun:80/images/f784d68952b3a1f06a5bf042ffeb0c7e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/204.ts"
+  },
+  {
+    "id": "Globo",
+    "name": "Globo CE Fortaleza FHD",
+    "title": "Globo CE Fortaleza FHD",
+    "logo": "http://api.cdnapp.fun:80/images/f784d68952b3a1f06a5bf042ffeb0c7e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/205.ts"
+  },
+  {
+    "id": "Globo",
+    "name": "Globo CE Fortaleza HD",
+    "title": "Globo CE Fortaleza HD",
+    "logo": "http://api.cdnapp.fun:80/images/f784d68952b3a1f06a5bf042ffeb0c7e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/206.ts"
+  },
+  {
+    "id": "TV Mirante",
+    "name": "Globo MA Sao Luis FHD",
+    "title": "Globo MA Sao Luis FHD",
+    "logo": "http://api.cdnapp.fun:80/images/c5fb3bf673c4cfb89ef5a3fa5598ee7e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/207.ts"
+  },
+  {
+    "id": "TV Mirante",
+    "name": "Globo MA Sao Luis HD",
+    "title": "Globo MA Sao Luis HD",
+    "logo": "http://api.cdnapp.fun:80/images/c5fb3bf673c4cfb89ef5a3fa5598ee7e.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/208.ts"
+  },
+  {
+    "id": "TV Cabo Branco",
+    "name": "Globo PB Cabo Branco FHD",
+    "title": "Globo PB Cabo Branco FHD",
+    "logo": "http://api.cdnapp.fun:80/images/7720ada080c9ea84e235082a310f8e12.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/209.ts"
+  },
+  {
+    "id": "TV Cabo Branco",
+    "name": "Globo PB Cabo Branco HD",
+    "title": "Globo PB Cabo Branco HD",
+    "logo": "http://api.cdnapp.fun:80/images/7720ada080c9ea84e235082a310f8e12.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/210.ts"
+  },
+  {
+    "id": "TV Asa Branca",
+    "name": "Globo PE Caruaru FHD",
+    "title": "Globo PE Caruaru FHD",
+    "logo": "http://api.cdnapp.fun:80/images/01864a054285404ccd82f94d0dbf95ee.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/211.ts"
+  },
+  {
+    "id": "TV Asa Branca",
+    "name": "Globo PE Caruaru HD",
+    "title": "Globo PE Caruaru HD",
+    "logo": "http://api.cdnapp.fun:80/images/01864a054285404ccd82f94d0dbf95ee.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/212.ts"
+  },
+  {
+    "id": "Globo Nordeste FHD",
+    "name": "Globo PE Pernambuco FHD",
+    "title": "Globo PE Pernambuco FHD",
+    "logo": "http://api.cdnapp.fun:80/images/01864a054285404ccd82f94d0dbf95ee.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/213.ts"
+  },
+  {
+    "id": "Globo Nordeste FHD",
+    "name": "Globo PE Pernambuco HD",
+    "title": "Globo PE Pernambuco HD",
+    "logo": "http://api.cdnapp.fun:80/images/01864a054285404ccd82f94d0dbf95ee.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/214.ts"
+  },
+  {
+    "id": "Inter TV RN - natal",
+    "name": "Globo RN Natal FHD",
+    "title": "Globo RN Natal FHD",
+    "logo": "http://api.cdnapp.fun:80/images/fff339c13e685148089dfbf9c7073c70.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/215.ts"
+  },
+  {
+    "id": "Inter TV RN - natal",
+    "name": "Globo RN Natal HD",
+    "title": "Globo RN Natal HD",
+    "logo": "http://api.cdnapp.fun:80/images/fff339c13e685148089dfbf9c7073c70.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/216.ts"
+  },
+  {
+    "id": "Rede Amazônica Rio Branco HD.br",
+    "name": "Globo AC Rio Branco FHD",
+    "title": "Globo AC Rio Branco FHD",
+    "logo": "http://api.cdnapp.fun:80/images/fb9afe90abc2f28f7c07f28ac14461dc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/217.ts"
+  },
+  {
+    "id": "Rede Amazônica Rio Branco HD.br",
+    "name": "Globo AC Rio Branco HD",
+    "title": "Globo AC Rio Branco HD",
+    "logo": "http://api.cdnapp.fun:80/images/fb9afe90abc2f28f7c07f28ac14461dc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/218.ts"
+  },
+  {
+    "id": "Rede Amazônica Manaus HD.br",
+    "name": "Globo AM Manaus FHD",
+    "title": "Globo AM Manaus FHD",
+    "logo": "http://api.cdnapp.fun:80/images/1ce0d831139e44b2ce523aaca4677ca5.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/219.ts"
+  },
+  {
+    "id": "Rede Amazônica Manaus HD.br",
+    "name": "Globo AM Manaus HD",
+    "title": "Globo AM Manaus HD",
+    "logo": "http://api.cdnapp.fun:80/images/1ce0d831139e44b2ce523aaca4677ca5.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/220.ts"
+  },
+  {
+    "id": "Rede Amazônica - amapá",
+    "name": "Globo AP Macapa FHD",
+    "title": "Globo AP Macapa FHD",
+    "logo": "http://api.cdnapp.fun:80/images/7b8607efaf42474130352b88f67e91ac.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/221.ts"
+  },
+  {
+    "id": "Rede Amazônica - amapá",
+    "name": "Globo AP Macapa HD",
+    "title": "Globo AP Macapa HD",
+    "logo": "http://api.cdnapp.fun:80/images/7b8607efaf42474130352b88f67e91ac.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/222.ts"
+  },
+  {
+    "id": "TV Liberal HD.br",
+    "name": "Globo PA Belem FHD",
+    "title": "Globo PA Belem FHD",
+    "logo": "http://api.cdnapp.fun:80/images/69b8385a01f769578c392146ecc151ea.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/223.ts"
+  },
+  {
+    "id": "TV Liberal HD.br",
+    "name": "Globo PA Belem HD",
+    "title": "Globo PA Belem HD",
+    "logo": "http://api.cdnapp.fun:80/images/69b8385a01f769578c392146ecc151ea.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/224.ts"
+  },
+  {
+    "id": "Rede Amazônica - acre",
+    "name": "Globo RO Porto Velho FHD",
+    "title": "Globo RO Porto Velho FHD",
+    "logo": "http://api.cdnapp.fun:80/images/af770f1c7845c349892db8ddbac6c4e4.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/225.ts"
+  },
+  {
+    "id": "Rede Amazônica - acre",
+    "name": "Globo RO Porto Velho HD",
+    "title": "Globo RO Porto Velho HD",
+    "logo": "http://api.cdnapp.fun:80/images/6ac1dfed4c2e3f8341d560f8838b9654.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/226.ts"
+  },
+  {
+    "id": "Globo SP FHD",
+    "name": "Globo SP Capital 4K",
+    "title": "Globo SP Capital 4K",
+    "logo": "http://api.cdnapp.fun:80/images/eb2f19351af9fe1276eb337b9d40063d.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/227.ts"
+  },
+  {
+    "id": "Globo SP FHD",
+    "name": "Globo SP Capital HD",
+    "title": "Globo SP Capital HD",
+    "logo": "http://api.cdnapp.fun:80/images/eb2f19351af9fe1276eb337b9d40063d.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/228.ts"
+  },
+  {
+    "id": "Globo RJ FHD",
+    "name": "Globo RJ Capital 4K",
+    "title": "Globo RJ Capital 4K",
+    "logo": "http://api.cdnapp.fun:80/images/504221900b8cf8f82315746d59f9f1c2.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/229.ts"
+  },
+  {
+    "id": "Globo RJ HD",
+    "name": "Globo RJ Capital HD",
+    "title": "Globo RJ Capital HD",
+    "logo": "http://api.cdnapp.fun:80/images/504221900b8cf8f82315746d59f9f1c2.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/230.ts"
+  },
+  {
+    "id": "TV Gazeta ES",
+    "name": "Globo ES Vitoria FHD",
+    "title": "Globo ES Vitoria FHD",
+    "logo": "http://api.cdnapp.fun:80/images/311759b19b3f078ba2a1d4c3cb3f7938.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/231.ts"
+  },
+  {
+    "id": "TV Gazeta ES",
+    "name": "Globo ES Vitoria HD",
+    "title": "Globo ES Vitoria HD",
+    "logo": "http://api.cdnapp.fun:80/images/311759b19b3f078ba2a1d4c3cb3f7938.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/232.ts"
+  },
+  {
+    "id": "TV Integração - Araxa",
+    "name": "Globo MG Araxa FHD",
+    "title": "Globo MG Araxa FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/233.ts"
+  },
+  {
+    "id": "TV Integração - Araxa",
+    "name": "Globo MG Araxa HD",
+    "title": "Globo MG Araxa HD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/234.ts"
+  },
+  {
+    "id": "Inter TV MG",
+    "name": "Globo MG Dos Vales FHD",
+    "title": "Globo MG Dos Vales FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/235.ts"
+  },
+  {
+    "id": "Inter TV MG",
+    "name": "Globo MG Dos Vales HD",
+    "title": "Globo MG Dos Vales HD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/236.ts"
+  },
+  {
+    "id": "Globo Minas HD",
+    "name": "Globo MG Grande Minas FHD",
+    "title": "Globo MG Grande Minas FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/237.ts"
+  },
+  {
+    "id": "Globo Minas HD",
+    "name": "Globo MG Grande Minas HD",
+    "title": "Globo MG Grande Minas HD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/238.ts"
+  },
+  {
+    "id": "TV Integração - Juiz de fora",
+    "name": "Globo MG Juiz de Fora FHD",
+    "title": "Globo MG Juiz de Fora FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/239.ts"
+  },
+  {
+    "id": "TV Integração - Juiz de fora",
+    "name": "Globo MG Juiz de Fora HD",
+    "title": "Globo MG Juiz de Fora HD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/240.ts"
+  },
+  {
+    "id": "Globo Minas HD",
+    "name": "Globo MG Minas FHD",
+    "title": "Globo MG Minas FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/241.ts"
+  },
+  {
+    "id": "Globo Minas HD",
+    "name": "Globo MG Minas HD",
+    "title": "Globo MG Minas HD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/242.ts"
+  },
+  {
+    "id": "EPTV - sul de minas",
+    "name": "Globo MG Sul de Minas FHD",
+    "title": "Globo MG Sul de Minas FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/243.ts"
+  },
+  {
+    "id": "EPTV - sul de minas",
+    "name": "Globo MG Sul de Minas HD",
+    "title": "Globo MG Sul de Minas HD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/244.ts"
+  },
+  {
+    "id": "TV Integração - Uberaba",
+    "name": "Globo MG Uberaba FHD",
+    "title": "Globo MG Uberaba FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/245.ts"
+  },
+  {
+    "id": "TV Integração - Uberaba",
+    "name": "Globo MG Uberaba HD",
+    "title": "Globo MG Uberaba HD",
+    "logo": "http://api.cdnapp.fun:80/images/8a239c541696fe9185ca556cd7d4a26f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/246.ts"
+  },
+  {
+    "id": "Inter TV RJ",
+    "name": "Globo RJ Cabo Frio FHD",
+    "title": "Globo RJ Cabo Frio FHD",
+    "logo": "http://api.cdnapp.fun:80/images/504221900b8cf8f82315746d59f9f1c2.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/247.ts"
+  },
+  {
+    "id": "Inter TV RJ",
+    "name": "Globo RJ Cabo Frio HD",
+    "title": "Globo RJ Cabo Frio HD",
+    "logo": "http://api.cdnapp.fun:80/images/504221900b8cf8f82315746d59f9f1c2.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/248.ts"
+  },
+  {
+    "id": "Inter TV RJ",
+    "name": "Globo RJ Nova Friburgo FHD",
+    "title": "Globo RJ Nova Friburgo FHD",
+    "logo": "http://api.cdnapp.fun:80/images/504221900b8cf8f82315746d59f9f1c2.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/249.ts"
+  },
+  {
+    "id": "Inter TV RJ",
+    "name": "Globo RJ Nova Friburgo HD",
+    "title": "Globo RJ Nova Friburgo HD",
+    "logo": "http://api.cdnapp.fun:80/images/504221900b8cf8f82315746d59f9f1c2.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/250.ts"
+  },
+  {
+    "id": "Globo Rbs Tv Porto Alegre FHD",
+    "name": "Globo RS Porto Alegre 4K",
+    "title": "Globo RS Porto Alegre 4K",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/251.ts"
+  },
+  {
+    "id": "Globo Rbs Tv Porto Alegre FHD",
+    "name": "Globo RS Porto Alegre HD",
+    "title": "Globo RS Porto Alegre HD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/252.ts"
+  },
+  {
+    "id": "RPC Curitiba HD.br",
+    "name": "Globo PR Curitiba FHD",
+    "title": "Globo PR Curitiba FHD",
+    "logo": "http://api.cdnapp.fun:80/images/495c1916194742f9a66b5fcdd6121b1f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/253.ts"
+  },
+  {
+    "id": "RPC Curitiba HD.br",
+    "name": "Globo PR Curitiba HD",
+    "title": "Globo PR Curitiba HD",
+    "logo": "http://api.cdnapp.fun:80/images/8016a60a0c3d0569896126543212512a.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/254.ts"
+  },
+  {
+    "id": "RPC - Foz do Iguaçu",
+    "name": "Globo PR Foz do Iguacu FHD",
+    "title": "Globo PR Foz do Iguacu FHD",
+    "logo": "http://api.cdnapp.fun:80/images/495c1916194742f9a66b5fcdd6121b1f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/255.ts"
+  },
+  {
+    "id": "RPC Foz do Iguaçu HD.br",
+    "name": "Globo PR Foz do Iguacu HD",
+    "title": "Globo PR Foz do Iguacu HD",
+    "logo": "http://api.cdnapp.fun:80/images/495c1916194742f9a66b5fcdd6121b1f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/256.ts"
+  },
+  {
+    "id": "RPC - Londrina",
+    "name": "Globo PR Londrina FHD",
+    "title": "Globo PR Londrina FHD",
+    "logo": "http://api.cdnapp.fun:80/images/495c1916194742f9a66b5fcdd6121b1f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/257.ts"
+  },
+  {
+    "id": "RPC - Londrina",
+    "name": "Globo PR Londrina HD",
+    "title": "Globo PR Londrina HD",
+    "logo": "http://api.cdnapp.fun:80/images/8016a60a0c3d0569896126543212512a.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/258.ts"
+  },
+  {
+    "id": "RPC - Maringá",
+    "name": "Globo PR Maringa FHD",
+    "title": "Globo PR Maringa FHD",
+    "logo": "http://api.cdnapp.fun:80/images/495c1916194742f9a66b5fcdd6121b1f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/259.ts"
+  },
+  {
+    "id": "RPC Maringá HD.br",
+    "name": "Globo PR Maringa HD",
+    "title": "Globo PR Maringa HD",
+    "logo": "http://api.cdnapp.fun:80/images/495c1916194742f9a66b5fcdd6121b1f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/260.ts"
+  },
+  {
+    "id": "RBS TV Caxias do Sul HD.br",
+    "name": "Globo RS Caxias do Sul FHD",
+    "title": "Globo RS Caxias do Sul FHD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/261.ts"
+  },
+  {
+    "id": "RBS TV Caxias do Sul HD.br",
+    "name": "Globo RS Caxias do Sul HD",
+    "title": "Globo RS Caxias do Sul HD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/262.ts"
+  },
+  {
+    "id": "RBS TV HD.br",
+    "name": "Globo RS Pelotas FHD",
+    "title": "Globo RS Pelotas FHD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/263.ts"
+  },
+  {
+    "id": "RBS TV",
+    "name": "Globo RS Pelotas HD",
+    "title": "Globo RS Pelotas HD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/264.ts"
+  },
+  {
+    "id": "RBS TV Cruz Alta HD.br",
+    "name": "Globo RS RBS Cruz Alta FHD",
+    "title": "Globo RS RBS Cruz Alta FHD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/265.ts"
+  },
+  {
+    "id": "RBS TV Cruz Alta HD.br",
+    "name": "Globo RS RBS Cruz Alta HD",
+    "title": "Globo RS RBS Cruz Alta HD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/266.ts"
+  },
+  {
+    "id": "RBS TV",
+    "name": "Globo RS RBS Passo Fundo FHD",
+    "title": "Globo RS RBS Passo Fundo FHD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/267.ts"
+  },
+  {
+    "id": "RBS TV",
+    "name": "Globo RS RBS Passo Fundo HD",
+    "title": "Globo RS RBS Passo Fundo HD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/268.ts"
+  },
+  {
+    "id": "RBS TV Santa Maria HD.br",
+    "name": "Globo RS Santa Maria FHD",
+    "title": "Globo RS Santa Maria FHD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/269.ts"
+  },
+  {
+    "id": "RBS TV Santa Maria HD.br",
+    "name": "Globo RS Santa Maria HD",
+    "title": "Globo RS Santa Maria HD",
+    "logo": "http://api.cdnapp.fun:80/images/afd57e8b054d7b1517e8bbe99a19f1bc.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/270.ts"
+  },
+  {
+    "id": "NSC TV Blumenau HD.br",
+    "name": "Globo SC Blumenau FHD",
+    "title": "Globo SC Blumenau FHD",
+    "logo": "http://api.cdnapp.fun:80/images/80338b87216bc853497e831ab1b2dbf1.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/271.ts"
+  },
+  {
+    "id": "NSC TV Blumenau HD.br",
+    "name": "Globo SC Blumenau HD",
+    "title": "Globo SC Blumenau HD",
+    "logo": "http://api.cdnapp.fun:80/images/80338b87216bc853497e831ab1b2dbf1.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/272.ts"
+  },
+  {
+    "id": "NSC TV Chapeco HD.br",
+    "name": "Globo SC Chapeco FHD",
+    "title": "Globo SC Chapeco FHD",
+    "logo": "http://api.cdnapp.fun:80/images/80338b87216bc853497e831ab1b2dbf1.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/273.ts"
+  },
+  {
+    "id": "NSC TV Chapeco HD.br",
+    "name": "Globo SC Chapeco HD",
+    "title": "Globo SC Chapeco HD",
+    "logo": "http://api.cdnapp.fun:80/images/80338b87216bc853497e831ab1b2dbf1.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/274.ts"
+  },
+  {
+    "id": "NSC TV Florianopolis HD.br",
+    "name": "Globo SC Florianópolis FHD",
+    "title": "Globo SC Florianópolis FHD",
+    "logo": "http://api.cdnapp.fun:80/images/80338b87216bc853497e831ab1b2dbf1.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/275.ts"
+  },
+  {
+    "id": "NSC TV Florianopolis HD.br",
+    "name": "Globo SC Florianópolis HD",
+    "title": "Globo SC Florianópolis HD",
+    "logo": "http://api.cdnapp.fun:80/images/80338b87216bc853497e831ab1b2dbf1.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/276.ts"
+  },
+  {
+    "id": "NSC TV Joinville HD.br",
+    "name": "Globo SC Joinville FHD",
+    "title": "Globo SC Joinville FHD",
+    "logo": "http://api.cdnapp.fun:80/images/80338b87216bc853497e831ab1b2dbf1.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/277.ts"
+  },
+  {
+    "id": "NSC TV Joinville HD.br",
+    "name": "Globo SC Joinville HD",
+    "title": "Globo SC Joinville HD",
+    "logo": "http://api.cdnapp.fun:80/images/80338b87216bc853497e831ab1b2dbf1.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/278.ts"
+  },
+  {
+    "id": "RPC - Cascavel",
+    "name": "Globo PR Cascavel FHD",
+    "title": "Globo PR Cascavel FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8016a60a0c3d0569896126543212512a.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/279.ts"
+  },
+  {
+    "id": "RPC - Cascavel",
+    "name": "Globo PR Cascavel HD",
+    "title": "Globo PR Cascavel HD",
+    "logo": "http://api.cdnapp.fun:80/images/8016a60a0c3d0569896126543212512a.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/280.ts"
+  },
+  {
+    "id": "Cartoon.Network.br",
+    "name": "Cartoon Network FHD",
+    "title": "Cartoon Network FHD",
+    "logo": "http://api.cdnapp.fun:80/images/61f608be98fd5522b96d095ece9997b2.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/281.ts"
+  },
+  {
+    "id": "Cartoon.Network.br",
+    "name": "Cartoon Network HD",
+    "title": "Cartoon Network HD",
+    "logo": "http://api.cdnapp.fun:80/images/61f608be98fd5522b96d095ece9997b2.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/282.ts"
+  },
+  {
+    "id": "Cartoonito.br",
+    "name": "Cartoonito FHD",
+    "title": "Cartoonito FHD",
+    "logo": "http://api.cdnapp.fun:80/images/3cac281c346142ec349a9ea338b3bcc3.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/283.ts"
+  },
+  {
+    "id": "Cartoonito.br",
+    "name": "Cartoonito HD",
+    "title": "Cartoonito HD",
+    "logo": "http://api.cdnapp.fun:80/images/3cac281c346142ec349a9ea338b3bcc3.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/284.ts"
+  },
+  {
+    "id": "Discovery.Kids.br",
+    "name": "Discovery Kids FHD",
+    "title": "Discovery Kids FHD",
+    "logo": "http://api.cdnapp.fun:80/images/98d3b8d6e8749b53653a01795b472724.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/285.ts"
+  },
+  {
+    "id": "Discovery.Kids.br",
+    "name": "Discovery Kids HD",
+    "title": "Discovery Kids HD",
+    "logo": "http://api.cdnapp.fun:80/images/98d3b8d6e8749b53653a01795b472724.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/286.ts"
+  },
+  {
+    "id": "Gloob.br",
+    "name": "Gloob FHD",
+    "title": "Gloob FHD",
+    "logo": "http://api.cdnapp.fun:80/images/b41f36594998380ff44e1a8c18cd777b.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/287.ts"
+  },
+  {
+    "id": "Gloob.br",
+    "name": "Gloob HD",
+    "title": "Gloob HD",
+    "logo": "http://api.cdnapp.fun:80/images/b41f36594998380ff44e1a8c18cd777b.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/288.ts"
+  },
+  {
+    "id": "Gloobinho.br",
+    "name": "Gloobinho FHD",
+    "title": "Gloobinho FHD",
+    "logo": "http://api.cdnapp.fun:80/images/b94677e0304c3a53ec1375cda07a6de5.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/289.ts"
+  },
+  {
+    "id": "Gloobinho.br",
+    "name": "Gloobinho HD",
+    "title": "Gloobinho HD",
+    "logo": "http://api.cdnapp.fun:80/images/b94677e0304c3a53ec1375cda07a6de5.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/290.ts"
+  },
+  {
+    "id": "Nick Jr.",
+    "name": "Nick Jr. FHD",
+    "title": "Nick Jr. FHD",
+    "logo": "http://api.cdnapp.fun:80/images/132b792a0334677b51ae83b32ebd767a.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/291.ts"
+  },
+  {
+    "id": "Nick Jr.",
+    "name": "Nick Jr. HD",
+    "title": "Nick Jr. HD",
+    "logo": "http://api.cdnapp.fun:80/images/132b792a0334677b51ae83b32ebd767a.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/292.ts"
+  },
+  {
+    "id": "Nickelodeon FHD",
+    "name": "Nickelodeon FHD",
+    "title": "Nickelodeon FHD",
+    "logo": "http://api.cdnapp.fun:80/images/17eec573f104e9093bde59cb07ed8b96.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/293.ts"
+  },
+  {
+    "id": "Nickelodeon FHD",
+    "name": "Nickelodeon HD",
+    "title": "Nickelodeon HD",
+    "logo": "http://api.cdnapp.fun:80/images/17eec573f104e9093bde59cb07ed8b96.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/294.ts"
+  },
+  {
+    "id": "Woohoo.br",
+    "name": "WooHoo FHD",
+    "title": "WooHoo FHD",
+    "logo": "http://api.cdnapp.fun:80/images/c13b9c7f315c09ade69746f60aed49cc.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/295.ts"
+  },
+  {
+    "id": "Woohoo.br",
+    "name": "WooHoo HD",
+    "title": "WooHoo HD",
+    "logo": "http://api.cdnapp.fun:80/images/c13b9c7f315c09ade69746f60aed49cc.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/296.ts"
+  },
+  {
+    "id": "ZooMoo Kids HD.br",
+    "name": "Dum Dum FHD",
+    "title": "Dum Dum FHD",
+    "logo": "http://api.cdnapp.fun:80/images/d4d301cf48daf76ef9e791c0ee43ff66.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/297.ts"
+  },
+  {
+    "id": "ZooMoo Kids HD.br",
+    "name": "Dum Dum HD",
+    "title": "Dum Dum HD",
+    "logo": "http://api.cdnapp.fun:80/images/d4d301cf48daf76ef9e791c0ee43ff66.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/298.ts"
+  },
+  {
+    "id": "TV Ra tim bum HD",
+    "name": "TV RA TIM BUM FHD",
+    "title": "TV RA TIM BUM FHD",
+    "logo": "http://api.cdnapp.fun:80/images/29ba4f3ab9398387e9f313ea81f72162.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/299.ts"
+  },
+  {
+    "id": "TV Ra tim bum FHD",
+    "name": "TV RA TIM BUM HD",
+    "title": "TV RA TIM BUM HD",
+    "logo": "http://api.cdnapp.fun:80/images/29ba4f3ab9398387e9f313ea81f72162.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/300.ts"
+  },
+  {
+    "id": "Bis.br",
+    "name": "BIS FHD",
+    "title": "BIS FHD",
+    "logo": "http://api.cdnapp.fun:80/images/de5a9f154152bd1cc672b8bc83df28a2.png",
+    "group": "Canais – Música",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/301.ts"
+  },
+  {
+    "id": "Bis.br",
+    "name": "BIS HD",
+    "title": "BIS HD",
+    "logo": "http://api.cdnapp.fun:80/images/de5a9f154152bd1cc672b8bc83df28a2.png",
+    "group": "Canais – Música",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/302.ts"
+  },
+  {
+    "id": "MTV.br",
+    "name": "MTV FHD",
+    "title": "MTV FHD",
+    "logo": "http://api.cdnapp.fun:80/images/94b48120b47130cb9596a49315a9627c.png",
+    "group": "Canais – Música",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/303.ts"
+  },
+  {
+    "id": "MTV.br",
+    "name": "MTV HD",
+    "title": "MTV HD",
+    "logo": null,
+    "group": "Canais – Música",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/304.ts",
+    "poster": "http://api.cdnapp.fun:80/images/94b48120b47130cb9596a49315a9627c.png",
+    "backdrop": null,
+    "release_date": "2011-10-01",
+    "tmdb_id": 113961
+  },
+  {
+    "id": "MTV Live HD.br",
+    "name": "MTV Live FHD",
+    "title": "MTV Live FHD",
+    "logo": "http://api.cdnapp.fun:80/images/f9ee58067c05c44626f67d9543aca7a8.png",
+    "group": "Canais – Música",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/305.ts"
+  },
+  {
+    "id": "MTV Live HD.br",
+    "name": "MTV Live HD",
+    "title": "MTV Live HD",
+    "logo": null,
+    "group": "Canais – Música",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/306.ts",
+    "poster": "http://api.cdnapp.fun:80/images/f9ee58067c05c44626f67d9543aca7a8.png",
+    "backdrop": null,
+    "release_date": "2011-10-01",
+    "tmdb_id": 113961
+  },
+  {
+    "id": "Multishow.br",
+    "name": "Multishow FHD",
+    "title": "Multishow FHD",
+    "logo": "http://api.cdnapp.fun:80/images/6cfb472515d71ef4d4210623fe8502c7.png",
+    "group": "Canais – Música",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/307.ts"
+  },
+  {
+    "id": "Multishow.br",
+    "name": "Multishow HD",
+    "title": "Multishow HD",
+    "logo": "http://api.cdnapp.fun:80/images/6cfb472515d71ef4d4210623fe8502c7.png",
+    "group": "Canais – Música",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/308.ts"
+  },
+  {
+    "id": "Band.News.br",
+    "name": "Band News FHD",
+    "title": "Band News FHD",
+    "logo": "http://api.cdnapp.fun:80/images/9f9e24e0e239a089bf51e279bf1f1d8b.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/309.ts"
+  },
+  {
+    "id": "Band.News.br",
+    "name": "Band News HD",
+    "title": "Band News HD",
+    "logo": "http://api.cdnapp.fun:80/images/9f9e24e0e239a089bf51e279bf1f1d8b.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/310.ts"
+  },
+  {
+    "id": "CNN Brasil HD",
+    "name": "CNN Brasil FHD",
+    "title": "CNN Brasil FHD",
+    "logo": "http://api.cdnapp.fun:80/images/cb47fa38d96afbff2c2013e8328f0cd2.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/311.ts"
+  },
+  {
+    "id": "CNN Brasil HD",
+    "name": "CNN Brasil HD",
+    "title": "CNN Brasil HD",
+    "logo": "http://api.cdnapp.fun:80/images/cb47fa38d96afbff2c2013e8328f0cd2.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/312.ts"
+  },
+  {
+    "id": "Globo.News.br",
+    "name": "Globo News FHD",
+    "title": "Globo News FHD",
+    "logo": "http://api.cdnapp.fun:80/images/870b8ab852fc9920f2cefd1877379bc8.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/313.ts"
+  },
+  {
+    "id": "Globo.News.br",
+    "name": "Globo News HD",
+    "title": "Globo News HD",
+    "logo": "http://api.cdnapp.fun:80/images/870b8ab852fc9920f2cefd1877379bc8.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/314.ts"
+  },
+  {
+    "id": "Jovem.Pan.News.br",
+    "name": "Jovem Pan News FHD",
+    "title": "Jovem Pan News FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e855a534fc8cac50088059d86327fa92.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/315.ts"
+  },
+  {
+    "id": "Jovem.Pan.News.br",
+    "name": "Jovem Pan News HD",
+    "title": "Jovem Pan News HD",
+    "logo": "http://api.cdnapp.fun:80/images/e855a534fc8cac50088059d86327fa92.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/316.ts"
+  },
+  {
+    "id": "Record.News.br",
+    "name": "Record News FHD",
+    "title": "Record News FHD",
+    "logo": "http://api.cdnapp.fun:80/images/38a68fe3d9fc96249f5033b352ad0e23.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/317.ts"
+  },
+  {
+    "id": "Record.News.br",
+    "name": "Record News HD",
+    "title": "Record News HD",
+    "logo": "http://api.cdnapp.fun:80/images/38a68fe3d9fc96249f5033b352ad0e23.png",
+    "group": "Canais – Notícias",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/318.ts"
+  },
+  {
+    "id": "A Fazenda",
+    "name": "A Fazenda - 01",
+    "title": "A Fazenda - 01",
+    "logo": "http://api.cdnapp.fun:80/images/183dd42bf94f6b7c191304f69370afc3.png",
+    "group": "Canais - A Fazenda",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/319.ts"
+  },
+  {
+    "id": "A Fazenda",
+    "name": "A Fazenda - 02",
+    "title": "A Fazenda - 02",
+    "logo": "http://api.cdnapp.fun:80/images/183dd42bf94f6b7c191304f69370afc3.png",
+    "group": "Canais - A Fazenda",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/320.ts"
+  },
+  {
+    "id": "A Fazenda",
+    "name": "A Fazenda - 03",
+    "title": "A Fazenda - 03",
+    "logo": "http://api.cdnapp.fun:80/images/183dd42bf94f6b7c191304f69370afc3.png",
+    "group": "Canais - A Fazenda",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/321.ts"
+  },
+  {
+    "id": "A Fazenda",
+    "name": "A Fazenda - 04",
+    "title": "A Fazenda - 04",
+    "logo": "http://api.cdnapp.fun:80/images/183dd42bf94f6b7c191304f69370afc3.png",
+    "group": "Canais - A Fazenda",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/322.ts"
+  },
+  {
+    "id": "A Fazenda",
+    "name": "A Fazenda - 05",
+    "title": "A Fazenda - 05",
+    "logo": "http://api.cdnapp.fun:80/images/183dd42bf94f6b7c191304f69370afc3.png",
+    "group": "Canais - A Fazenda",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/323.ts"
+  },
+  {
+    "id": "A Fazenda",
+    "name": "A Fazenda - 06",
+    "title": "A Fazenda - 06",
+    "logo": "http://api.cdnapp.fun:80/images/183dd42bf94f6b7c191304f69370afc3.png",
+    "group": "Canais - A Fazenda",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/324.ts"
+  },
+  {
+    "id": "Cançao Nova.br",
+    "name": "Canção Nova",
+    "title": "Canção Nova",
+    "logo": null,
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/325.ts",
+    "poster": "http://api.cdnapp.fun:80/images/0c6f58d3c9dba5859ff72964b8c9c12b.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/wjXvZuAQEfS3nIO5zvpruBRd27q.jpg",
+    "release_date": "2011-09-05",
+    "tmdb_id": 74018
+  },
+  {
+    "id": "NovoTempo SD",
+    "name": "Novo Tempo",
+    "title": "Novo Tempo",
+    "logo": null,
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/326.ts",
+    "poster": "http://api.cdnapp.fun:80/images/eab738520344e2dd5ed102071b613161.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/quAErDBIhPMNNFif3Xo4y0j99Rq.jpg",
+    "release_date": "2020-05-18",
+    "tmdb_id": 156541
+  },
+  {
+    "id": "Rede Familia HD.br",
+    "name": "Rede Familia",
+    "title": "Rede Familia",
+    "logo": "http://api.cdnapp.fun:80/images/a030211ccef6dcd667fb592ad8147a7b.png",
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/327.ts"
+  },
+  {
+    "id": "Rede Gospel HD.br",
+    "name": "Rede Gospel",
+    "title": "Rede Gospel",
+    "logo": "http://api.cdnapp.fun:80/images/8955e9b45fbc7f6c28bcda0b1dbcacd7.png",
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/328.ts"
+  },
+  {
+    "id": "Rede.Vida.br",
+    "name": "Rede Vida",
+    "title": "Rede Vida",
+    "logo": null,
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/329.ts",
+    "poster": "http://api.cdnapp.fun:80/images/ea2a11ce9c87cf4d90e0a77b42f7542d.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/nnbR4yktSO6ej305rl8zMxeoUFI.jpg",
+    "release_date": "2019-04-28",
+    "tmdb_id": 86365
+  },
+  {
+    "id": "TV Aparecida (aberta)",
+    "name": "TV Aparecida",
+    "title": "TV Aparecida",
+    "logo": "http://api.cdnapp.fun:80/images/d8e2d5b43912432ddb700f56baa371de.png",
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/330.ts"
+  },
+  {
+    "id": "",
+    "name": "TV Espaço Espírita",
+    "title": "TV Espaço Espírita",
+    "logo": "http://api.cdnapp.fun:80/images/3047204ea24544011eb405bf0e44af2a.png",
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/331.ts"
+  },
+  {
+    "id": "TV Evangelizar SD",
+    "name": "TV Evangelizar",
+    "title": "TV Evangelizar",
+    "logo": "http://i.imgur.com/ZGmaGcC.png",
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/332.ts"
+  },
+  {
+    "id": "TV Mundial HD.br",
+    "name": "TV Mundial",
+    "title": "TV Mundial",
+    "logo": "http://api.cdnapp.fun:80/images/6b0b26dff4517dbffef051dc6ea6572c.png",
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/333.ts"
+  },
+  {
+    "id": "",
+    "name": "TV Pai Eterno",
+    "title": "TV Pai Eterno",
+    "logo": "http://api.cdnapp.fun:80/images/cb4c116c4c682da4aa3fc3edfc7b5b20.png",
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/334.ts"
+  },
+  {
+    "id": "",
+    "name": "TV Universal",
+    "title": "TV Universal",
+    "logo": "http://api.cdnapp.fun:80/images/b948b1bac1adf801163a628aca8e3558.png",
+    "group": "Canais – Religiosos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/335.ts"
+  },
+  {
+    "id": "Adult.Swim.HD.br",
+    "name": "A dult Swim FHD",
+    "title": "A dult Swim FHD",
+    "logo": "http://api.cdnapp.fun:80/images/62318623cdedf56c00148748ff7e01e0.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/336.ts"
+  },
+  {
+    "id": "Adult.Swim.HD.br",
+    "name": "A dult Swim HD",
+    "title": "A dult Swim HD",
+    "logo": "http://api.cdnapp.fun:80/images/62318623cdedf56c00148748ff7e01e0.png",
+    "group": "Canais – Infantis",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/337.ts"
+  },
+  {
+    "id": "Arte.1.br",
+    "name": "Arte 1 FHD",
+    "title": "Arte 1 FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e875ae2b64549d333aab9180fb1bc900.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/338.ts"
+  },
+  {
+    "id": "Arte.1.br",
+    "name": "Arte 1 HD",
+    "title": "Arte 1 HD",
+    "logo": "http://api.cdnapp.fun:80/images/e875ae2b64549d333aab9180fb1bc900.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/339.ts"
+  },
+  {
+    "id": "Comedy.Central.br",
+    "name": "Comedy Central FHD",
+    "title": "Comedy Central FHD",
+    "logo": "http://api.cdnapp.fun:80/images/d92b9bc7024eeb24c5636aa7a89cb9d2.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/340.ts"
+  },
+  {
+    "id": "Comedy.Central.br",
+    "name": "Comedy Central HD",
+    "title": "Comedy Central HD",
+    "logo": "http://api.cdnapp.fun:80/images/d92b9bc7024eeb24c5636aa7a89cb9d2.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/341.ts"
+  },
+  {
+    "id": "Curta FHD [Alter]",
+    "name": "Curta! FHD",
+    "title": "Curta! FHD",
+    "logo": "http://api.cdnapp.fun:80/images/328dc49b597b0122a18a34ce76a99ee9.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/342.ts"
+  },
+  {
+    "id": "Curta HD [Alter]",
+    "name": "Curta! HD",
+    "title": "Curta! HD",
+    "logo": "http://api.cdnapp.fun:80/images/328dc49b597b0122a18a34ce76a99ee9.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/343.ts"
+  },
+  {
+    "id": "E.br",
+    "name": "E! FHD",
+    "title": "E! FHD",
+    "logo": "http://api.cdnapp.fun:80/images/5cfaea265c3344ad86aa1fcfb02cbd8d.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/344.ts"
+  },
+  {
+    "id": "E.br",
+    "name": "E! HD",
+    "title": "E! HD",
+    "logo": "http://api.cdnapp.fun:80/images/5cfaea265c3344ad86aa1fcfb02cbd8d.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/345.ts"
+  },
+  {
+    "id": "Food Network HD",
+    "name": "Food Network FHD",
+    "title": "Food Network FHD",
+    "logo": "http://api.cdnapp.fun:80/images/991ee90f1a4a2fc784fa3f24b85a0458.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/346.ts"
+  },
+  {
+    "id": "Food Network HD",
+    "name": "Food Network HD",
+    "title": "Food Network HD",
+    "logo": "http://api.cdnapp.fun:80/images/991ee90f1a4a2fc784fa3f24b85a0458.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/347.ts"
+  },
+  {
+    "id": "GNT HD",
+    "name": "GNT FHD",
+    "title": "GNT FHD",
+    "logo": "http://api.cdnapp.fun:80/images/8e85fc01711d745d07fdadc17deeacd1.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/348.ts"
+  },
+  {
+    "id": "GNT HD",
+    "name": "GNT HD",
+    "title": "GNT HD",
+    "logo": "http://api.cdnapp.fun:80/images/8e85fc01711d745d07fdadc17deeacd1.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/349.ts"
+  },
+  {
+    "id": "",
+    "name": "Modo Viagem FHD",
+    "title": "Modo Viagem FHD",
+    "logo": "http://api.cdnapp.fun:80/images/ddc0068bfa57d4fd8166aff17ac29bd2.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/350.ts"
+  },
+  {
+    "id": "",
+    "name": "Modo Viagem HD",
+    "title": "Modo Viagem HD",
+    "logo": "http://api.cdnapp.fun:80/images/ddc0068bfa57d4fd8166aff17ac29bd2.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/351.ts"
+  },
+  {
+    "id": "Off.br",
+    "name": "Off FHD",
+    "title": "Off FHD",
+    "logo": "http://api.cdnapp.fun:80/images/ce4586e295cf48dffe0734e5183b5860.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/352.ts"
+  },
+  {
+    "id": "Off.br",
+    "name": "Off HD",
+    "title": "Off HD",
+    "logo": null,
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/353.ts",
+    "poster": "http://api.cdnapp.fun:80/images/ce4586e295cf48dffe0734e5183b5860.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/blezHpcd53QrvvxJ4TPO0cWtgdK.jpg",
+    "release_date": "2017-07-29",
+    "tmdb_id": 707218
+  },
+  {
+    "id": "Viva.br",
+    "name": "Globoplay Novelas",
+    "title": "Globoplay Novelas",
+    "logo": "http://api.cdnapp.fun:80/images/6cc5ca374c8057811f872cbaa18b06c9.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/354.ts"
+  },
+  {
+    "id": "Viva.br",
+    "name": "Globoplay Novelas FHD",
+    "title": "Globoplay Novelas FHD",
+    "logo": "http://api.cdnapp.fun:80/images/6cc5ca374c8057811f872cbaa18b06c9.png",
+    "group": "Canais – Variedades",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/355.ts"
+  },
+  {
+    "id": "",
+    "name": "Canal Vivo",
+    "title": "Canal Vivo",
+    "logo": null,
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/357.ts",
+    "poster": "",
+    "backdrop": "https://image.tmdb.org/t/p/original/ck4xah6RJ22hcjd5kunsPq1tK2i.jpg",
+    "release_date": "1980-01-01",
+    "tmdb_id": 1144470
+  },
+  {
+    "id": "",
+    "name": "URU: A+V HD",
+    "title": "URU: A+V HD",
+    "logo": "",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/358.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: CANAL 10 SAETA HD",
+    "title": "URU: CANAL 10 SAETA HD",
+    "logo": "",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/359.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: CANAL 12 LOCAL",
+    "title": "URU: CANAL 12 LOCAL",
+    "logo": "",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/360.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: CANAL 4  SALTO HD",
+    "title": "URU: CANAL 4  SALTO HD",
+    "logo": "",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/361.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: CANAL 4 HD",
+    "title": "URU: CANAL 4 HD",
+    "logo": "",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/362.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: CANAL12 MELO HD",
+    "title": "URU: CANAL12 MELO HD",
+    "logo": "",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/363.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: DIRECTV SPORTS",
+    "title": "URU: DIRECTV SPORTS",
+    "logo": "",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/364.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: LA TELE HD",
+    "title": "URU: LA TELE HD",
+    "logo": "",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/365.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: SERTV HD",
+    "title": "URU: SERTV HD",
+    "logo": "",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/366.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: VERA TV HD",
+    "title": "URU: VERA TV HD",
+    "logo": "http://api.cdnapp.fun:80/images/97dad46ea37244321f206c4df7bf3a26.png",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/367.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: VTV HD",
+    "title": "URU: VTV HD",
+    "logo": "http://api.cdnapp.fun:80/images/da747cc9054a9c79d237dfc309eaba8e.png",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/368.ts"
+  },
+  {
+    "id": "",
+    "name": "URU: VTVT PLUS HD",
+    "title": "URU: VTVT PLUS HD",
+    "logo": "http://api.cdnapp.fun:80/images/da747cc9054a9c79d237dfc309eaba8e.png",
+    "group": "Canais - Uruguay",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/369.ts"
+  },
+  {
+    "id": "Combate HD",
+    "name": "Combate FHD",
+    "title": "Combate FHD",
+    "logo": "http://api.cdnapp.fun:80/images/e4be82410120cfe3dd90b12ff415a6ca.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/370.ts"
+  },
+  {
+    "id": "Combate HD",
+    "name": "Combate HD",
+    "title": "Combate HD",
+    "logo": "http://api.cdnapp.fun:80/images/e4be82410120cfe3dd90b12ff415a6ca.png",
+    "group": "Canais – Esportes",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/371.ts"
+  },
+  {
+    "id": "UFC Fight Pass FHD",
+    "name": "UFC Fight Pass PRINCIPAL",
+    "title": "UFC Fight Pass PRINCIPAL",
+    "logo": "http://api.cdnapp.fun:80/images/1660920ac0d5553bdf37386052f99f19.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/372.ts"
+  },
+  {
+    "id": "UFC Fight Pass HD",
+    "name": "UFC Fight Pass 01",
+    "title": "UFC Fight Pass 01",
+    "logo": "http://api.cdnapp.fun:80/images/1660920ac0d5553bdf37386052f99f19.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/373.ts"
+  },
+  {
+    "id": "UFC Fight Pass HD",
+    "name": "UFC Fight Pass 02",
+    "title": "UFC Fight Pass 02",
+    "logo": "http://api.cdnapp.fun:80/images/1660920ac0d5553bdf37386052f99f19.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/374.ts"
+  },
+  {
+    "id": "UFC Fight Pass HD",
+    "name": "UFC Fight Pass 03",
+    "title": "UFC Fight Pass 03",
+    "logo": "http://api.cdnapp.fun:80/images/1660920ac0d5553bdf37386052f99f19.png",
+    "group": "Canais – Esportes Ppv",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/375.ts"
+  },
+  {
+    "id": "Premiere.Clubes.br",
+    "name": "﻿Premiere Clubes 4K",
+    "title": "﻿Premiere Clubes 4K",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/432.ts"
+  },
+  {
+    "id": "Premiere.Clubes.br",
+    "name": "﻿Premiere Clubes HD",
+    "title": "﻿Premiere Clubes HD",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/433.ts"
+  },
+  {
+    "id": "Premiere 2 HD",
+    "name": "Premiere 2 4K",
+    "title": "Premiere 2 4K",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/434.ts"
+  },
+  {
+    "id": "Premiere 2 HD",
+    "name": "Premiere 2 HD",
+    "title": "Premiere 2 HD",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/435.ts"
+  },
+  {
+    "id": "Premiere 3 HD",
+    "name": "Premiere 3 4K",
+    "title": "Premiere 3 4K",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/436.ts"
+  },
+  {
+    "id": "Premiere 3 HD",
+    "name": "Premiere 3 HD",
+    "title": "Premiere 3 HD",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/437.ts"
+  },
+  {
+    "id": "Premiere 4 HD",
+    "name": "Premiere 4 4K",
+    "title": "Premiere 4 4K",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/438.ts"
+  },
+  {
+    "id": "Premiere 4 HD",
+    "name": "Premiere 4 HD",
+    "title": "Premiere 4 HD",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/439.ts"
+  },
+  {
+    "id": "Premiere 5 HD",
+    "name": "Premiere 5 4K",
+    "title": "Premiere 5 4K",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/440.ts"
+  },
+  {
+    "id": "Premiere 5 FHD",
+    "name": "Premiere 5 HD",
+    "title": "Premiere 5 HD",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/441.ts"
+  },
+  {
+    "id": "Premiere 6 HD",
+    "name": "Premiere 6 4K",
+    "title": "Premiere 6 4K",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/442.ts"
+  },
+  {
+    "id": "Premiere 6 HD",
+    "name": "Premiere 6 HD",
+    "title": "Premiere 6 HD",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/443.ts"
+  },
+  {
+    "id": "Premiere 7 HD [Alter]",
+    "name": "Premiere 7 4K",
+    "title": "Premiere 7 4K",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/444.ts"
+  },
+  {
+    "id": "Premiere 7 FHD [Alter]",
+    "name": "Premiere 7 HD",
+    "title": "Premiere 7 HD",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/445.ts"
+  },
+  {
+    "id": "Premiere 8 HD",
+    "name": "Premiere 8 FHD",
+    "title": "Premiere 8 FHD",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/446.ts"
+  },
+  {
+    "id": "Premiere 8 HD",
+    "name": "Premiere 8 HD",
+    "title": "Premiere 8 HD",
+    "logo": "http://api.cdnapp.fun:80/images/453debc2d6dc008b7c893abed2d0b0e2.png",
+    "group": "Canais - Premiere",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/447.ts"
+  },
+  {
+    "id": "",
+    "name": "Os Smurfs",
+    "title": "Os Smurfs",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/548.ts",
+    "poster": "http://api.cdnapp.fun:80/images/1e187352465de7116b558851afb90c09.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/1szJqm8ksrwbPheLfEZn2ohTGbg.jpg",
+    "release_date": "1981-09-12",
+    "tmdb_id": 5687
+  },
+  {
+    "id": "",
+    "name": "Os Ursinhos Gummi",
+    "title": "Os Ursinhos Gummi",
+    "logo": "https://image.tmdb.org/t/p/original/fyV7ESaKyx9CKNnMCsdXAddwL0T.png",
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/549.ts",
+    "poster": "http://api.cdnapp.fun:80/images/555bf90a706b6d62dfaad00c5b116962.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/i4NXlwt4xgYEYaRn4br8RIKLRzK.jpg",
+    "release_date": "1985-09-14",
+    "tmdb_id": 1931
+  },
+  {
+    "id": "",
+    "name": "Os Vingadores",
+    "title": "Os Vingadores",
+    "logo": "https://image.tmdb.org/t/p/original/ooi5ZYgyVPrVBWLXAd6yQBl0Zh9.png",
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/550.ts",
+    "poster": "http://api.cdnapp.fun:80/images/09c643b232876dbecc991c2c2f0a538b.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/9BBTo63ANSmhC4e6r62OJFuK2GL.jpg",
+    "release_date": "2012-04-25",
+    "tmdb_id": 24428
+  },
+  {
+    "id": "",
+    "name": "Papa Léguas",
+    "title": "Papa Léguas",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/551.ts",
+    "poster": "http://api.cdnapp.fun:80/images/475258bca663093ad559386a2a1e5559.png",
+    "backdrop": null,
+    "release_date": "1962-06-02",
+    "tmdb_id": 107974
+  },
+  {
+    "id": "",
+    "name": "Patati Patata",
+    "title": "Patati Patata",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/552.ts",
+    "poster": "http://api.cdnapp.fun:80/images/e10c2bffbda16c7fa18d7e19e4f92cd3.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/6oooPQsaMY26Bn4PHn9uL6o2E8R.jpg",
+    "release_date": "2015-10-05",
+    "tmdb_id": 201555
+  },
+  {
+    "id": "",
+    "name": "Patrulha Canina",
+    "title": "Patrulha Canina",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/553.ts",
+    "poster": "http://api.cdnapp.fun:80/images/dee42af433507ef5d87db6b3ae58e747.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/7OrV2aAH5Yp7hA9zCCvUloLvZtl.jpg",
+    "release_date": "2013-08-12",
+    "tmdb_id": 57532
+  },
+  {
+    "id": "",
+    "name": "Pepe Legal",
+    "title": "Pepe Legal",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/554.ts",
+    "poster": "http://api.cdnapp.fun:80/images/167277886280bb0a4d5e424510fdfd70.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/15RoVBbscgx1iJ1xb9gXLebdhob.jpg",
+    "release_date": "1959-09-29",
+    "tmdb_id": 38960
+  },
+  {
+    "id": "",
+    "name": "Peppa Pig",
+    "title": "Peppa Pig",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/555.ts",
+    "poster": "http://api.cdnapp.fun:80/images/f5ed24794acbdb458ab2e1d9a9ca4a13.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/ooIYvpusdiXzULeUlL1Ul7XljQK.jpg",
+    "release_date": "2004-05-31",
+    "tmdb_id": 12225
+  },
+  {
+    "id": "",
+    "name": "Pernalonga e sua Turma",
+    "title": "Pernalonga e sua Turma",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/556.ts",
+    "poster": "http://api.cdnapp.fun:80/images/56b8f246b3e40564b9a1f6eb61b7af49.png",
+    "backdrop": null,
+    "release_date": null,
+    "tmdb_id": 273924
+  },
+  {
+    "id": "",
+    "name": "Picolino",
+    "title": "Picolino",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/557.ts",
+    "poster": "http://api.cdnapp.fun:80/images/093bb67b0ac5a7ef207cbb9a9c8b78b7.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/9riMLH4EOw6PZzeCDnPlIGSyiEu.jpg",
+    "release_date": "1935-08-29",
+    "tmdb_id": 3080
+  },
+  {
+    "id": "",
+    "name": "Pinky e Cérebro",
+    "title": "Pinky e Cérebro",
+    "logo": "https://image.tmdb.org/t/p/original/ygTwDPyqBzOQuIpjMZyp73Rd5v9.png",
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/558.ts",
+    "poster": "http://api.cdnapp.fun:80/images/23e4e2296c7a7e64d8e074a7dfd0547a.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/hHlhvZcB6B9dNSTvJouZ6M2BUNR.jpg",
+    "release_date": "1995-09-09",
+    "tmdb_id": 2228
+  },
+  {
+    "id": "",
+    "name": "Pokemon",
+    "title": "Pokemon",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/559.ts",
+    "poster": "http://api.cdnapp.fun:80/images/242e76370239773d616e324e7fe58a9c.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/yYpQV25I7XB6S0POJOScPjxYWV5.jpg",
+    "release_date": "1997-04-01",
+    "tmdb_id": 60572
+  },
+  {
+    "id": "",
+    "name": "Pole Position",
+    "title": "Pole Position",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/560.ts",
+    "poster": "http://api.cdnapp.fun:80/images/a62e14b377b1d0333d3ed75d178127eb.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/8S8knIjS6QPZYBAyrc4z1KQnOdy.jpg",
+    "release_date": "1984-09-15",
+    "tmdb_id": 5035
+  },
+  {
+    "id": "",
+    "name": "Popeye",
+    "title": "Popeye",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/561.ts",
+    "poster": "http://api.cdnapp.fun:80/images/be28aed7b481ad183ea90414188c2f55.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/asBlZAVjFQDPFADrhrmkOVM6TxK.jpg",
+    "release_date": "1980-12-12",
+    "tmdb_id": 11335
+  },
+  {
+    "id": "",
+    "name": "Rabugento",
+    "title": "Rabugento",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/562.ts",
+    "poster": "http://api.cdnapp.fun:80/images/d3a0083d01c5a8fd7e53d6963c300f1d.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/1o4vuCHpmd4DXofMYDUwpnhKiuy.jpg",
+    "release_date": "1995-12-22",
+    "tmdb_id": 15602
+  },
+  {
+    "id": "",
+    "name": "Recruta Zero e Hagar o Terrível",
+    "title": "Recruta Zero e Hagar o Terrível",
+    "logo": "http://api.cdnapp.fun:80/images/2dd9fcf07fe04f8077410eb7521c64a6.png",
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/563.ts"
+  },
+  {
+    "id": "",
+    "name": "Riquinho Rico",
+    "title": "Riquinho Rico",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/564.ts",
+    "poster": "http://api.cdnapp.fun:80/images/acd72ec9ee2492bab20a1ef55efe1598.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/7SrpDYT2LYrOubeKyxYIYFGyKOn.jpg",
+    "release_date": "1980-11-08",
+    "tmdb_id": 3026
+  },
+  {
+    "id": "",
+    "name": "Sabrina - A Bruxinha Adolescente",
+    "title": "Sabrina - A Bruxinha Adolescente",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/565.ts",
+    "poster": "http://api.cdnapp.fun:80/images/10fc150355fd5a39fc4ae82c7aa0a864.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/4PhaaA593zHfAyYUIXVWTih3qcD.jpg",
+    "release_date": "1996-09-27",
+    "tmdb_id": 605
+  },
+  {
+    "id": "",
+    "name": "Sakura Card Captors",
+    "title": "Sakura Card Captors",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/566.ts",
+    "poster": "http://api.cdnapp.fun:80/images/23c88b96d9b125b2cd80107b88382aeb.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/s7kvb8Q04y3WC1tDQudn68u9wC8.jpg",
+    "release_date": "2000-07-15",
+    "tmdb_id": 31347
+  },
+  {
+    "id": "",
+    "name": "Samurai Jack",
+    "title": "Samurai Jack",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/567.ts",
+    "poster": "http://api.cdnapp.fun:80/images/337911947d2a1960ba95465fdc7b7508.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/CrVAqxtdmvelqVcj8pVeQg7wNV.jpg",
+    "release_date": "2001-08-10",
+    "tmdb_id": 2723
+  },
+  {
+    "id": "",
+    "name": "Scooby Doo",
+    "title": "Scooby Doo",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/568.ts",
+    "poster": "http://api.cdnapp.fun:80/images/621b6a88a636dc2ac36e667031cf8c24.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/1RAxtBxslR4OZCZC1vxIRUxjR7a.jpg",
+    "release_date": "2002-06-14",
+    "tmdb_id": 9637
+  },
+  {
+    "id": "",
+    "name": "Shazzan",
+    "title": "Shazzan",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/569.ts",
+    "poster": "http://api.cdnapp.fun:80/images/dd569725d23a905eb67865cf362fe7b2.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/kFEaA7KEiJ5JE9OmzTtNFQ0c9BD.jpg",
+    "release_date": "1967-09-09",
+    "tmdb_id": 10501
+  },
+  {
+    "id": "",
+    "name": "Shurato",
+    "title": "Shurato",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/570.ts",
+    "poster": "http://api.cdnapp.fun:80/images/7a9890280df856c277482bcc0168da99.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/22raTd2mRTwBfWk60E6EBtLncsh.jpg",
+    "release_date": "1989-04-06",
+    "tmdb_id": 72871
+  },
+  {
+    "id": "",
+    "name": "Silverhawks",
+    "title": "Silverhawks",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/571.ts",
+    "poster": "http://api.cdnapp.fun:80/images/dcd9cd8959716c0444e5831cc14d8e3b.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/vJ8sC43It7bG2W9Ct6gALMJpINe.jpg",
+    "release_date": "1986-09-08",
+    "tmdb_id": 12504
+  },
+  {
+    "id": "",
+    "name": "Snoopy",
+    "title": "Snoopy",
+    "logo": "http://api.cdnapp.fun:80/images/d264eef6b635013937c97dc35aa5df55.png",
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/572.ts"
+  },
+  {
+    "id": "",
+    "name": "Space Goofs",
+    "title": "Space Goofs",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/573.ts",
+    "poster": "http://api.cdnapp.fun:80/images/bbca7c808af0d3904df0af1a820858eb.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/x8iygG6AN2IsqivvH0dXvG4B3uv.jpg",
+    "release_date": "1997-09-06",
+    "tmdb_id": 11801
+  },
+  {
+    "id": "",
+    "name": "Speed Racer",
+    "title": "Speed Racer",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/574.ts",
+    "poster": "http://api.cdnapp.fun:80/images/73c65ad712817039810f7703bdb69cab.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/kH14XvCHKfMRz1sNsAMY0KpAKb0.jpg",
+    "release_date": "2008-05-07",
+    "tmdb_id": 7459
+  },
+  {
+    "id": "",
+    "name": "Street Fighter",
+    "title": "Street Fighter",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/575.ts",
+    "poster": "http://api.cdnapp.fun:80/images/04776d77f94eefdd30ef0876659123a7.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/vmXRiIs6alZFDtlHlUT3Tx5rHww.jpg",
+    "release_date": "1994-12-23",
+    "tmdb_id": 11667
+  },
+  {
+    "id": "",
+    "name": "Super Amigos",
+    "title": "Super Amigos",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/576.ts",
+    "poster": "http://api.cdnapp.fun:80/images/4aeedc44126705d7a9d523a9effe2215.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/ebbeTgwFRvKEdFSAoHsBPvZsAFf.jpg",
+    "release_date": "1973-09-08",
+    "tmdb_id": 936
+  },
+  {
+    "id": "",
+    "name": "Super Homem",
+    "title": "Super Homem",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/577.ts",
+    "poster": "http://api.cdnapp.fun:80/images/29a74afc34fa48c9df7dc233fed0ae4c.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/4P2gbaCGdZyP4i95TmmA6nS9HJh.jpg",
+    "release_date": "2013-11-03",
+    "tmdb_id": 64356
+  },
+  {
+    "id": "",
+    "name": "Super Shock",
+    "title": "Super Shock",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/578.ts",
+    "poster": "http://api.cdnapp.fun:80/images/5688a12f96b5e2bfe3547543c06427f8.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/oYeWPNV0QZri8eRNmyRTeC57ijx.jpg",
+    "release_date": "2000-09-23",
+    "tmdb_id": 1487
+  },
+  {
+    "id": "",
+    "name": "Surfista Prateado",
+    "title": "Surfista Prateado",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/579.ts",
+    "poster": "http://api.cdnapp.fun:80/images/596aa582c812483c05572d382ee89182.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/o2wYH40zW0JIYiYUTu6L4gsNy7E.jpg",
+    "release_date": "2007-06-13",
+    "tmdb_id": 1979
+  },
+  {
+    "id": "",
+    "name": "Tartaruga Touche",
+    "title": "Tartaruga Touche",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/580.ts",
+    "poster": "http://api.cdnapp.fun:80/images/200f0d9e75984ce1f8971cdd49740259.png",
+    "backdrop": null,
+    "release_date": "1962-09-03",
+    "tmdb_id": 302626
+  },
+  {
+    "id": "",
+    "name": "Taz Mania",
+    "title": "Taz Mania",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/581.ts",
+    "poster": "http://api.cdnapp.fun:80/images/40fb22870df1b181e179cf76e36a8aa9.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/kWwj7gNJsnd5ocTRvlmEznaB8wG.jpg",
+    "release_date": "1991-09-07",
+    "tmdb_id": 10126
+  },
+  {
+    "id": "",
+    "name": "Thundercats",
+    "title": "Thundercats",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/582.ts",
+    "poster": "http://api.cdnapp.fun:80/images/b12814e06b25328d0138ca80221b69fb.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/lWsof34OJY8VV691mZxNq97cKkX.jpg",
+    "release_date": "1985-01-23",
+    "tmdb_id": 1988
+  },
+  {
+    "id": "",
+    "name": "Tico e Teco",
+    "title": "Tico e Teco",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/583.ts",
+    "poster": "http://api.cdnapp.fun:80/images/7519f3c446ea5310cc3be4f4aa460565.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/p5I7g4WUA20U0qR8Gtz96DPJVIx.jpg",
+    "release_date": "1989-03-04",
+    "tmdb_id": 1615
+  },
+  {
+    "id": "",
+    "name": "Tom & Jerry",
+    "title": "Tom & Jerry",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/584.ts",
+    "poster": "http://api.cdnapp.fun:80/images/92ed6b4faeb1a20642eece1683dd5ae4.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/utqCOvMmjjMTlXNZz6PHOzRM5QP.jpg",
+    "release_date": "2014-04-09",
+    "tmdb_id": 47480
+  },
+  {
+    "id": "",
+    "name": "Toro e Pancho",
+    "title": "Toro e Pancho",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/585.ts",
+    "poster": "http://imagizer.imageshack.com/img923/7039/TrGVLD.gif",
+    "backdrop": "https://image.tmdb.org/t/p/original/8PBqSmPYLZUVH25oTxIdKa5khuo.jpg",
+    "release_date": "1969-08-06",
+    "tmdb_id": 196288
+  },
+  {
+    "id": "",
+    "name": "Transformers",
+    "title": "Transformers",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/586.ts",
+    "poster": "http://api.cdnapp.fun:80/images/22c4288e9fb3d114fe43ccfa4419efac.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/77P56ZcL8M9Cw7FIptMIGjhNJoj.jpg",
+    "release_date": "2007-06-27",
+    "tmdb_id": 1858
+  },
+  {
+    "id": "",
+    "name": "Transformers Beast Machines",
+    "title": "Transformers Beast Machines",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/587.ts",
+    "poster": "http://api.cdnapp.fun:80/images/43fbf27145b68b44d1bb366d3258d091.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/jg9JTqEDwkR78NTtz4JSt0fqUH.jpg",
+    "release_date": "1999-09-18",
+    "tmdb_id": 932
+  },
+  {
+    "id": "",
+    "name": "Uma Família da Pesada",
+    "title": "Uma Família da Pesada",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/588.ts",
+    "poster": "http://api.cdnapp.fun:80/images/51ef0c17e4567627b61821a475d1357b.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/lgGZ2ysbRyAOi2VgIZpp6k8qILj.jpg",
+    "release_date": "1999-01-31",
+    "tmdb_id": 1434
+  },
+  {
+    "id": "",
+    "name": "Ursinho Pooh e Seus Amigos",
+    "title": "Ursinho Pooh e Seus Amigos",
+    "logo": "http://api.cdnapp.fun:80/images/ab44874972f09b2fd36e1cc9a98514a3.png",
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/589.ts"
+  },
+  {
+    "id": "",
+    "name": "Ursinhos Carinhosos",
+    "title": "Ursinhos Carinhosos",
+    "logo": null,
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/590.ts",
+    "poster": "http://api.cdnapp.fun:80/images/145d3d8117de58da9b93569593c1ba82.png",
+    "backdrop": "https://image.tmdb.org/t/p/original/ycVADUTP78aJXV8FKmoSkdruo64.jpg",
+    "release_date": "1985-03-23",
+    "tmdb_id": 11243
+  },
+  {
+    "id": "",
+    "name": "Zé Buscapé",
+    "title": "Zé Buscapé",
+    "logo": "http://api.cdnapp.fun:80/images/3154c03064b7d7fb41819c0dd40d5c01.png",
+    "group": "Canais - 24hs",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/591.ts"
+  },
+  {
+    "id": "Globo TV Subae HD",
+    "name": "TV Subaé HD",
+    "title": "TV Subaé HD",
+    "logo": "http://api.cdnapp.fun:80/images/d7e5f64a8b4e77c1a8121d932083598f.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/190440.ts"
+  },
+  {
+    "id": "Globo TV Sudoeste HD",
+    "name": "TV Sudoeste HD",
+    "title": "TV Sudoeste HD",
+    "logo": "http://api.cdnapp.fun:80/images/f65d4228216db6e3b056d15cdca9e106.png",
+    "group": "Canais – Globo",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/190441.ts"
+  },
+  {
+    "id": "Playboy HD",
+    "name": "PLAYBOY",
+    "title": "PLAYBOY",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/376.ts"
+  },
+  {
+    "id": "Sex Zone.br",
+    "name": "SEX ZONE",
+    "title": "SEX ZONE",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/377.ts"
+  },
+  {
+    "id": "Sextreme Brazil.br",
+    "name": "SEXTREME",
+    "title": "SEXTREME",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/378.ts"
+  },
+  {
+    "id": "Sexy Hot HD",
+    "name": "SEXY HOT",
+    "title": "SEXY HOT",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/379.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 01 / ONLY FANS",
+    "title": "Adulto 01 / ONLY FANS",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/380.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 02 / BLACK",
+    "title": "Adulto 02 / BLACK",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/381.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 03 / Leo tv",
+    "title": "Adulto 03 / Leo tv",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/382.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 04 / Erotic 4",
+    "title": "Adulto 04 / Erotic 4",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/383.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 05 / LegalPorno",
+    "title": "Adulto 05 / LegalPorno",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/384.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 06 / zoo",
+    "title": "Adulto 06 / zoo",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/385.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 07 / Travesti",
+    "title": "Adulto 07 / Travesti",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/386.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 08 / Erotic 5",
+    "title": "Adulto 08 / Erotic 5",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/387.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 09 / Knho",
+    "title": "Adulto 09 / Knho",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/388.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 10 / PENTHOUSE",
+    "title": "Adulto 10 / PENTHOUSE",
+    "logo": "http://api.cdnapp.fun:80/images/35ac0ee2d6c3b6d43cc428e6b08cdc37.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/389.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 11 / Brasileirinhas",
+    "title": "Adulto 11 / Brasileirinhas",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/390.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 12 / NubileFilms",
+    "title": "Adulto 12 / NubileFilms",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/391.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 13 / DogHouse",
+    "title": "Adulto 13 / DogHouse",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/392.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 14 / OnlyFans",
+    "title": "Adulto 14 / OnlyFans",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/393.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 15 / O-la-la",
+    "title": "Adulto 15 / O-la-la",
+    "logo": "http://api.cdnapp.fun:80/images/e91c98eeabcfef7210cd561cac71c725.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/394.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 16 / KING",
+    "title": "Adulto 16 / KING",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/395.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 17 / Brasileirinhas 2",
+    "title": "Adulto 17 / Brasileirinhas 2",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/396.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 18 / Erotic 3",
+    "title": "Adulto 18 / Erotic 3",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/397.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 19 / PLAYBOY EUROPE",
+    "title": "Adulto 19 / PLAYBOY EUROPE",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/398.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 20 / Venus Argentina",
+    "title": "Adulto 20 / Venus Argentina",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/399.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 21 / milf",
+    "title": "Adulto 21 / milf",
+    "logo": "http://api.cdnapp.fun:80/images/35ac0ee2d6c3b6d43cc428e6b08cdc37.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/400.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 22 / PORNSTERS 1",
+    "title": "Adulto 22 / PORNSTERS 1",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/401.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 23 / Erotic 8",
+    "title": "Adulto 23 / Erotic 8",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/402.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 24 / Anal",
+    "title": "Adulto 24 / Anal",
+    "logo": "http://api.cdnapp.fun:80/images/e91c98eeabcfef7210cd561cac71c725.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/403.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 25 / private hd",
+    "title": "Adulto 25 / private hd",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/404.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 26 / Milf",
+    "title": "Adulto 26 / Milf",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/405.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 28 / Mamacita",
+    "title": "Adulto 28 / Mamacita",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/406.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 29 / Playboy Argetina",
+    "title": "Adulto 29 / Playboy Argetina",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/407.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 30 / Venus",
+    "title": "Adulto 30 / Venus",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/408.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 31 / Big Dick",
+    "title": "Adulto 31 / Big Dick",
+    "logo": "http://api.cdnapp.fun:80/images/e91c98eeabcfef7210cd561cac71c725.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/409.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 32 / erotic 4",
+    "title": "Adulto 32 / erotic 4",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/410.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 33 / Anal",
+    "title": "Adulto 33 / Anal",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/411.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 34 / Fake Taxi",
+    "title": "Adulto 34 / Fake Taxi",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/412.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 35 / College",
+    "title": "Adulto 35 / College",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/413.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 36 / Legal Porno",
+    "title": "Adulto 36 / Legal Porno",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/414.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 37 / 60FPS",
+    "title": "Adulto 37 / 60FPS",
+    "logo": "http://api.cdnapp.fun:80/images/e91c98eeabcfef7210cd561cac71c725.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/415.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 38 / MY CAM TV",
+    "title": "Adulto 38 / MY CAM TV",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/416.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 39 / Comics",
+    "title": "Adulto 39 / Comics",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/417.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 40 / Hustler",
+    "title": "Adulto 40 / Hustler",
+    "logo": "http://api.cdnapp.fun:80/images/e91c98eeabcfef7210cd561cac71c725.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/418.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 41 / EROXXX",
+    "title": "Adulto 41 / EROXXX",
+    "logo": "http://api.cdnapp.fun:80/images/35ac0ee2d6c3b6d43cc428e6b08cdc37.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/419.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 42 / PENTHOUSE PORNOBOX",
+    "title": "Adulto 42 / PENTHOUSE PORNOBOX",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/420.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 43 / PRIVATE",
+    "title": "Adulto 43 / PRIVATE",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/421.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 44 / PassionXXX",
+    "title": "Adulto 44 / PassionXXX",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/422.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 45 / Erotic",
+    "title": "Adulto 45 / Erotic",
+    "logo": "http://api.cdnapp.fun:80/images/35ac0ee2d6c3b6d43cc428e6b08cdc37.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/423.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 46 / Asian - Anime",
+    "title": "Adulto 46 / Asian - Anime",
+    "logo": "http://api.cdnapp.fun:80/images/e91c98eeabcfef7210cd561cac71c725.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/424.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 47 / Big Ass - BANGBROS",
+    "title": "Adulto 47 / Big Ass - BANGBROS",
+    "logo": "http://api.cdnapp.fun:80/images/2424375d8f8573eb17dff30f9b32e227.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/425.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 48 / Latinas",
+    "title": "Adulto 48 / Latinas",
+    "logo": "http://api.cdnapp.fun:80/images/35ac0ee2d6c3b6d43cc428e6b08cdc37.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/426.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 49 / interracial",
+    "title": "Adulto 49 / interracial",
+    "logo": "http://api.cdnapp.fun:80/images/0d657bf8acfcb7223925c93223c5cfaf.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/427.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 50 / Fetish",
+    "title": "Adulto 50 / Fetish",
+    "logo": "http://api.cdnapp.fun:80/images/aac4bcf552141796cdfbafb31313df90.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/428.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 51 / pornstar",
+    "title": "Adulto 51 / pornstar",
+    "logo": "http://api.cdnapp.fun:80/images/e91c98eeabcfef7210cd561cac71c725.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/429.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 52 / teen",
+    "title": "Adulto 52 / teen",
+    "logo": "http://api.cdnapp.fun:80/images/35ac0ee2d6c3b6d43cc428e6b08cdc37.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/430.ts"
+  },
+  {
+    "id": "",
+    "name": "Adulto 53 / Amateur",
+    "title": "Adulto 53 / Amateur",
+    "logo": "http://api.cdnapp.fun:80/images/97f255be33939b7bb112989e2d0863f1.png",
+    "group": "Canais – Adultos",
+    "url": "http://api.cdnapp.fun:80/appteste/testeapp/431.ts"
+  }
+]
