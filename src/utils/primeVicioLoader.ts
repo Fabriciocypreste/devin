@@ -209,6 +209,7 @@ export interface Content {
   poster_path?: string;
   backdrop_path?: string;
   logo?: string;
+  logoUrl?: string; // URL da logo para overlay (TMDB)
   overview?: string;
   vote_average?: number;
   release_date?: string;
@@ -221,6 +222,8 @@ export interface Content {
   available: boolean; // ✅ Disponível no sistema
   embedUrl?: string; // URL do player embed
   streamUrl?: string; // URL do MP4 para reprodução direta
+  trailerUrl?: string; // URL do trailer
+  isLocal?: boolean; // true = imagem local da pasta, false = imagem do TMDB
   // Para séries
   seasons?: Array<{
     season_number: number;
@@ -446,6 +449,81 @@ async function enrichWithLogos(items: Content[], maxItems: number = 20): Promise
 /**
  * Carregar conteúdo real do arquivo JSON
  */
+/**
+ * Carregar conteúdo LOCAL (imagens da pasta images/posters) - RÁPIDO
+ */
+async function loadLocalContent(): Promise<Content[]> {
+  try {
+    console.log('📂 Carregando conteúdo LOCAL (imagens da pasta)...');
+    const response = await fetch('/data/local_content.json');
+    if (!response.ok) {
+      console.error('Erro ao carregar local_content.json:', response.status);
+      return [];
+    }
+    const data = await response.json();
+    console.log(`✅ Conteúdo LOCAL carregado: ${data.length} itens`);
+    return data.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      name: item.name,
+      poster_path: item.poster_path,
+      backdrop_path: item.backdrop_path,
+      overview: item.overview,
+      vote_average: item.vote_average,
+      release_date: item.release_date,
+      type: item.type as 'movie' | 'tv',
+      year: item.year,
+      media_type: item.media_type,
+      available: item.available,
+      streamUrl: item.streamUrl,
+      isLocal: true,
+    }));
+  } catch (error) {
+    console.error('Erro ao carregar conteúdo local:', error);
+    return [];
+  }
+}
+
+/**
+ * Carregar conteúdo TMDB (imagens do TMDB) - PROGRESSIVO
+ */
+async function loadTMDBContent(): Promise<Content[]> {
+  try {
+    console.log('🌐 Carregando conteúdo TMDB (progressivo)...');
+    const response = await fetch('/data/tmdb_content.json');
+    if (!response.ok) {
+      console.error('Erro ao carregar tmdb_content.json:', response.status);
+      return [];
+    }
+    const data = await response.json();
+    console.log(`✅ Conteúdo TMDB carregado: ${data.length} itens`);
+    return data.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      name: item.name,
+      poster_path: item.poster_path,
+      backdrop_path: item.backdrop_path,
+      overview: item.overview,
+      vote_average: item.vote_average,
+      release_date: item.release_date,
+      type: item.type as 'movie' | 'tv',
+      year: item.year,
+      media_type: item.media_type,
+      available: item.available,
+      streamUrl: item.streamUrl,
+      trailerUrl: item.trailerUrl,
+      logoUrl: item.logoUrl,
+      isLocal: false,
+    }));
+  } catch (error) {
+    console.error('Erro ao carregar conteúdo TMDB:', error);
+    return [];
+  }
+}
+
+/**
+ * Carregar conteúdo real do arquivo JSON (fallback)
+ */
 async function loadRealContent(): Promise<Content[]> {
   try {
     const response = await fetch('/data/real_content.json');
@@ -478,9 +556,9 @@ async function loadRealContent(): Promise<Content[]> {
 /**
  * FUNÇÃO PRINCIPAL - Carregar TUDO
  * 
- * ATUALIZADO: Agora carrega APENAS conteúdo real com:
- * - Imagem em images/posters/
- * - MP4 URL correspondente de LISTAREAL.zip
+ * ATUALIZADO: Carregamento PROGRESSIVO
+ * 1. Primeiro carrega conteúdo LOCAL (imagens da pasta) - RÁPIDO
+ * 2. Depois carrega conteúdo TMDB - PROGRESSIVO
  */
 export async function loadAllContent(): Promise<{
   movies: Content[];
@@ -493,18 +571,29 @@ export async function loadAllContent(): Promise<{
   }
 
   console.log('🎬 ═══════════════════════════════════════════════════');
-  console.log('🎬 CARREGANDO CONTEÚDO REAL');
-  console.log('🎬 Fonte: images/posters + LISTAREAL.zip');
+  console.log('🎬 CARREGAMENTO PROGRESSIVO');
+  console.log('🎬 1. LOCAL (imagens da pasta) - PRIMEIRO');
+  console.log('🎬 2. TMDB (imagens da API) - DEPOIS');
   console.log('🎬 ═══════════════════════════════════════════════════');
 
   try {
-    // Carregar conteúdo real do JSON
-    const realContent = await loadRealContent();
+    // PASSO 1: Carregar conteúdo LOCAL primeiro (RÁPIDO)
+    console.log('\n📂 PASSO 1: Carregando conteúdo LOCAL...');
+    const localContent = await loadLocalContent();
     
-    console.log(`\n📊 Conteúdo Real Carregado: ${realContent.length} itens`);
+    // PASSO 2: Carregar conteúdo TMDB (pode demorar mais)
+    console.log('\n🌐 PASSO 2: Carregando conteúdo TMDB...');
+    const tmdbContent = await loadTMDBContent();
 
-    if (realContent.length === 0) {
-      // Fallback para conteúdo demo se JSON não carregar
+    // Combinar: LOCAL primeiro, depois TMDB
+    const allContent = [...localContent, ...tmdbContent];
+    
+    console.log(`\n📊 Conteúdo Total: ${allContent.length} itens`);
+    console.log(`   LOCAL: ${localContent.length} itens (carregados primeiro)`);
+    console.log(`   TMDB: ${tmdbContent.length} itens (carregados depois)`);
+
+    if (allContent.length === 0) {
+      // Fallback para conteúdo demo se nada carregar
       console.warn('⚠️ Usando conteúdo DEMO como fallback');
       cachedMovies = DEMO_MOVIES;
       cachedSeries = DEMO_SERIES;
@@ -513,22 +602,22 @@ export async function loadAllContent(): Promise<{
     }
 
     // Separar filmes e séries
-    const realMovies = realContent.filter(item => item.type === 'movie');
-    const realSeries = realContent.filter(item => item.type === 'tv');
+    const allMovies = allContent.filter(item => item.type === 'movie');
+    const allSeries = allContent.filter(item => item.type === 'tv');
 
     console.log('✅ ═══════════════════════════════════════════════════');
-    console.log(`✅ CONTEÚDO REAL CARREGADO!`);
-    console.log(`   Filmes: ${realMovies.length}`);
-    console.log(`   Séries: ${realSeries.length}`);
-    console.log(`   TODOS com imagem local e MP4 URL`);
+    console.log(`✅ CARREGAMENTO PROGRESSIVO COMPLETO!`);
+    console.log(`   Filmes: ${allMovies.length} (${localContent.filter(i => i.type === 'movie').length} locais)`);
+    console.log(`   Séries: ${allSeries.length} (${localContent.filter(i => i.type === 'tv').length} locais)`);
+    console.log(`   Conteúdo LOCAL aparece PRIMEIRO na lista`);
     console.log('✅ ═══════════════════════════════════════════════════');
 
     // Cache
-    cachedMovies = realMovies;
-    cachedSeries = realSeries;
+    cachedMovies = allMovies;
+    cachedSeries = allSeries;
     cacheTimestamp = Date.now();
 
-    return { movies: realMovies, series: realSeries };
+    return { movies: allMovies, series: allSeries };
   } catch (error) {
     console.error('❌ Erro ao carregar conteúdo:', error);
 
