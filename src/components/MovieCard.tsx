@@ -169,6 +169,7 @@ const Volume2 = ({ className = "" }: { className?: string }) => (
 interface MovieCardProps {
   movie: Movie;
   onClick?: () => void;
+  onPlay?: (movie: Movie) => void; // ✅ NOVO: Callback para reproduzir diretamente
   onAddToList?: () => void;
   onLike?: () => void;
   onWatchLater?: () => void;
@@ -177,7 +178,7 @@ interface MovieCardProps {
   isInWatchLater?: boolean;
 }
 
-export function MovieCard({ movie, onClick, onAddToList, onLike, onWatchLater, isInList = false, isLiked = false, isInWatchLater = false }: MovieCardProps) {
+export function MovieCard({ movie, onClick, onPlay, onAddToList, onLike, onWatchLater, isInList = false, isLiked = false, isInWatchLater = false }: MovieCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [logoPath, setLogoPath] = useState<string | null>(null);
   const [genres, setGenres] = useState<string[]>([]);
@@ -406,7 +407,16 @@ export function MovieCard({ movie, onClick, onAddToList, onLike, onWatchLater, i
               <button 
                 onClick={(e) => {
                   e.stopPropagation();
-                  onClick?.();
+                  // ✅ Se tem streamUrl e onPlay, reproduzir diretamente
+                  if ((movie as any).streamUrl && onPlay) {
+                    console.log('🎬 MovieCard: Reproduzindo diretamente:', movie.title || movie.name);
+                    console.log('📡 streamUrl:', (movie as any).streamUrl);
+                    onPlay(movie);
+                  } else {
+                    // Fallback: abrir detalhes
+                    console.log('🎬 MovieCard: Abrindo detalhes (sem streamUrl ou onPlay)');
+                    onClick?.();
+                  }
                 }}
                 className="bg-white hover:bg-gray-200 text-black px-6 py-2 rounded-full flex items-center gap-2 transition-colors font-bold"
               >

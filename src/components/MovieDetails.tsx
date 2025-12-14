@@ -252,7 +252,10 @@ export function MovieDetails({ movie, onClose, onActorClick, onPlayMovie }: {
     );
   }
 
-  const backdropUrl = movie.backdrop_path ? getImageUrl(movie.backdrop_path, 'original') : null;
+  // ✅ FALLBACK: Se não tem backdrop_path, usar poster_path
+  const backdropUrl = movie.backdrop_path 
+    ? getImageUrl(movie.backdrop_path, 'original') 
+    : (movie.poster_path ? getImageUrl(movie.poster_path, 'original') : null);
 
   const handlePlayClick = () => {
     // ✅ PRIORIDADE: Se onPlayMovie foi passado, usar o Player HTML5 nativo

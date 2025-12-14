@@ -34,6 +34,7 @@ const ListIcon = ({ className = "", size = 24 }: { className?: string; size?: nu
 interface SeriesPageProps {
   onClose?: () => void;
   onMovieClick?: (movie: Movie) => void;
+  onPlay?: (movie: Movie) => void; // ✅ NOVO: Callback para reproduzir diretamente
   onAddToList?: (movie: Movie) => void;
   onLike?: (movie: Movie) => void;
   onWatchLater?: (movie: Movie) => void;
@@ -45,6 +46,7 @@ interface SeriesPageProps {
 export function SeriesPage({ 
   onClose, 
   onMovieClick,
+  onPlay,
   onAddToList,
   onLike,
   onWatchLater,
@@ -265,6 +267,7 @@ export function SeriesPage({
                 <MovieCard
                   movie={show}
                   onClick={() => onMovieClick && onMovieClick(show)}
+                  onPlay={onPlay ? () => onPlay(show) : undefined}
                   onAddToList={() => onAddToList?.(show)}
                   onLike={() => onLike?.(show)}
                   onWatchLater={() => onWatchLater?.(show)}
