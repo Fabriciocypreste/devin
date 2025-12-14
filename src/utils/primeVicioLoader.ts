@@ -1,11 +1,10 @@
 /**
- * 🎬 REDFLIX CONTENT LOADER - FONTE ÚNICA
+ * 🎬 REDFLIX CONTENT LOADER - REAL CONTENT FROM POSTERS + LISTAREAL.zip
  * 
  * REGRA OBRIGATÓRIA:
- * - Busca conteúdo do TMDB diretamente
- * - Mostra TUDO (assume disponível)
- * - Usa player HTML5 universal
- * - SEM filmes.txt, SEM outras fontes
+ * - Mostra APENAS conteúdo com imagem em images/posters E MP4 URL em LISTAREAL.zip
+ * - Usa player HTML5 universal com streamUrl
+ * - Imagens são carregadas diretamente de images/posters/
  */
 
 // TMDB API - Chaves hardcoded
@@ -221,6 +220,7 @@ export interface Content {
   media_type?: string;
   available: boolean; // ✅ Disponível no sistema
   embedUrl?: string; // URL do player embed
+  streamUrl?: string; // URL do MP4 para reprodução direta
   // Para séries
   seasons?: Array<{
     season_number: number;
@@ -444,7 +444,43 @@ async function enrichWithLogos(items: Content[], maxItems: number = 20): Promise
 }
 
 /**
+ * Carregar conteúdo real do arquivo JSON
+ */
+async function loadRealContent(): Promise<Content[]> {
+  try {
+    const response = await fetch('/data/real_content.json');
+    if (!response.ok) {
+      console.error('Erro ao carregar real_content.json:', response.status);
+      return [];
+    }
+    const data = await response.json();
+    return data.map((item: any) => ({
+      id: item.id,
+      title: item.title,
+      name: item.name,
+      poster_path: item.poster_path,
+      backdrop_path: item.backdrop_path,
+      overview: item.overview,
+      vote_average: item.vote_average,
+      release_date: item.release_date,
+      type: item.type as 'movie' | 'tv',
+      year: item.year,
+      media_type: item.media_type,
+      available: item.available,
+      streamUrl: item.streamUrl,
+    }));
+  } catch (error) {
+    console.error('Erro ao carregar conteúdo real:', error);
+    return [];
+  }
+}
+
+/**
  * FUNÇÃO PRINCIPAL - Carregar TUDO
+ * 
+ * ATUALIZADO: Agora carrega APENAS conteúdo real com:
+ * - Imagem em images/posters/
+ * - MP4 URL correspondente de LISTAREAL.zip
  */
 export async function loadAllContent(): Promise<{
   movies: Content[];
@@ -457,51 +493,42 @@ export async function loadAllContent(): Promise<{
   }
 
   console.log('🎬 ═══════════════════════════════════════════════════');
-  console.log('🎬 CARREGANDO CONTEÚDO');
-  console.log('🎬 Fonte: TMDB (metadados e conteúdo)');
+  console.log('🎬 CARREGANDO CONTEÚDO REAL');
+  console.log('🎬 Fonte: images/posters + LISTAREAL.zip');
   console.log('🎬 ═══════════════════════════════════════════════════');
 
   try {
-    // STEP 1: Carregar do TMDB
-    const [moviesRaw, seriesRaw] = await Promise.all([
-      loadMoviesFromTMDB(),
-      loadSeriesFromTMDB(),
-    ]);
+    // Carregar conteúdo real do JSON
+    const realContent = await loadRealContent();
+    
+    console.log(`\n📊 Conteúdo Real Carregado: ${realContent.length} itens`);
 
-    console.log('\n📊 Resultado TMDB:');
-    console.log(`   Filmes: ${moviesRaw.length}`);
-    console.log(`   Séries: ${seriesRaw.length}`);
-
-    if (moviesRaw.length === 0 && seriesRaw.length === 0) {
-      // Usar conteúdo demo silenciosamente
+    if (realContent.length === 0) {
+      // Fallback para conteúdo demo se JSON não carregar
+      console.warn('⚠️ Usando conteúdo DEMO como fallback');
       cachedMovies = DEMO_MOVIES;
       cachedSeries = DEMO_SERIES;
       cacheTimestamp = Date.now();
-
       return { movies: DEMO_MOVIES, series: DEMO_SERIES };
     }
 
-    // STEP 2: Carregar logos (apenas primeiros 20 de cada)
-    console.log('\n🎨 Fase 2: Carregar logos...');
-
-    const [moviesWithLogos, seriesWithLogos] = await Promise.all([
-      enrichWithLogos(moviesRaw, 20),
-      enrichWithLogos(seriesRaw, 20),
-    ]);
+    // Separar filmes e séries
+    const realMovies = realContent.filter(item => item.type === 'movie');
+    const realSeries = realContent.filter(item => item.type === 'tv');
 
     console.log('✅ ═══════════════════════════════════════════════════');
-    console.log(`✅ CARREGADO COM SUCESSO!`);
-    console.log(`   Filmes: ${moviesWithLogos.length}`);
-    console.log(`   Séries: ${seriesWithLogos.length}`);
-    console.log(`   TODOS assumidos como disponíveis`);
+    console.log(`✅ CONTEÚDO REAL CARREGADO!`);
+    console.log(`   Filmes: ${realMovies.length}`);
+    console.log(`   Séries: ${realSeries.length}`);
+    console.log(`   TODOS com imagem local e MP4 URL`);
     console.log('✅ ═══════════════════════════════════════════════════');
 
     // Cache
-    cachedMovies = moviesWithLogos;
-    cachedSeries = seriesWithLogos;
+    cachedMovies = realMovies;
+    cachedSeries = realSeries;
     cacheTimestamp = Date.now();
 
-    return { movies: moviesWithLogos, series: seriesWithLogos };
+    return { movies: realMovies, series: realSeries };
   } catch (error) {
     console.error('❌ Erro ao carregar conteúdo:', error);
 
