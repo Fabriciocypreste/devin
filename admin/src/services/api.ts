@@ -110,3 +110,163 @@ export async function deleteAllChannels(): Promise<void> {
 export async function deleteAllCategories(): Promise<void> {
   await fetch(`${API_URL}/categories`, { method: 'DELETE' });
 }
+
+export interface KPIs {
+  totalUsers: number;
+  activeSubscriptions: number;
+  newUsersThisMonth: number;
+  userGrowth: number;
+  totalContent: number;
+  totalViews: number;
+  monthlyRevenue: number;
+  yearlyRevenue: number;
+  cancelledThisMonth: number;
+}
+
+export interface TopContent {
+  id: number;
+  title: string;
+  posterPath: string;
+  type: string;
+  views: number;
+}
+
+export interface Content {
+  id: number;
+  title: string;
+  type: string;
+  posterPath?: string;
+  streamUrl?: string;
+  active: boolean;
+  featured: boolean;
+  _count?: { viewHistory: number; favorites: number };
+}
+
+export interface User {
+  id: number;
+  email: string;
+  name: string;
+  role: string;
+  status: string;
+  plan: string;
+  createdAt: string;
+  subscription?: { plan: string; status: string };
+  _count?: { viewHistory: number; favorites: number; payments: number };
+}
+
+export interface Banner {
+  id: number;
+  title: string;
+  subtitle?: string;
+  imageUrl: string;
+  linkUrl?: string;
+  position: string;
+  order: number;
+  active: boolean;
+}
+
+export interface SiteConfig {
+  key: string;
+  value: string;
+  type: string;
+  category: string;
+}
+
+export async function getKPIs(): Promise<KPIs> {
+  const res = await fetch(`${API_URL}/analytics/kpis`);
+  return res.json();
+}
+
+export async function getTopContent(): Promise<TopContent[]> {
+  const res = await fetch(`${API_URL}/analytics/top-content`);
+  return res.json();
+}
+
+export async function getContents(page = 1, limit = 20): Promise<{ contents: Content[]; total: number }> {
+  const res = await fetch(`${API_URL}/content?page=${page}&limit=${limit}`);
+  return res.json();
+}
+
+export async function createContent(data: Partial<Content>): Promise<Content> {
+  const res = await fetch(`${API_URL}/content`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
+
+export async function updateContent(id: number, data: Partial<Content>): Promise<Content> {
+  const res = await fetch(`${API_URL}/content/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
+
+export async function deleteContent(id: number): Promise<void> {
+  await fetch(`${API_URL}/content/${id}`, { method: 'DELETE' });
+}
+
+export async function getUsers(page = 1, limit = 20): Promise<{ users: User[]; total: number }> {
+  const res = await fetch(`${API_URL}/users?page=${page}&limit=${limit}`);
+  return res.json();
+}
+
+export async function updateUser(id: number, data: Partial<User>): Promise<User> {
+  const res = await fetch(`${API_URL}/users/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
+
+export async function deleteUser(id: number): Promise<void> {
+  await fetch(`${API_URL}/users/${id}`, { method: 'DELETE' });
+}
+
+export async function getBanners(): Promise<Banner[]> {
+  const res = await fetch(`${API_URL}/banners`);
+  return res.json();
+}
+
+export async function createBanner(data: Partial<Banner>): Promise<Banner> {
+  const res = await fetch(`${API_URL}/banners`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
+
+export async function updateBanner(id: number, data: Partial<Banner>): Promise<Banner> {
+  const res = await fetch(`${API_URL}/banners/${id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  return res.json();
+}
+
+export async function deleteBanner(id: number): Promise<void> {
+  await fetch(`${API_URL}/banners/${id}`, { method: 'DELETE' });
+}
+
+export async function getSiteConfigs(): Promise<SiteConfig[]> {
+  const res = await fetch(`${API_URL}/siteconfig`);
+  return res.json();
+}
+
+export async function setSiteConfig(key: string, value: string): Promise<void> {
+  await fetch(`${API_URL}/siteconfig/${key}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ value })
+  });
+}
+
+export async function initSiteDefaults(): Promise<void> {
+  await fetch(`${API_URL}/siteconfig/defaults/init`);
+}

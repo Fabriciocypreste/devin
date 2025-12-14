@@ -46,3 +46,184 @@ model Setting {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model User {
+  id            Int            @id @default(autoincrement())
+  email         String         @unique
+  name          String
+  password      String
+  avatar        String?
+  role          String         @default("user")
+  status        String         @default("active")
+  plan          String         @default("basic")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  subscription  Subscription?
+  viewHistory   ViewHistory[]
+  favorites     Favorite[]
+  profiles      Profile[]
+  payments      Payment[]
+}
+
+model Subscription {
+  id          Int       @id @default(autoincrement())
+  userId      Int       @unique
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan        String    @default("basic")
+  status      String    @default("active")
+  startDate   DateTime  @default(now())
+  endDate     DateTime?
+  price       Float     @default(0)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Profile {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  avatar    String?
+  isKids    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}
+
+model Content {
+  id           Int           @id @default(autoincrement())
+  tmdbId       Int?
+  title        String
+  originalTitle String?
+  type         String        @default("movie")
+  overview     String?
+  posterPath   String?
+  backdropPath String?
+  logoPath     String?
+  trailerUrl   String?
+  streamUrl    String?
+  releaseDate  String?
+  runtime      Int?
+  voteAverage  Float         @default(0)
+  voteCount    Int           @default(0)
+  genres       String?
+  regions      String?
+  plans        String?
+  featured     Boolean       @default(false)
+  active       Boolean       @default(true)
+  order        Int           @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  viewHistory  ViewHistory[]
+  favorites    Favorite[]
+  seasons      Season[]
+
+  @@index([type])
+  @@index([featured])
+  @@index([active])
+}
+
+model Season {
+  id          Int       @id @default(autoincrement())
+  contentId   Int
+  content     Content   @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  seasonNumber Int
+  name        String?
+  overview    String?
+  posterPath  String?
+  airDate     String?
+  episodes    Episode[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([contentId])
+}
+
+model Episode {
+  id            Int      @id @default(autoincrement())
+  seasonId      Int
+  season        Season   @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  episodeNumber Int
+  name          String?
+  overview      String?
+  stillPath     String?
+  airDate       String?
+  runtime       Int?
+  streamUrl     String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([seasonId])
+}
+
+model ViewHistory {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contentId   Int
+  content     Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  progress    Float    @default(0)
+  completed   Boolean  @default(false)
+  watchedAt   DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+  @@index([contentId])
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contentId Int
+  content   Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, contentId])
+  @@index([userId])
+  @@index([contentId])
+}
+
+model Payment {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  amount        Float
+  currency      String   @default("BRL")
+  status        String   @default("pending")
+  method        String?
+  transactionId String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+model SiteConfig {
+  id          Int      @id @default(autoincrement())
+  key         String   @unique
+  value       String
+  type        String   @default("text")
+  category    String   @default("general")
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Banner {
+  id          Int      @id @default(autoincrement())
+  title       String
+  subtitle    String?
+  imageUrl    String
+  linkUrl     String?
+  position    String   @default("home")
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

@@ -6,6 +6,11 @@ import categoriesRouter from './routes/categories';
 import channelsRouter from './routes/channels';
 import uploadRouter from './routes/upload';
 import settingsRouter from './routes/settings';
+import usersRouter from './routes/users';
+import contentRouter from './routes/content';
+import analyticsRouter from './routes/analytics';
+import siteconfigRouter from './routes/siteconfig';
+import bannersRouter from './routes/banners';
 
 const app = express();
 const PORT = process.env.PORT || 3333;
@@ -24,6 +29,11 @@ app.use('/api/categories', categoriesRouter);
 app.use('/api/channels', channelsRouter);
 app.use('/api/upload', uploadRouter);
 app.use('/api/settings', settingsRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/content', contentRouter);
+app.use('/api/analytics', analyticsRouter);
+app.use('/api/siteconfig', siteconfigRouter);
+app.use('/api/banners', bannersRouter);
 
 app.get('/api', (req, res) => {
   res.json({
