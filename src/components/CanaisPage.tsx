@@ -129,6 +129,10 @@ export function CanaisPage({ onClose }: CanaisPageProps) {
     ? channels 
     : channels.filter(ch => ch.group === selectedCategory);
 
+  // State for player error message
+  const [playerError, setPlayerError] = useState<string | null>(null);
+  const retryCountRef = useRef(0);
+
   // Initialize HLS player
   const initPlayer = useCallback((channel: Channel) => {
     if (!videoRef.current) return;
@@ -139,34 +143,87 @@ export function CanaisPage({ onClose }: CanaisPageProps) {
       hlsRef.current = null;
     }
 
+    setPlayerError(null);
+    retryCountRef.current = 0;
+
     const video = videoRef.current;
-    const streamUrl = `${PROXY_URL}${encodeURIComponent(channel.url)}`;
+    
+    // Try direct URL first for .ts streams, then proxy as fallback
+    const directUrl = channel.url;
+    const proxyUrl = `${PROXY_URL}${encodeURIComponent(channel.url)}`;
+    
+    // For .ts files, try direct first (many IPTV streams work without proxy)
+    const isTs = channel.url.endsWith('.ts');
+    const streamUrl = isTs ? directUrl : proxyUrl;
+
+    console.log(`🎬 Iniciando player para: ${channel.name}`);
+    console.log(`📡 URL: ${streamUrl}`);
 
     if (Hls.isSupported()) {
       const hls = new Hls({
         enableWorker: true,
         lowLatencyMode: true,
         backBufferLength: 90,
+        maxBufferLength: 30,
+        maxMaxBufferLength: 60,
+        // More tolerant settings for IPTV streams
+        fragLoadingTimeOut: 20000,
+        manifestLoadingTimeOut: 20000,
+        levelLoadingTimeOut: 20000,
       });
       
       hls.loadSource(streamUrl);
       hls.attachMedia(video);
       
       hls.on(Hls.Events.MANIFEST_PARSED, () => {
-        video.play().catch(console.error);
+        console.log('✅ Manifest carregado, iniciando reprodução...');
+        video.play().catch(err => {
+          console.warn('⚠️ Autoplay bloqueado:', err.message);
+          setPlayerError('Clique no vídeo para iniciar a reprodução');
+        });
       });
 
       hls.on(Hls.Events.ERROR, (event, data) => {
-        console.error('HLS Error:', data);
+        // Log detailed error info
+        console.error('❌ HLS Error:', {
+          type: data.type,
+          details: data.details,
+          fatal: data.fatal,
+          url: data.frag?.url || data.url || 'N/A',
+          response: data.response?.code || 'N/A',
+          reason: data.reason || 'N/A',
+        });
+
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
-              hls.startLoad();
+              if (retryCountRef.current < 2) {
+                retryCountRef.current++;
+                console.log(`🔄 Tentativa ${retryCountRef.current}/2 - Erro de rede, tentando novamente...`);
+                
+                // If direct URL failed, try with proxy
+                if (isTs && retryCountRef.current === 1) {
+                  console.log('🔄 Tentando com proxy CORS...');
+                  hls.loadSource(proxyUrl);
+                } else {
+                  hls.startLoad();
+                }
+              } else {
+                setPlayerError(`Canal indisponível: ${data.details || 'Erro de rede'}`);
+                hls.destroy();
+              }
               break;
             case Hls.ErrorTypes.MEDIA_ERROR:
+              console.log('🔄 Erro de mídia, tentando recuperar...');
               hls.recoverMediaError();
               break;
             default:
+              // For other errors (like manifest parsing), the stream might not be HLS
+              if (data.details === 'manifestParsingError') {
+                setPlayerError('Stream não é HLS válido. Este canal pode estar offline ou usar formato incompatível.');
+              } else {
+                setPlayerError(`Erro ao reproduzir: ${data.details || 'Erro desconhecido'}`);
+              }
               hls.destroy();
               break;
           }
@@ -177,7 +234,12 @@ export function CanaisPage({ onClose }: CanaisPageProps) {
     } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
       // Safari native HLS support
       video.src = streamUrl;
-      video.play().catch(console.error);
+      video.play().catch(err => {
+        console.warn('⚠️ Autoplay bloqueado:', err.message);
+        setPlayerError('Clique no vídeo para iniciar a reprodução');
+      });
+    } else {
+      setPlayerError('Seu navegador não suporta reprodução HLS');
     }
   }, []);
 
@@ -278,8 +340,46 @@ export function CanaisPage({ onClose }: CanaisPageProps) {
           className="w-full h-full object-contain"
           autoPlay
           playsInline
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e) => {
+            e.stopPropagation();
+            // Try to play if paused
+            if (videoRef.current?.paused) {
+              videoRef.current.play().catch(console.error);
+            }
+          }}
         />
+        
+        {/* Error Message Overlay */}
+        {playerError && (
+          <div className="absolute inset-0 flex items-center justify-center bg-black/80" onClick={(e) => e.stopPropagation()}>
+            <div className="text-center p-8 max-w-md">
+              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-600/20 flex items-center justify-center">
+                <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+              </div>
+              <h3 className="text-white text-xl font-semibold mb-2">Erro ao reproduzir</h3>
+              <p className="text-gray-400 mb-6">{playerError}</p>
+              <div className="flex gap-4 justify-center">
+                <button
+                  onClick={() => {
+                    setPlayerError(null);
+                    initPlayer(playingChannel);
+                  }}
+                  className="px-6 py-2 bg-[#E50914] text-white rounded-lg hover:bg-[#f40612] transition"
+                >
+                  Tentar Novamente
+                </button>
+                <button
+                  onClick={handleClosePlayer}
+                  className="px-6 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition"
+                >
+                  Fechar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
         
         {/* Hidden UI - only show on hover */}
         <div className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 pointer-events-none">
