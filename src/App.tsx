@@ -1017,6 +1017,15 @@ function App() {
     }
   });
 
+  // Ordenar cada gênero para que conteúdo local apareça primeiro
+  Object.keys(contentByGenre).forEach(genre => {
+    contentByGenre[genre].sort((a, b) => {
+      const aIsLocal = (a as any).isLocal ? 1 : 0;
+      const bIsLocal = (b as any).isLocal ? 1 : 0;
+      return bIsLocal - aIsLocal; // Local primeiro
+    });
+  });
+
   // Ordenar categorias por quantidade de itens
   // Na página Início: top 10 categorias
   // Na página Filmes/Séries: TODAS as categorias
