@@ -21,9 +21,22 @@ function createWindow() {
     show: false
   });
 
-  // Load the app URL (change to your deployed URL or localhost for development)
-  const appUrl = process.env.REDFLIX_URL || 'http://localhost:3001';
-  mainWindow.loadURL(appUrl);
+  // Load the app - try local build first, then fallback to URL
+  const isDev = process.env.NODE_ENV === 'development';
+  
+  if (isDev) {
+    // Development mode - load from localhost
+    mainWindow.loadURL(process.env.REDFLIX_URL || 'http://localhost:3001');
+  } else {
+    // Production mode - load from local build files
+    // When packaged, extraResources are in process.resourcesPath/dist
+    // When running locally, they're in ../dist
+    const isPackaged = app.isPackaged;
+    const indexPath = isPackaged
+      ? path.join(process.resourcesPath, 'dist', 'index.html')
+      : path.join(__dirname, '..', 'dist', 'index.html');
+    mainWindow.loadFile(indexPath);
+  }
 
   // Show window when ready
   mainWindow.once('ready-to-show', () => {
