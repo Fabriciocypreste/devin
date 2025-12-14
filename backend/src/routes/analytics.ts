@@ -65,7 +65,7 @@ router.get('/top-content', async (req, res) => {
 
     const topContent = await prisma.viewHistory.groupBy({
       by: ['contentId'],
-      where: { watchedAt: { gte: since } },
+      where: { updatedAt: { gte: since } },
       _count: { contentId: true },
       orderBy: { _count: { contentId: 'desc' } },
       take: parseInt(limit as string)
@@ -79,7 +79,7 @@ router.get('/top-content', async (req, res) => {
 
     const result = topContent.map(t => ({
       ...contents.find(c => c.id === t.contentId),
-      views: t._count.contentId
+      views: t._count?.contentId || 0
     }));
 
     res.json(result);
@@ -95,8 +95,8 @@ router.get('/user-activity', async (req, res) => {
     since.setDate(since.getDate() - parseInt(days as string));
 
     const activity = await prisma.viewHistory.groupBy({
-      by: ['watchedAt'],
-      where: { watchedAt: { gte: since } },
+      by: ['updatedAt'],
+      where: { updatedAt: { gte: since } },
       _count: { id: true }
     });
 

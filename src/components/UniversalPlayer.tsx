@@ -1,6 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Movie, getTitle } from '../utils/tmdb';
 import Hls from 'hls.js';
+
+const API_BASE = 'http://localhost:3333';
 
 // Icons inline
 const X = ({ size = 24 }: { size?: number }) => (
@@ -22,22 +24,226 @@ const ChevronLeft = ({ size = 24 }: { size?: number }) => (
   </svg>
 );
 
+interface NextEpisode {
+  id: number;
+  seasonNumber: number;
+  episodeNumber: number;
+  name: string | null;
+  streamUrl: string | null;
+  runtime: number | null;
+  stillPath: string | null;
+}
+
 interface UniversalPlayerProps {
   movie: Movie;
   streamUrl: string | null;
   trailerUrl?: string | null;
   onClose: () => void;
+  userId?: number;
+  contentId?: number;
+  episodeId?: number;
+  onNextEpisode?: (episode: NextEpisode) => void;
 }
 
-export function UniversalPlayer({ movie, streamUrl, trailerUrl, onClose }: UniversalPlayerProps) {
+export function UniversalPlayer({ 
+  movie, 
+  streamUrl, 
+  trailerUrl, 
+  onClose, 
+  userId = 1, 
+  contentId,
+  episodeId,
+  onNextEpisode 
+}: UniversalPlayerProps) {
   const [playerMode, setPlayerMode] = useState<'stream' | 'trailer' | 'placeholder'>('placeholder');
   const [isLoading, setIsLoading] = useState(true);
   const [playerError, setPlayerError] = useState<string | null>(null);
+  const [nextEpisode, setNextEpisode] = useState<NextEpisode | null>(null);
+  const [showNextEpisodeCountdown, setShowNextEpisodeCountdown] = useState(false);
+  const [countdown, setCountdown] = useState(10);
+  const [progressLoaded, setProgressLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
+  const saveProgressTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const title = getTitle(movie);
   const mediaType = movie.first_air_date ? 'tv' : 'movie';
+  const actualContentId = contentId || movie.id;
+
+  // Funcao para salvar progresso no backend
+  const saveProgress = useCallback(async (currentTime: number, duration: number) => {
+    try {
+      await fetch(`${API_BASE}/api/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId,
+          contentId: actualContentId,
+          episodeId: episodeId || null,
+          watchedTime: Math.floor(currentTime),
+          duration: Math.floor(duration)
+        })
+      });
+      console.log('✅ Progresso salvo:', Math.floor(currentTime), 'de', Math.floor(duration), 'segundos');
+    } catch (error) {
+      console.error('❌ Erro ao salvar progresso:', error);
+    }
+  }, [userId, actualContentId, episodeId]);
+
+  // Funcao para carregar progresso do backend
+  const loadProgress = useCallback(async () => {
+    try {
+      const response = await fetch(`${API_BASE}/api/progress/${actualContentId}?userId=${userId}`);
+      const data = await response.json();
+      
+      if (data.hasProgress && data.progress && !data.progress.completed) {
+        return data.progress.watchedTime;
+      }
+      return 0;
+    } catch (error) {
+      console.error('❌ Erro ao carregar progresso:', error);
+      return 0;
+    }
+  }, [userId, actualContentId]);
+
+  // Funcao para buscar proximo episodio
+  const fetchNextEpisode = useCallback(async () => {
+    if (mediaType !== 'tv') return;
+    
+    try {
+      const url = episodeId 
+        ? `${API_BASE}/api/progress/${actualContentId}/next?userId=${userId}&currentEpisodeId=${episodeId}`
+        : `${API_BASE}/api/progress/${actualContentId}/next?userId=${userId}`;
+      
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      if (data.hasNextEpisode && data.nextEpisode) {
+        setNextEpisode(data.nextEpisode);
+        console.log('📺 Próximo episódio:', data.nextEpisode);
+      }
+    } catch (error) {
+      console.error('❌ Erro ao buscar próximo episódio:', error);
+    }
+  }, [mediaType, actualContentId, userId, episodeId]);
+
+  // Carregar progresso e proximo episodio ao iniciar
+  useEffect(() => {
+    const initPlayer = async () => {
+      if (playerMode === 'stream' && videoRef.current && !progressLoaded) {
+        const savedTime = await loadProgress();
+        if (savedTime > 0 && videoRef.current) {
+          videoRef.current.currentTime = savedTime;
+          console.log('⏩ Retomando de:', savedTime, 'segundos');
+        }
+        setProgressLoaded(true);
+      }
+      
+      // Buscar proximo episodio para series
+      if (mediaType === 'tv') {
+        await fetchNextEpisode();
+      }
+    };
+    
+    initPlayer();
+  }, [playerMode, loadProgress, fetchNextEpisode, mediaType, progressLoaded]);
+
+  // Salvar progresso periodicamente e ao pausar
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || playerMode !== 'stream') return;
+
+    const handleTimeUpdate = () => {
+      // Salvar a cada 10 segundos
+      if (saveProgressTimeoutRef.current) {
+        clearTimeout(saveProgressTimeoutRef.current);
+      }
+      saveProgressTimeoutRef.current = setTimeout(() => {
+        if (video && !video.paused) {
+          saveProgress(video.currentTime, video.duration);
+        }
+      }, 10000);
+    };
+
+    const handlePause = () => {
+      if (video.currentTime > 0 && video.duration > 0) {
+        saveProgress(video.currentTime, video.duration);
+      }
+    };
+
+    const handleEnded = async () => {
+      // Salvar como completado
+      if (video.duration > 0) {
+        await saveProgress(video.duration, video.duration);
+      }
+      
+      // Mostrar countdown para proximo episodio
+      if (nextEpisode && mediaType === 'tv') {
+        setShowNextEpisodeCountdown(true);
+        setCountdown(10);
+        
+        countdownIntervalRef.current = setInterval(() => {
+          setCountdown(prev => {
+            if (prev <= 1) {
+              if (countdownIntervalRef.current) {
+                clearInterval(countdownIntervalRef.current);
+              }
+              // Carregar proximo episodio
+              if (onNextEpisode && nextEpisode) {
+                onNextEpisode(nextEpisode);
+              }
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+      }
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('pause', handlePause);
+    video.addEventListener('ended', handleEnded);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('pause', handlePause);
+      video.removeEventListener('ended', handleEnded);
+      if (saveProgressTimeoutRef.current) {
+        clearTimeout(saveProgressTimeoutRef.current);
+      }
+      if (countdownIntervalRef.current) {
+        clearInterval(countdownIntervalRef.current);
+      }
+    };
+  }, [playerMode, saveProgress, nextEpisode, mediaType, onNextEpisode]);
+
+  // Salvar progresso ao fechar o player
+  const handleClose = useCallback(() => {
+    const video = videoRef.current;
+    if (video && video.currentTime > 0 && video.duration > 0) {
+      saveProgress(video.currentTime, video.duration);
+    }
+    onClose();
+  }, [saveProgress, onClose]);
+
+  // Cancelar countdown e continuar assistindo
+  const cancelNextEpisode = useCallback(() => {
+    setShowNextEpisodeCountdown(false);
+    if (countdownIntervalRef.current) {
+      clearInterval(countdownIntervalRef.current);
+    }
+  }, []);
+
+  // Pular para proximo episodio imediatamente
+  const skipToNextEpisode = useCallback(() => {
+    if (countdownIntervalRef.current) {
+      clearInterval(countdownIntervalRef.current);
+    }
+    if (onNextEpisode && nextEpisode) {
+      onNextEpisode(nextEpisode);
+    }
+  }, [onNextEpisode, nextEpisode]);
 
   useEffect(() => {
     // Determinar qual player usar
@@ -140,7 +346,7 @@ export function UniversalPlayer({ movie, streamUrl, trailerUrl, onClose }: Unive
           <div className="flex items-center gap-4">
             {/* Botão Voltar */}
             <button
-              onClick={onClose}
+              onClick={handleClose}
               className="flex items-center gap-2 text-white hover:text-[#E50914] transition-colors group"
             >
               <div className="bg-white/10 p-2 rounded-lg group-hover:bg-[#E50914] transition-colors">
@@ -165,13 +371,58 @@ export function UniversalPlayer({ movie, streamUrl, trailerUrl, onClose }: Unive
 
           {/* Botão Fechar */}
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="bg-white/10 hover:bg-red-600 p-2 rounded-lg transition-colors text-white"
           >
             <X size={24} />
           </button>
         </div>
       </div>
+
+      {/* Next Episode Countdown Overlay */}
+      {showNextEpisodeCountdown && nextEpisode && (
+        <div className="absolute bottom-24 right-8 bg-black/90 border border-white/20 rounded-xl p-6 z-20 max-w-sm">
+          <div className="flex items-start gap-4">
+            {nextEpisode.stillPath && (
+              <img 
+                src={`https://image.tmdb.org/t/p/w185${nextEpisode.stillPath}`}
+                alt={nextEpisode.name || 'Próximo episódio'}
+                className="w-24 h-14 object-cover rounded"
+              />
+            )}
+            <div className="flex-1">
+              <p className="text-white/60 text-xs mb-1">Próximo episódio em {countdown}s</p>
+              <p className="text-white font-semibold text-sm">
+                T{nextEpisode.seasonNumber}:E{nextEpisode.episodeNumber}
+              </p>
+              {nextEpisode.name && (
+                <p className="text-white/80 text-xs mt-1">{nextEpisode.name}</p>
+              )}
+            </div>
+          </div>
+          <div className="flex gap-2 mt-4">
+            <button
+              onClick={cancelNextEpisode}
+              className="flex-1 px-3 py-2 bg-white/10 hover:bg-white/20 text-white text-sm rounded-lg transition"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={skipToNextEpisode}
+              className="flex-1 px-3 py-2 bg-[#E50914] hover:bg-[#f40612] text-white text-sm rounded-lg transition"
+            >
+              Reproduzir Agora
+            </button>
+          </div>
+          {/* Progress bar */}
+          <div className="mt-3 h-1 bg-white/20 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-[#E50914] transition-all duration-1000"
+              style={{ width: `${(10 - countdown) * 10}%` }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Video Player */}
       <div className="relative w-full max-w-7xl aspect-video">

@@ -49,7 +49,7 @@ router.get('/:id', async (req, res) => {
         payments: { orderBy: { createdAt: 'desc' }, take: 10 },
         viewHistory: { 
           include: { content: true },
-          orderBy: { watchedAt: 'desc' },
+          orderBy: { updatedAt: 'desc' },
           take: 20
         },
         favorites: { include: { content: true } }
