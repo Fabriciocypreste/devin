@@ -19,6 +19,31 @@ const TEST_USER_ID = 1;
 const TEST_MOVIE_CONTENT_ID = 1; // ID de um filme no banco
 const TEST_SERIES_CONTENT_ID = 2; // ID de uma serie no banco
 
+// Tipos para respostas da API
+interface ProgressResponse {
+  contentId?: number;
+  currentTime?: number;
+  progress?: {
+    currentTime: number;
+  };
+}
+
+interface NextEpisodeResponse {
+  nextEpisode?: {
+    episodeNumber: number;
+  } | null;
+}
+
+interface ContinueWatchingItem {
+  updatedAt: string;
+  completed: boolean;
+}
+
+// Helper para tipar response.json()
+async function json<T>(response: Response): Promise<T> {
+  return (await response.json()) as T;
+}
+
 describe('Progress API - Continuar Assistindo', () => {
   
   describe('Filme - Salvar e Carregar Progresso', () => {
@@ -36,10 +61,10 @@ describe('Progress API - Continuar Assistindo', () => {
         })
       });
       
-      expect(response.ok).toBe(true);
-      const data = await response.json();
-      expect(data.contentId).toBe(TEST_MOVIE_CONTENT_ID);
-      expect(data.currentTime).toBe(1800);
+            expect(response.ok).toBe(true);
+            const data = await json<ProgressResponse>(response);
+            expect(data.contentId).toBe(TEST_MOVIE_CONTENT_ID);
+            expect(data.currentTime).toBe(1800);
     });
     
     it('deve carregar progresso de um filme', async () => {
@@ -47,10 +72,10 @@ describe('Progress API - Continuar Assistindo', () => {
         `${API_BASE}/api/progress/${TEST_MOVIE_CONTENT_ID}?userId=${TEST_USER_ID}`
       );
       
-      expect(response.ok).toBe(true);
-      const data = await response.json();
-      expect(data.progress).toBeDefined();
-      expect(data.progress.currentTime).toBe(1800);
+            expect(response.ok).toBe(true);
+            const data = await json<ProgressResponse>(response);
+            expect(data.progress).toBeDefined();
+            expect(data.progress!.currentTime).toBe(1800);
     });
     
     it('deve atualizar progresso existente (nao duplicar)', async () => {
@@ -72,8 +97,8 @@ describe('Progress API - Continuar Assistindo', () => {
         `${API_BASE}/api/progress/${TEST_MOVIE_CONTENT_ID}?userId=${TEST_USER_ID}`
       );
       
-      const data = await response.json();
-      expect(data.progress.currentTime).toBe(3600);
+            const data = await json<ProgressResponse>(response);
+            expect(data.progress!.currentTime).toBe(3600);
     });
   });
   
@@ -99,11 +124,11 @@ describe('Progress API - Continuar Assistindo', () => {
         `${API_BASE}/api/progress/next-episode/${TEST_SERIES_CONTENT_ID}?userId=${TEST_USER_ID}&currentEpisodeId=1`
       );
       
-      if (response.ok) {
-        const data = await response.json();
-        // Deve retornar episodio 2 ou null se nao houver mais
-        expect(data.nextEpisode === null || data.nextEpisode.episodeNumber === 2).toBe(true);
-      }
+            if (response.ok) {
+              const data = await json<NextEpisodeResponse>(response);
+              // Deve retornar episodio 2 ou null se nao houver mais
+              expect(data.nextEpisode === null || data.nextEpisode?.episodeNumber === 2).toBe(true);
+            }
     });
     
     it('deve retornar primeiro episodio da proxima temporada ao terminar temporada', async () => {
@@ -143,9 +168,9 @@ describe('Progress API - Continuar Assistindo', () => {
         `${API_BASE}/api/progress/continue-watching?userId=${TEST_USER_ID}`
       );
       
-      expect(response.ok).toBe(true);
-      const data = await response.json();
-      expect(Array.isArray(data)).toBe(true);
+            expect(response.ok).toBe(true);
+            const data = await json<ContinueWatchingItem[]>(response);
+            expect(Array.isArray(data)).toBe(true);
     });
     
     it('deve ordenar por ultimo assistido (mais recente primeiro)', async () => {
@@ -153,10 +178,10 @@ describe('Progress API - Continuar Assistindo', () => {
         `${API_BASE}/api/progress/continue-watching?userId=${TEST_USER_ID}`
       );
       
-      const data = await response.json();
+            const data = await json<ContinueWatchingItem[]>(response);
       
-      if (data.length >= 2) {
-        const dates = data.map((item: any) => new Date(item.updatedAt).getTime());
+            if (data.length >= 2) {
+              const dates = data.map((item) => new Date(item.updatedAt).getTime());
         // Verificar que esta ordenado decrescente
         for (let i = 0; i < dates.length - 1; i++) {
           expect(dates[i]).toBeGreaterThanOrEqual(dates[i + 1]);
@@ -169,12 +194,12 @@ describe('Progress API - Continuar Assistindo', () => {
         `${API_BASE}/api/progress/continue-watching?userId=${TEST_USER_ID}`
       );
       
-      const data = await response.json();
+            const data = await json<ContinueWatchingItem[]>(response);
       
-      // Nenhum item deve ter completed = true
-      data.forEach((item: any) => {
-        expect(item.completed).not.toBe(true);
-      });
+            // Nenhum item deve ter completed = true
+            data.forEach((item) => {
+              expect(item.completed).not.toBe(true);
+            });
     });
   });
 });
@@ -210,21 +235,21 @@ describe('Multiusuario - Isolamento de Progresso', () => {
       })
     });
     
-    // Verificar progresso do usuario 1
-    const response1 = await fetch(
-      `${API_BASE}/api/progress/${TEST_MOVIE_CONTENT_ID}?userId=${USER_1}`
-    );
-    const data1 = await response1.json();
+        // Verificar progresso do usuario 1
+        const response1 = await fetch(
+          `${API_BASE}/api/progress/${TEST_MOVIE_CONTENT_ID}?userId=${USER_1}`
+        );
+        const data1 = await json<ProgressResponse>(response1);
     
-    // Verificar progresso do usuario 2
-    const response2 = await fetch(
-      `${API_BASE}/api/progress/${TEST_MOVIE_CONTENT_ID}?userId=${USER_2}`
-    );
-    const data2 = await response2.json();
+        // Verificar progresso do usuario 2
+        const response2 = await fetch(
+          `${API_BASE}/api/progress/${TEST_MOVIE_CONTENT_ID}?userId=${USER_2}`
+        );
+        const data2 = await json<ProgressResponse>(response2);
     
-    // Progressos devem ser diferentes
-    if (data1.progress && data2.progress) {
-      expect(data1.progress.currentTime).not.toBe(data2.progress.currentTime);
-    }
+        // Progressos devem ser diferentes
+        if (data1.progress && data2.progress) {
+          expect(data1.progress.currentTime).not.toBe(data2.progress.currentTime);
+        }
   });
 });

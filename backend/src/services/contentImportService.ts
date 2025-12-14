@@ -291,13 +291,26 @@ export async function enrichContentWithTMDB(
         const searchType = content.type === 'series' ? 'tv' : 'movie';
         const searchUrl = `https://api.themoviedb.org/3/search/${searchType}?api_key=${tmdbApiKey}&query=${encodeURIComponent(content.title)}&language=pt-BR`;
         
-        const response = await fetch(searchUrl);
-        if (!response.ok) continue;
+                const response = await fetch(searchUrl);
+                if (!response.ok) continue;
         
-        const data = await response.json();
-        if (!data.results || data.results.length === 0) continue;
+                interface TMDBSearchResult {
+                  results: Array<{
+                    id: number;
+                    overview?: string;
+                    poster_path?: string;
+                    backdrop_path?: string;
+                    vote_average?: number;
+                    vote_count?: number;
+                    release_date?: string;
+                    first_air_date?: string;
+                  }>;
+                }
         
-        const tmdbResult = data.results[0];
+                const data = (await response.json()) as TMDBSearchResult;
+                if (!data.results || data.results.length === 0) continue;
+        
+                const tmdbResult = data.results[0];
         
         await prisma.content.update({
           where: { id: content.id },
