@@ -2,9 +2,26 @@ import { projectId, publicAnonKey } from './supabase/info';
 
 const BASE_URL = `https://${projectId}.supabase.co/functions/v1/make-server-2363f5d6`;
 
-// 🔥 TEMPORÁRIO: API Key hardcoded para teste rápido
-// TODO: Depois de testar, REMOVER esta linha e criar arquivo .env
-const TMDB_API_KEY = 'ddb1bdf6aa91bdf335797853884b0c1d';
+// 🔄 Rotação de API Keys do TMDB para evitar limites de uso
+const TMDB_API_KEYS = [
+  'ddb1bdf6aa91bdf335797853884b0c1d',
+  'aa1d921feb99069e464f5f713c415ffd',
+  '4b12d53d4c9a299cd1b5b425ee26336a',
+];
+
+let currentKeyIndex = 0;
+let requestCount = 0;
+const REQUESTS_PER_KEY = 35; // Rotaciona a cada 35 requisições para ficar abaixo do limite de 40/10s
+
+function getNextApiKey(): string {
+  requestCount++;
+  if (requestCount >= REQUESTS_PER_KEY) {
+    requestCount = 0;
+    currentKeyIndex = (currentKeyIndex + 1) % TMDB_API_KEYS.length;
+    console.log(`🔄 Rotacionando para API Key ${currentKeyIndex + 1}/${TMDB_API_KEYS.length}`);
+  }
+  return TMDB_API_KEYS[currentKeyIndex];
+}
 
 const TMDB_DIRECT_URL = 'https://api.themoviedb.org/3';
 
@@ -46,7 +63,7 @@ async function fetchFromTMDB(endpoint: string, retries = 1): Promise<any> {
 
   try {
     const directUrl = convertToDirectUrl(endpoint);
-    console.log(`📡 TMDB request: ${directUrl.replace(TMDB_API_KEY, '***')}`);
+    console.log(`📡 TMDB request: ${directUrl.replace(/api_key=[^&]+/, 'api_key=***')}`);
 
     const response = await fetch(directUrl);
 
@@ -186,7 +203,8 @@ function convertToDirectUrl(endpoint: string): string {
   const segments = pathPart.split('/').filter(s => s);
 
   let tmdbPath = '';
-  let queryParams = `api_key=${TMDB_API_KEY}&language=pt-BR`;
+  const apiKey = getNextApiKey();
+  let queryParams = `api_key=${apiKey}&language=pt-BR`;
 
   if (queryPart) {
     queryParams += `&${queryPart}`;
