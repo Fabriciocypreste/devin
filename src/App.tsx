@@ -47,6 +47,7 @@ import { MoviesPage } from './components/MoviesPage';
 import { SeriesPage } from './components/SeriesPage';
 import { BombandoPage } from './components/BombandoPage';
 import { IPTVPage } from './components/IPTVPage';
+import { CanaisPage } from './components/CanaisPage';
 import { SearchOverlay } from './components/SearchOverlay';
 import { SearchResultsPage } from './components/SearchResultsPage';
 import { ContentRow } from './components/ContentRow';
@@ -591,6 +592,7 @@ function App() {
   const [showSeriesPage, setShowSeriesPage] = useState(false);
   const [showBombandoPage, setShowBombandoPage] = useState(false);
   const [showIPTVPage, setShowIPTVPage] = useState(false);
+  const [showCanaisPage, setShowCanaisPage] = useState(false);
   const [showSearchOverlay, setShowSearchOverlay] = useState(false);
   const [showAdminDashboard, setShowAdminDashboard] = useState(false);
 
@@ -1106,11 +1108,17 @@ function App() {
         setBottomNavTab('home');
         break;
       case 'canais':
-        setShowChannels(true);
+        setShowCanaisPage(true);
+        setShowChannels(false);
         setShowLanguagePage(false);
         setShowRedFlixOriginalsPage(false);
         setShowMoviesPage(false);
         setShowSeriesPage(false);
+        setShowIPTVPage(false);
+        setShowBombandoPage(false);
+        setShowKidsPage(false);
+        setShowSoccerPage(false);
+        setBottomNavTab('home');
         break;
       case 'futebol':
         setShowSoccerPage(true);
@@ -1803,6 +1811,15 @@ function App() {
           onSearchClick={() => setShowSearchOverlay(true)}
         />
       </>
+    );
+  }
+
+  // Show Canais page
+  if (showCanaisPage) {
+    return (
+      <CanaisPage
+        onClose={() => setShowCanaisPage(false)}
+      />
     );
   }
 
