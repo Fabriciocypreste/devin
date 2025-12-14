@@ -56,16 +56,40 @@ export function CanaisPage({ onClose }: CanaisPageProps) {
   const hlsRef = useRef<Hls | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Load channels from JSON
+  // Load channels from Backend API or fallback to JSON
   useEffect(() => {
     const loadChannels = async () => {
       try {
         setLoading(true);
+        
+        // Try backend API first (port 3333)
+        try {
+          const apiResponse = await fetch('http://localhost:3333/api/channels');
+          if (apiResponse.ok) {
+            const apiData = await apiResponse.json();
+            if (apiData.length > 0) {
+              const mappedChannels = apiData.map((ch: any) => ({
+                id: String(ch.id),
+                name: ch.name,
+                title: ch.name,
+                logo: ch.logo,
+                group: ch.category?.name || 'Sem Categoria',
+                url: ch.url,
+              }));
+              processChannels(mappedChannels);
+              console.log('✅ Canais carregados da API do backend');
+              return;
+            }
+          }
+        } catch (apiErr) {
+          console.log('Backend API não disponível, usando JSON local');
+        }
+        
+        // Fallback to local JSON
         const baseUrl = window.location.origin;
         const response = await fetch(`${baseUrl}/src/data/channels.json`);
         
         if (!response.ok) {
-          // Try alternate path
           const altResponse = await fetch(`${baseUrl}/data/channels.json`);
           if (!altResponse.ok) {
             throw new Error('Failed to load channels');
