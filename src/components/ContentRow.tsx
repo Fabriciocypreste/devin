@@ -54,21 +54,22 @@ export function ContentRow({
           const backdrop = item.backdropPath || item.backdrop_path;
           const title = item.title || item.name;
 
-          return (
-            <div key={item.id} className="snap-start shrink-0">
-              <GlassCard
-                className={cn(
-                  isPoster ? "w-[200px]" : "w-[300px]",
-                  "transition-all duration-300"
-                )}
-                aspectRatio={isPoster ? 'poster' : 'video'}
-                imageUrl={isPoster ? poster : backdrop || poster}
-                title={title}
-                onPress={() => handleClick(item)}
-                tabIndex={0}
-              />
-            </div>
-          );
+                    return (
+                      <div key={item.id} className="snap-start shrink-0">
+                        <GlassCard
+                          className={cn(
+                            isPoster ? "w-[200px]" : "w-[300px]",
+                            "transition-all duration-300"
+                          )}
+                          aspectRatio={isPoster ? 'poster' : 'video'}
+                          imageUrl={isPoster ? poster : backdrop || poster}
+                          title={title}
+                          onPress={() => handleClick(item)}
+                          tabIndex={0}
+                          showLogo={!item.isLocal && poster?.startsWith('http')}
+                        />
+                      </div>
+                    );
         })}
       </div>
     </div>
