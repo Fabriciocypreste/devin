@@ -336,13 +336,22 @@ export function MovieCard({ movie, onClick, onPlay, onAddToList, onLike, onWatch
             useProxy={false}
           />
           
+          {/* Logo RedFlix - Canto Superior Esquerdo */}
+          <div className="absolute top-1 md:top-2 left-1 md:left-2 z-10">
+            <img
+              src="https://chemorena.com/redfliz.png"
+              alt="RedFlix"
+              className="w-5 h-5 md:w-6 md:h-6 object-contain opacity-90 drop-shadow-lg"
+            />
+          </div>
+          
           {/* Logo do Filme/Série - Card Pequeno */}
           {logoPath && (
-            <div className="absolute top-1 md:top-2 left-1 md:left-2 max-w-[40%]">
+            <div className="absolute bottom-1 md:bottom-2 left-1 md:left-2 max-w-[60%]">
               <img
                 src={getImageUrl(logoPath, 'w300')}
                 alt={`${title} logo`}
-                className="w-full h-auto max-h-6 md:max-h-12 object-contain drop-shadow-lg"
+                className="w-full h-auto max-h-6 md:max-h-10 object-contain drop-shadow-lg"
               />
             </div>
           )}
