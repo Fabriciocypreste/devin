@@ -270,6 +270,10 @@ export function getImageUrl(path: string, size: 'w300' | 'w500' | 'w780' | 'orig
   if (path.startsWith('http://') || path.startsWith('https://')) {
     return path;
   }
+  // Se o path é uma imagem local (começa com /images/), retornar diretamente
+  if (path.startsWith('/images/')) {
+    return path;
+  }
   return `https://image.tmdb.org/t/p/${size}${path}`;
 }
 
