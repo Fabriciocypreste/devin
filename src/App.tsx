@@ -80,7 +80,7 @@ import { StreamingMarquee } from './components/StreamingMarquee';
 import { FeaturedBanners } from './components/FeaturedBanners';
 import { StreamingLogos } from './components/StreamingLogos';
 import { ImagePreloadMonitor } from './components/ImagePreloadMonitor';
-import { loadAllContent } from './utils/primeVicioLoader'; // ✅ ÚNICA FONTE: TMDB
+import { loadAllContentFromDatabase, convertToMovieFormat } from './utils/databaseContentLoader'; // ✅ ÚNICA FONTE: BANCO DE DADOS
 import { initializeImageCache } from './utils/imageCache';
 import { preloadCriticalResources } from './utils/resourcePreloader';
 
@@ -700,13 +700,13 @@ function App() {
 
         setLoadingProgress(20);
 
-        // ✅ FONTE ÚNICA: TMDB API
+        // ✅ FONTE ÚNICA: BANCO DE DADOS
         console.log('🎬 ═══════════════════════════════════════════════════');
         console.log('🎬 CARREGANDO CONTEÚDO');
-        console.log('🎬 Fonte: TMDB (metadados e conteúdo)');
+        console.log('🎬 Fonte: BANCO DE DADOS (API /api/content)');
         console.log('🎬 ═══════════════════════════════════════════════════');
 
-        const contentData = await loadAllContent();
+        const contentData = await loadAllContentFromDatabase();
 
         setLoadingProgress(60);
 
@@ -728,29 +728,23 @@ function App() {
 
         setLoadingProgress(80);
 
-        // Converter para formato do App
-        const convertedMovies = allMoviesAndSeries.map(item => ({
-          ...item,
-          id: item.id,
-          name: item.title || item.name,
-          year: item.year || (item.release_date || item.first_air_date ? parseInt((item.release_date || item.first_air_date)!.split('-')[0]) : new Date().getFullYear()),
-          media_type: item.type === 'tv' ? 'tv' : 'movie',
-        }));
+                // Converter para formato do App usando a funcao convertToMovieFormat
+                const convertedMovies = allMoviesAndSeries.map(item => convertToMovieFormat(item));
 
-        setLoadingProgress(90);
+                setLoadingProgress(90);
 
-        // Organizar conteúdo
-        setAllContent(convertedMovies);
-        setTopShows(convertedMovies.slice(0, 20));
-        setContinueWatching(convertedMovies.slice(0, 5));
+                // Organizar conteudo
+                setAllContent(convertedMovies);
+                setTopShows(convertedMovies.slice(0, 20));
+                setContinueWatching(convertedMovies.slice(0, 5));
 
-        // TOP 10 - conteúdo com melhor avaliação
-        const top10Content = [...convertedMovies]
-          .filter(m => m.vote_average && m.vote_average > 0)
-          .sort((a, b) => (b.vote_average || 0) - (a.vote_average || 0))
-          .slice(0, 10);
+                // TOP 10 - conteudo com melhor avaliacao
+                const top10Content = [...convertedMovies]
+                  .filter((m: any) => m.vote_average && m.vote_average > 0)
+                  .sort((a: any, b: any) => (b.vote_average || 0) - (a.vote_average || 0))
+                  .slice(0, 10);
 
-        setTop10BrasilSeries(top10Content.length > 0 ? top10Content : convertedMovies.slice(0, 10));
+                setTop10BrasilSeries(top10Content.length > 0 ? top10Content : convertedMovies.slice(0, 10));
         setTop10Trending(convertedMovies.slice(0, 10));
 
         setLoadingProgress(100);

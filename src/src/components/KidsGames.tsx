@@ -1,1 +1,0 @@
-export { KidsGames } from './KidsGamesNew';

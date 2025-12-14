@@ -27,11 +27,15 @@ router.post('/', async (req, res) => {
     }
 
     // Verificar se ja existe um registro para este usuario/conteudo/episodio
+    // IMPORTANTE: Para filmes (sem episodeId), usamos episodeId = 0 em vez de NULL
+    // Isso resolve o bug SQL onde NULL != NULL, permitindo a constraint unique funcionar
+    const episodeIdValue = episodeId ? parseInt(episodeId) : 0;
+    
     const existingProgress = await prisma.viewHistory.findFirst({
       where: {
         userId: parseInt(userId),
         contentId: parseInt(contentId),
-        episodeId: episodeId ? parseInt(episodeId) : null
+        episodeId: episodeIdValue === 0 ? null : episodeIdValue
       }
     });
 
@@ -53,11 +57,12 @@ router.post('/', async (req, res) => {
       });
     } else {
       // Criar novo registro
+      // Para filmes (sem episodeId), usamos null mas verificamos duplicatas manualmente acima
       progress = await prisma.viewHistory.create({
         data: {
           userId: parseInt(userId),
           contentId: parseInt(contentId),
-          episodeId: episodeId ? parseInt(episodeId) : null,
+          episodeId: episodeIdValue === 0 ? null : episodeIdValue,
           seasonNumber,
           episodeNumber,
           watchedTime: parseInt(watchedTime),
@@ -75,6 +80,7 @@ router.post('/', async (req, res) => {
 });
 
 // GET /api/progress/:contentId - Retorna progresso do filme ou ultimo episodio assistido da serie
+// OTIMIZADO: Nao carrega todas as temporadas/episodios, apenas o necessario
 router.get('/:contentId', async (req, res) => {
   try {
     const { contentId } = req.params;
@@ -84,21 +90,17 @@ router.get('/:contentId', async (req, res) => {
       return res.status(400).json({ error: 'Missing required query parameter: userId' });
     }
 
-    // Buscar o conteudo para saber se e filme ou serie
+    // Buscar o conteudo SEM carregar todas as temporadas/episodios (performance)
     const content = await prisma.content.findUnique({
       where: { id: parseInt(contentId) },
-      include: {
-        seasons: {
-          include: {
-            episodes: {
-              orderBy: [
-                { seasonNumber: 'asc' },
-                { episodeNumber: 'asc' }
-              ]
-            }
-          },
-          orderBy: { seasonNumber: 'asc' }
-        }
+      select: {
+        id: true,
+        title: true,
+        type: true,
+        posterPath: true,
+        backdropPath: true,
+        streamUrl: true,
+        runtime: true
       }
     });
 

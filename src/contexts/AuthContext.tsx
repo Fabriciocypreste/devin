@@ -7,9 +7,12 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { api } from '../utils/api';
 
 interface User {
-  id: string;
+  id: number;
   email: string;
   name: string;
+  avatar?: string;
+  role?: string;
+  plan?: string;
 }
 
 interface Profile {
@@ -23,6 +26,7 @@ interface Profile {
 
 interface AuthContextType {
   user: User | null;
+  userId: number | null; // ID do usuario para uso em componentes (substitui hardcoding)
   accessToken: string | null;
   profiles: Profile[];
   selectedProfile: Profile | null;
@@ -123,10 +127,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       console.log('🔐 [AuthContext] Iniciando signin FAKE (Bypass)...', { email });
 
       // SIMULAÇÃO DE LOGIN (Bypass para desenvolvimento)
-      const fakeUser = {
-        id: '123',
+      const fakeUser: User = {
+        id: 1, // ID numerico para compatibilidade com o banco de dados
         email: email,
-        name: email.split('@')[0] || 'Usuário Teste'
+        name: email.split('@')[0] || 'Usuário Teste',
+        role: 'user',
+        plan: 'basic'
       };
       const fakeToken = 'fake-jwt-token-dev-bypass';
 
@@ -237,6 +243,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const value: AuthContextType = {
     user,
+    userId: user?.id || null, // ID do usuario para uso em componentes
     accessToken,
     profiles,
     selectedProfile,
@@ -276,6 +283,7 @@ export function useAuth() {
 
     return {
       user: null,
+      userId: null, // ID do usuario para uso em componentes
       accessToken: null,
       profiles: [],
       selectedProfile: null,
