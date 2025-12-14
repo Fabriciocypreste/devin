@@ -2079,6 +2079,12 @@ function App() {
                                     <MovieCard
                                       movie={toMovie(item)}
                                       onClick={() => handleMovieClick(toMovie(item))}
+                                      onAddToList={() => handleAddToList(toMovie(item))}
+                                      onLike={() => handleLike(toMovie(item))}
+                                      onWatchLater={() => handleWatchLater(toMovie(item))}
+                                      isInList={myList.includes(item.id)}
+                                      isLiked={likedList.includes(item.id)}
+                                      isInWatchLater={watchLaterList.includes(item.id)}
                                     />
                                   </div>
                                 </div>
@@ -2110,6 +2116,12 @@ function App() {
                                     <MovieCard
                                       movie={toMovie(item)}
                                       onClick={() => handleMovieClick(toMovie(item))}
+                                      onAddToList={() => handleAddToList(toMovie(item))}
+                                      onLike={() => handleLike(toMovie(item))}
+                                      onWatchLater={() => handleWatchLater(toMovie(item))}
+                                      isInList={myList.includes(item.id)}
+                                      isLiked={likedList.includes(item.id)}
+                                      isInWatchLater={watchLaterList.includes(item.id)}
                                     />
                                   </div>
                                 </div>
@@ -2141,6 +2153,12 @@ function App() {
                                     <MovieCard
                                       movie={toMovie(item)}
                                       onClick={() => handleMovieClick(toMovie(item))}
+                                      onAddToList={() => handleAddToList(toMovie(item))}
+                                      onLike={() => handleLike(toMovie(item))}
+                                      onWatchLater={() => handleWatchLater(toMovie(item))}
+                                      isInList={myList.includes(item.id)}
+                                      isLiked={likedList.includes(item.id)}
+                                      isInWatchLater={watchLaterList.includes(item.id)}
                                     />
                                   </div>
                                 </div>
@@ -2172,6 +2190,12 @@ function App() {
                                     <MovieCard
                                       movie={toMovie(item)}
                                       onClick={() => handleMovieClick(toMovie(item))}
+                                      onAddToList={() => handleAddToList(toMovie(item))}
+                                      onLike={() => handleLike(toMovie(item))}
+                                      onWatchLater={() => handleWatchLater(toMovie(item))}
+                                      isInList={myList.includes(item.id)}
+                                      isLiked={likedList.includes(item.id)}
+                                      isInWatchLater={watchLaterList.includes(item.id)}
                                     />
                                   </div>
                                 </div>
@@ -2204,6 +2228,12 @@ function App() {
                                       <MovieCard
                                         movie={toMovie(item)}
                                         onClick={() => handleMovieClick(toMovie(item))}
+                                        onAddToList={() => handleAddToList(toMovie(item))}
+                                        onLike={() => handleLike(toMovie(item))}
+                                        onWatchLater={() => handleWatchLater(toMovie(item))}
+                                        isInList={myList.includes(item.id)}
+                                        isLiked={likedList.includes(item.id)}
+                                        isInWatchLater={watchLaterList.includes(item.id)}
                                       />
                                     </div>
                                   </div>

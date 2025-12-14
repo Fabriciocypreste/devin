@@ -336,13 +336,13 @@ export function MovieCard({ movie, onClick, onPlay, onAddToList, onLike, onWatch
             useProxy={false}
           />
           
-          {/* Logo do Filme/Série - Card Pequeno */}
+          {/* Logo do Filme/Série - Canto Inferior Esquerdo */}
           {logoPath && (
-            <div className="absolute top-1 md:top-2 left-1 md:left-2 max-w-[40%]">
+            <div className="absolute bottom-1 md:bottom-2 left-1 md:left-2 max-w-[60%] z-10">
               <img
                 src={getImageUrl(logoPath, 'w300')}
                 alt={`${title} logo`}
-                className="w-full h-auto max-h-6 md:max-h-12 object-contain drop-shadow-lg"
+                className="w-full h-auto max-h-6 md:max-h-10 object-contain drop-shadow-lg"
               />
             </div>
           )}
