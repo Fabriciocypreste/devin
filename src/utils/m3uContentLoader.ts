@@ -19,7 +19,7 @@
 import { parseM3U, M3UEntry } from './m3uParser';
 import { projectId, publicAnonKey } from './supabase/info';
 import { getFromCache, saveToCache, cleanExpiredCache } from './tmdbCache';
-import { enrichMovie, enrichSeries } from '../services/tmdbService';
+import { enrichMovie, enrichSeries } from './tmdb';
 
 // ⚠️ CONFIGURAÇÃO: Ativar/desativar carregamento do GitHub
 const ENABLE_GITHUB_LOADING = false; // Desabilitado até o repositório estar disponível

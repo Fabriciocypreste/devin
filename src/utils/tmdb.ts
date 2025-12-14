@@ -367,3 +367,97 @@ export async function getPersonTVCredits(personId: number): Promise<any> {
 export async function getPersonImages(personId: number): Promise<any> {
   return fetchFromTMDB(`/tmdb/person/${personId}/images`);
 }
+
+// Interface para dados enriquecidos do TMDB
+export interface EnrichedTmdbData {
+  poster_url: string | null;
+  backdrop_url: string | null;
+  overview?: string;
+  vote_average?: number;
+  release_date?: string;
+  genres?: { id: number; name: string }[];
+}
+
+// Enriquece um filme com dados do TMDB
+export async function enrichMovie(title: string, year?: number): Promise<EnrichedTmdbData | null> {
+  try {
+    // Buscar filme por título
+    let endpoint = `/tmdb/search/movie?query=${encodeURIComponent(title)}`;
+    if (year) {
+      endpoint += `&year=${year}`;
+    }
+    
+    const searchResult = await fetchFromTMDB(endpoint);
+    
+    if (!searchResult.results || searchResult.results.length === 0) {
+      return null;
+    }
+    
+    // Pegar o primeiro resultado
+    const movie = searchResult.results[0];
+    
+    // Buscar detalhes para obter gêneros
+    let genres: { id: number; name: string }[] = [];
+    try {
+      const details = await fetchFromTMDB(`/tmdb/details/movie/${movie.id}`);
+      genres = details.genres || [];
+    } catch (e) {
+      // Se falhar ao buscar detalhes, usar genre_ids do resultado da busca
+      genres = (movie.genre_ids || []).map((id: number) => ({ id, name: '' }));
+    }
+    
+    return {
+      poster_url: movie.poster_path ? getImageUrl(movie.poster_path, 'w500') : null,
+      backdrop_url: movie.backdrop_path ? getImageUrl(movie.backdrop_path, 'original') : null,
+      overview: movie.overview,
+      vote_average: movie.vote_average,
+      release_date: movie.release_date,
+      genres,
+    };
+  } catch (error) {
+    console.warn(`⚠️ Erro ao enriquecer filme "${title}":`, error);
+    return null;
+  }
+}
+
+// Enriquece uma série com dados do TMDB
+export async function enrichSeries(title: string, year?: number): Promise<EnrichedTmdbData | null> {
+  try {
+    // Buscar série por título
+    let endpoint = `/tmdb/search/tv?query=${encodeURIComponent(title)}`;
+    if (year) {
+      endpoint += `&first_air_date_year=${year}`;
+    }
+    
+    const searchResult = await fetchFromTMDB(endpoint);
+    
+    if (!searchResult.results || searchResult.results.length === 0) {
+      return null;
+    }
+    
+    // Pegar o primeiro resultado
+    const series = searchResult.results[0];
+    
+    // Buscar detalhes para obter gêneros
+    let genres: { id: number; name: string }[] = [];
+    try {
+      const details = await fetchFromTMDB(`/tmdb/details/tv/${series.id}`);
+      genres = details.genres || [];
+    } catch (e) {
+      // Se falhar ao buscar detalhes, usar genre_ids do resultado da busca
+      genres = (series.genre_ids || []).map((id: number) => ({ id, name: '' }));
+    }
+    
+    return {
+      poster_url: series.poster_path ? getImageUrl(series.poster_path, 'w500') : null,
+      backdrop_url: series.backdrop_path ? getImageUrl(series.backdrop_path, 'original') : null,
+      overview: series.overview,
+      vote_average: series.vote_average,
+      release_date: series.first_air_date,
+      genres,
+    };
+  } catch (error) {
+    console.warn(`⚠️ Erro ao enriquecer série "${title}":`, error);
+    return null;
+  }
+}
