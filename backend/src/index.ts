@@ -11,6 +11,7 @@ import contentRouter from './routes/content';
 import analyticsRouter from './routes/analytics';
 import siteconfigRouter from './routes/siteconfig';
 import bannersRouter from './routes/banners';
+import progressRouter from './routes/progress';
 
 const app = express();
 const PORT = process.env.PORT || 3333;
@@ -34,6 +35,7 @@ app.use('/api/content', contentRouter);
 app.use('/api/analytics', analyticsRouter);
 app.use('/api/siteconfig', siteconfigRouter);
 app.use('/api/banners', bannersRouter);
+app.use('/api/progress', progressRouter);
 
 app.get('/api', (req, res) => {
   res.json({

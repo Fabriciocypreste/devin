@@ -141,9 +141,11 @@ model Season {
 }
 
 model Episode {
-  id            Int      @id @default(autoincrement())
+  id            Int           @id @default(autoincrement())
   seasonId      Int
-  season        Season   @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  season        Season        @relation(fields: [seasonId], references: [id], onDelete: Cascade)
+  contentId     Int
+  seasonNumber  Int
   episodeNumber Int
   name          String?
   overview      String?
@@ -151,26 +153,34 @@ model Episode {
   airDate       String?
   runtime       Int?
   streamUrl     String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  viewHistory   ViewHistory[]
 
   @@index([seasonId])
+  @@index([contentId, seasonNumber, episodeNumber])
 }
 
 model ViewHistory {
-  id          Int      @id @default(autoincrement())
-  userId      Int
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  contentId   Int
-  content     Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
-  progress    Float    @default(0)
-  completed   Boolean  @default(false)
-  watchedAt   DateTime @default(now())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id            String   @id @default(uuid())
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  contentId     Int
+  content       Content  @relation(fields: [contentId], references: [id], onDelete: Cascade)
+  episodeId     Int?
+  episode       Episode? @relation(fields: [episodeId], references: [id], onDelete: Cascade)
+  seasonNumber  Int?
+  episodeNumber Int?
+  watchedTime   Int      @default(0)
+  duration      Int      @default(0)
+  completed     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
+  @@unique([userId, contentId, episodeId])
   @@index([userId])
   @@index([contentId])
+  @@index([episodeId])
 }
 
 model Favorite {

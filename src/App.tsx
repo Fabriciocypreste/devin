@@ -30,6 +30,7 @@ const svgPaths = {
 };
 import { MovieCard } from './components/MovieCard';
 import { ContinueWatchingCard } from './components/ContinueWatchingCard';
+import { ContinueWatching } from './components/ContinueWatching';
 import { ImageWithFallback } from './components/figma/ImageWithFallback';
 import { HeroSlider } from './components/HeroSlider';
 import { MovieDetails } from './components/MovieDetails';
@@ -1904,6 +1905,16 @@ function App() {
             likedList={likedList}
             watchLaterList={watchLaterList}
           />
+
+          {/* Continuar Assistindo Section */}
+          {activeCategory === 'Início' && (
+            <div className="relative z-10 -mt-20">
+              <ContinueWatching 
+                userId={1}
+                onPlay={(movie, streamUrl) => handlePlayMovie(movie, streamUrl)}
+              />
+            </div>
+          )}
 
           {/* TOP 10 Section - EMBAIXO DO BANNER PRINCIPAL */}
           {activeCategory === 'Início' && !loading && (
