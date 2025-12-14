@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react';
 import { Movie } from '../utils/tmdb';
 import { CategoryBanner } from './CategoryBanner';
 import { MovieCard } from './MovieCard';
-
-// API Key do TMDB
-// 🔥 TEMPORÁRIO: API Key hardcoded - Criar .env depois!
-const TMDB_API_KEY = 'ddb1bdf6aa91bdf335797853884b0c1d';
+import { loadAllContent } from '../utils/primeVicioLoader';
 
 // Icons inline to avoid lucide-react dependency
 const ChevronDownIcon = ({ className = "", size = 24 }: { className?: string; size?: number }) => (
@@ -83,96 +80,51 @@ export function SeriesPage({
     { id: '37', name: 'Faroeste' },
   ];
 
-  // Buscar séries do filmes.txt e enriquecer com dados do TMDB
+  // Carregar séries do local_content.json e tmdb_content.json
   useEffect(() => {
     const fetchSeries = async () => {
       setLoading(true);
       try {
-        console.log('📺 Carregando séries...');
+        console.log('📺 Carregando séries do conteúdo local e TMDB...');
         
-        // ⚠️ M3U DESABILITADO - Ir direto para TMDB
-        console.log('ℹ️ M3U desabilitado - usando TMDB');
+        // Carregar conteúdo usando o loader progressivo
+        const { series: allSeries } = await loadAllContent();
         
-        // CÓDIGO M3U DESABILITADO TEMPORARIAMENTE
-        /*
-        // PASSO 1: Tentar carregar do M3U primeiro
-        try {
-          const { loadM3UContent } = await import('../utils/m3uContentLoader');
-          const m3uData = await loadM3UContent();
-          
-          if (m3uData && m3uData.series && m3uData.series.length > 0) {
-            console.log(`✅ ${m3uData.series.length} séries encontradas no filmes.txt`);
-            
-            // Processar séries do M3U
-            const basicSeries: Movie[] = m3uData.series.map((serie, index) => ({
-              id: serie.id || index,
-              name: serie.title,
-              title: serie.title,
-              overview: `${serie.title} - Disponível no RedFlix`,
-              poster_path: serie.poster_path || null,
-              backdrop_path: serie.backdrop_path || null,
-              vote_average: 0,
-              vote_count: 0,
-              popularity: 0,
-              first_air_date: '',
-              genre_ids: [],
-              adult: false,
-              original_language: 'pt',
-              original_name: serie.title,
-              media_type: 'tv',
-              streamUrl: serie.streamUrl,
-              m3uLogo: serie.logo
-            }));
-            
-            setSeries(basicSeries);
-            setFeaturedSeries(basicSeries[0] || null);
-            setLoading(false);
-            return;
-          }
-        } catch (m3uError) {
-          console.log('⚠️ M3U não disponível, usando TMDB direto:', m3uError);
+        console.log(`✅ ${allSeries.length} séries carregadas`);
+        
+        // Filtrar por gênero se selecionado
+        let filteredSeries = allSeries;
+        if (selectedGenre !== 'all') {
+          const genreId = parseInt(selectedGenre);
+          filteredSeries = allSeries.filter((serie: any) => 
+            serie.genre_ids?.includes(genreId) || 
+            serie.genres?.some((g: any) => g.id === genreId || g === genreId)
+          );
         }
-        */
         
-        // PASSO 2: Fallback para TMDB direto
-        console.log('🌐 Carregando séries populares do TMDB...');
+        // Converter para o tipo Movie
+        const processedSeries: Movie[] = filteredSeries.map((serie: any) => ({
+          id: serie.id,
+          name: serie.name || serie.title,
+          title: serie.title || serie.name,
+          overview: serie.overview || 'Conteúdo disponível para reprodução.',
+          poster_path: serie.poster_path,
+          backdrop_path: serie.backdrop_path,
+          vote_average: serie.vote_average || 7.5,
+          vote_count: serie.vote_count || 0,
+          popularity: serie.popularity || 0,
+          first_air_date: serie.first_air_date || serie.release_date,
+          genre_ids: serie.genre_ids || [],
+          original_language: 'pt',
+          original_name: serie.name || serie.title,
+          media_type: 'tv',
+          streamUrl: serie.streamUrl,
+          isLocal: serie.isLocal
+        }));
         
-        const genreParam = selectedGenre !== 'all' ? `&with_genres=${selectedGenre}` : '';
-        const tmdbUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&language=pt-BR&sort_by=popularity.desc&page=1${genreParam}`;
-        
-        const response = await fetch(tmdbUrl);
-        const data = await response.json();
-        
-        if (data.results && data.results.length > 0) {
-          const tmdbSeries: Series[] = data.results.map((serie: any) => ({
-            id: serie.id,
-            name: serie.name,
-            title: serie.name,
-            overview: serie.overview,
-            poster_path: serie.poster_path,
-            backdrop_path: serie.backdrop_path,
-            vote_average: serie.vote_average,
-            vote_count: serie.vote_count,
-            popularity: serie.popularity,
-            first_air_date: serie.first_air_date,
-            genre_ids: serie.genre_ids,
-            origin_country: serie.origin_country,
-            original_language: serie.original_language,
-            original_name: serie.original_name,
-            media_type: 'tv'
-          }));
-          
-          console.log(`✅ ${tmdbSeries.length} séries carregadas do TMDB`);
-          
-          setSeries(tmdbSeries);
-          setFeaturedSeries(tmdbSeries[0] || null);
-          setLoading(false);
-        } else {
-          console.log('⚠️ Nenhuma série encontrada');
-          setSeries([]);
-          setFeaturedSeries(null);
-          setLoading(false);
-        }
+        setSeries(processedSeries);
+        setFeaturedSeries(processedSeries[0] || null);
+        setLoading(false);
         
       } catch (error) {
         console.error('❌ Erro ao carregar séries:', error);

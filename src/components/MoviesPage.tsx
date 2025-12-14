@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react';
 import { Movie } from '../utils/tmdb';
 import { CategoryBanner } from './CategoryBanner';
 import { MovieCard } from './MovieCard';
-
-// API Key do TMDB
-// 🔥 TEMPORÁRIO: API Key hardcoded - Criar .env depois!
-const TMDB_API_KEY = 'ddb1bdf6aa91bdf335797853884b0c1d';
+import { loadAllContent } from '../utils/primeVicioLoader';
 
 // Icons inline to avoid lucide-react dependency
 const ChevronDownIcon = ({ className = "", size = 24 }: { className?: string; size?: number }) => (
@@ -86,108 +83,55 @@ export function MoviesPage({
     { id: '37', name: 'Faroeste' },
   ];
 
-  // Buscar filmes do filmes.txt e enriquecer com dados do TMDB
+  // Carregar filmes do local_content.json e tmdb_content.json
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        console.log('🎬 Carregando filmes...');
+        console.log('🎬 Carregando filmes do conteúdo local e TMDB...');
         
-        // ⚠️ M3U DESABILITADO - Ir direto para TMDB
-        console.log('ℹ️ M3U desabilitado - usando TMDB');
+        // Carregar conteúdo usando o loader progressivo
+        const { movies: allMovies } = await loadAllContent();
         
-        // CÓDIGO M3U DESABILITADO TEMPORARIAMENTE
-        /*
-        // PASSO 1: Tentar carregar do M3U primeiro
-        try {
-          const { loadM3UContent } = await import('../utils/m3uContentLoader');
-          const m3uData = await loadM3UContent();
-          
-          if (m3uData && m3uData.filmes && m3uData.filmes.length > 0) {
-            console.log(`✅ ${m3uData.filmes.length} filmes encontrados no filmes.txt`);
-            
-            // Processar filmes do M3U
-            const basicMovies: Movie[] = m3uData.filmes.map((filme, index) => ({
-              id: filme.id || index,
-              title: filme.title,
-              name: filme.title,
-              overview: `${filme.title} - Disponível no RedFlix`,
-              poster_path: filme.poster_path || null,
-              backdrop_path: filme.backdrop_path || null,
-              vote_average: 0,
-              vote_count: 0,
-              popularity: 0,
-              release_date: '',
-              genre_ids: [],
-              adult: false,
-              original_language: 'pt',
-              original_title: filme.title,
-              media_type: 'movie',
-              streamUrl: filme.streamUrl,
-              m3uLogo: filme.logo
-            }));
-            
-            setMovies(basicMovies);
-            setFeaturedMovie(basicMovies[0] || null);
-            setLoading(false);
-            return;
-          }
-        } catch (m3uError) {
-          console.log('⚠️ M3U não disponível, usando TMDB:', m3uError);
-        }
-        */
+        console.log(`✅ ${allMovies.length} filmes carregados`);
         
-        // PASSO 2: Fallback para TMDB direto
-        console.log('🌐 Carregando filmes do TMDB...');
-        
-        const genreParam = selectedGenre !== 'all' ? `&with_genres=${selectedGenre}` : '';
-        const tmdbUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&language=pt-BR&sort_by=popularity.desc&page=1${genreParam}`;
-        
-        const response = await fetch(tmdbUrl);
-        
-        // Tratar erro 401 (API key inválida) - silenciosamente
-        if (response.status === 401) {
-          console.log('ℹ️ TMDB temporariamente indisponível');
-          setMovies([]);
-          setFeaturedMovie(null);
-          setLoading(false);
-          return;
+        // Filtrar por gênero se selecionado
+        let filteredMovies = allMovies;
+        if (selectedGenre !== 'all') {
+          const genreId = parseInt(selectedGenre);
+          filteredMovies = allMovies.filter((movie: any) => 
+            movie.genre_ids?.includes(genreId) || 
+            movie.genres?.some((g: any) => g.id === genreId || g === genreId)
+          );
         }
         
-        const data = await response.json();
+        // Converter para o tipo Movie
+        const processedMovies: Movie[] = filteredMovies.map((movie: any) => ({
+          id: movie.id,
+          title: movie.title || movie.name,
+          name: movie.name || movie.title,
+          overview: movie.overview || 'Conteúdo disponível para reprodução.',
+          poster_path: movie.poster_path,
+          backdrop_path: movie.backdrop_path,
+          vote_average: movie.vote_average || 7.5,
+          vote_count: movie.vote_count || 0,
+          popularity: movie.popularity || 0,
+          release_date: movie.release_date,
+          genre_ids: movie.genre_ids || [],
+          adult: false,
+          original_language: 'pt',
+          original_title: movie.title || movie.name,
+          media_type: 'movie',
+          streamUrl: movie.streamUrl,
+          isLocal: movie.isLocal
+        }));
         
-        if (data.results && data.results.length > 0) {
-          const tmdbMovies: Movie[] = data.results.map((movie: any) => ({
-            id: movie.id,
-            title: movie.title,
-            name: movie.title,
-            overview: movie.overview,
-            poster_path: movie.poster_path,
-            backdrop_path: movie.backdrop_path,
-            vote_average: movie.vote_average,
-            vote_count: movie.vote_count,
-            popularity: movie.popularity,
-            release_date: movie.release_date,
-            genre_ids: movie.genre_ids,
-            adult: movie.adult,
-            original_language: movie.original_language,
-            original_title: movie.original_title,
-            media_type: 'movie'
-          }));
-          
-          console.log(`✅ ${tmdbMovies.length} filmes carregados`);
-          
-          setMovies(tmdbMovies);
-          setFeaturedMovie(tmdbMovies[0] || null);
-          setLoading(false);
-        } else {
-          setMovies([]);
-          setFeaturedMovie(null);
-          setLoading(false);
-        }
+        setMovies(processedMovies);
+        setFeaturedMovie(processedMovies[0] || null);
+        setLoading(false);
         
       } catch (error) {
-        console.log('ℹ️ Conteúdo em carregamento');
+        console.error('❌ Erro ao carregar filmes:', error);
         setMovies([]);
         setFeaturedMovie(null);
         setLoading(false);
