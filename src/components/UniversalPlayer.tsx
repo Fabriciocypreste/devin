@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Movie, getTitle } from '../utils/tmdb';
+import Hls from 'hls.js';
 
 // Icons inline
 const X = ({ size = 24 }: { size?: number }) => (
@@ -31,6 +32,9 @@ interface UniversalPlayerProps {
 export function UniversalPlayer({ movie, streamUrl, trailerUrl, onClose }: UniversalPlayerProps) {
   const [playerMode, setPlayerMode] = useState<'stream' | 'trailer' | 'placeholder'>('placeholder');
   const [isLoading, setIsLoading] = useState(true);
+  const [playerError, setPlayerError] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const hlsRef = useRef<Hls | null>(null);
 
   const title = getTitle(movie);
   const mediaType = movie.first_air_date ? 'tv' : 'movie';
@@ -52,6 +56,81 @@ export function UniversalPlayer({ movie, streamUrl, trailerUrl, onClose }: Unive
     
     setIsLoading(false);
   }, [streamUrl, trailerUrl]);
+
+  // Initialize HLS player for stream URLs
+  useEffect(() => {
+    if (playerMode !== 'stream' || !streamUrl || !videoRef.current) return;
+
+    const video = videoRef.current;
+    const isHlsStream = streamUrl.includes('.m3u8');
+    const isMp4Stream = streamUrl.includes('.mp4');
+
+    // Cleanup previous HLS instance
+    if (hlsRef.current) {
+      hlsRef.current.destroy();
+      hlsRef.current = null;
+    }
+
+    if (isMp4Stream) {
+      // Direct MP4 playback
+      video.src = streamUrl;
+      video.play().catch(err => {
+        console.warn('⚠️ Autoplay bloqueado:', err.message);
+      });
+    } else if (isHlsStream && Hls.isSupported()) {
+      // HLS playback
+      const hls = new Hls({
+        enableWorker: true,
+        lowLatencyMode: true,
+        backBufferLength: 90,
+        maxBufferLength: 30,
+        maxMaxBufferLength: 60,
+        fragLoadingTimeOut: 20000,
+        manifestLoadingTimeOut: 20000,
+        levelLoadingTimeOut: 20000,
+      });
+
+      hls.loadSource(streamUrl);
+      hls.attachMedia(video);
+
+      hls.on(Hls.Events.MANIFEST_PARSED, () => {
+        console.log('✅ HLS Manifest carregado');
+        video.play().catch(err => {
+          console.warn('⚠️ Autoplay bloqueado:', err.message);
+        });
+      });
+
+      hls.on(Hls.Events.ERROR, (event, data) => {
+        console.error('❌ HLS Error:', data);
+        if (data.fatal) {
+          setPlayerError(`Erro ao reproduzir: ${data.details || 'Erro desconhecido'}`);
+          hls.destroy();
+        }
+      });
+
+      hlsRef.current = hls;
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      // Safari native HLS
+      video.src = streamUrl;
+      video.play().catch(err => {
+        console.warn('⚠️ Autoplay bloqueado:', err.message);
+      });
+    } else {
+      // Fallback: try direct playback
+      video.src = streamUrl;
+      video.play().catch(err => {
+        console.warn('⚠️ Erro ao reproduzir:', err.message);
+        setPlayerError('Formato de vídeo não suportado');
+      });
+    }
+
+    return () => {
+      if (hlsRef.current) {
+        hlsRef.current.destroy();
+        hlsRef.current = null;
+      }
+    };
+  }, [playerMode, streamUrl]);
 
   return (
     <div className="fixed inset-0 bg-black/98 z-[60] flex items-center justify-center p-4">
@@ -104,17 +183,47 @@ export function UniversalPlayer({ movie, streamUrl, trailerUrl, onClose }: Unive
             </div>
           </div>
         ) : playerMode === 'stream' && streamUrl ? (
-          // Player de Stream (URL customizada)
-          <div className="w-full h-full bg-black rounded overflow-hidden">
-            <iframe
-              src={streamUrl}
-              className="w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-              allowFullScreen
-              title={title}
-              onLoad={() => console.log('✅ Stream player carregado')}
-              onError={(e) => console.error('❌ Erro ao carregar stream:', e)}
+          // Player de Stream (MP4/HLS nativo)
+          <div className="w-full h-full bg-black rounded overflow-hidden relative">
+            <video
+              ref={videoRef}
+              className="w-full h-full object-contain"
+              controls
+              autoPlay
+              playsInline
+              onClick={(e) => {
+                const video = e.currentTarget;
+                if (video.paused) {
+                  video.play().catch(console.error);
+                }
+              }}
             />
+            {/* Error Overlay */}
+            {playerError && (
+              <div className="absolute inset-0 flex items-center justify-center bg-black/90">
+                <div className="text-center p-8 max-w-md">
+                  <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-600/20 flex items-center justify-center">
+                    <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-white text-xl font-semibold mb-2">Erro ao reproduzir</h3>
+                  <p className="text-gray-400 mb-6">{playerError}</p>
+                  <button
+                    onClick={() => {
+                      setPlayerError(null);
+                      if (videoRef.current) {
+                        videoRef.current.load();
+                        videoRef.current.play().catch(console.error);
+                      }
+                    }}
+                    className="px-6 py-2 bg-[#E50914] text-white rounded-lg hover:bg-[#f40612] transition"
+                  >
+                    Tentar Novamente
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         ) : playerMode === 'trailer' && trailerUrl ? (
           // Player de Trailer (YouTube)
