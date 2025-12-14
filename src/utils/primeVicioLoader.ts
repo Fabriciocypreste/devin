@@ -455,7 +455,9 @@ async function enrichWithLogos(items: Content[], maxItems: number = 20): Promise
 async function loadLocalContent(): Promise<Content[]> {
   try {
     console.log('📂 Carregando conteúdo LOCAL (imagens da pasta)...');
-    const response = await fetch('/data/local_content.json');
+    // Usar URL absoluta para evitar erro com credenciais na URL
+    const baseUrl = window.location.origin;
+    const response = await fetch(`${baseUrl}/data/local_content.json`);
     if (!response.ok) {
       console.error('Erro ao carregar local_content.json:', response.status);
       return [];
@@ -490,7 +492,9 @@ async function loadLocalContent(): Promise<Content[]> {
 async function loadTMDBContent(): Promise<Content[]> {
   try {
     console.log('🌐 Carregando conteúdo TMDB (progressivo)...');
-    const response = await fetch('/data/tmdb_content.json');
+    // Usar URL absoluta para evitar erro com credenciais na URL
+    const baseUrl = window.location.origin;
+    const response = await fetch(`${baseUrl}/data/tmdb_content.json`);
     if (!response.ok) {
       console.error('Erro ao carregar tmdb_content.json:', response.status);
       return [];
@@ -526,7 +530,9 @@ async function loadTMDBContent(): Promise<Content[]> {
  */
 async function loadRealContent(): Promise<Content[]> {
   try {
-    const response = await fetch('/data/real_content.json');
+    // Usar URL absoluta para evitar erro com credenciais na URL
+    const baseUrl = window.location.origin;
+    const response = await fetch(`${baseUrl}/data/real_content.json`);
     if (!response.ok) {
       console.error('Erro ao carregar real_content.json:', response.status);
       return [];
