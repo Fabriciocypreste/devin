@@ -1731,6 +1731,13 @@ function App() {
         <MoviesPage
           onClose={() => setShowMoviesPage(false)}
           onMovieClick={handleMovieClick}
+          onPlay={handlePlayMovie}
+          onAddToList={handleAddToList}
+          onLike={handleLike}
+          onWatchLater={handleWatchLater}
+          myList={myList}
+          likedList={likedList}
+          watchLaterList={watchLaterList}
         />
       </>
     );
@@ -1750,6 +1757,13 @@ function App() {
         <SeriesPage
           onClose={() => setShowSeriesPage(false)}
           onMovieClick={handleMovieClick}
+          onPlay={handlePlayMovie}
+          onAddToList={handleAddToList}
+          onLike={handleLike}
+          onWatchLater={handleWatchLater}
+          myList={myList}
+          likedList={likedList}
+          watchLaterList={watchLaterList}
         />
       </>
     );
