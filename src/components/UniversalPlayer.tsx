@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Movie, getTitle } from '../utils/tmdb';
+import { useAuth } from '../contexts/AuthContext';
 import Hls from 'hls.js';
 
-const API_BASE = 'http://localhost:3333';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3333';
 
 // Icons inline
 const X = ({ size = 24 }: { size?: number }) => (
@@ -39,7 +40,6 @@ interface UniversalPlayerProps {
   streamUrl: string | null;
   trailerUrl?: string | null;
   onClose: () => void;
-  userId?: number;
   contentId?: number;
   episodeId?: number;
   onNextEpisode?: (episode: NextEpisode) => void;
@@ -50,11 +50,11 @@ export function UniversalPlayer({
   streamUrl, 
   trailerUrl, 
   onClose, 
-  userId = 1, 
   contentId,
   episodeId,
   onNextEpisode 
 }: UniversalPlayerProps) {
+  const { userId } = useAuth(); // Obter userId do contexto de autenticacao
   const [playerMode, setPlayerMode] = useState<'stream' | 'trailer' | 'placeholder'>('placeholder');
   const [isLoading, setIsLoading] = useState(true);
   const [playerError, setPlayerError] = useState<string | null>(null);

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Movie } from '../utils/tmdb';
+import { useAuth } from '../contexts/AuthContext';
 
-const API_BASE = 'http://localhost:3333';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3333';
 
 interface ContinueWatchingItem {
   id: string;
@@ -31,16 +32,22 @@ interface ContinueWatchingItem {
 }
 
 interface ContinueWatchingProps {
-  userId?: number;
   onPlay: (movie: Movie, streamUrl: string | null) => void;
 }
 
-export function ContinueWatching({ userId = 1, onPlay }: ContinueWatchingProps) {
+export function ContinueWatching({ onPlay }: ContinueWatchingProps) {
+  const { userId } = useAuth(); // Obter userId do contexto de autenticacao
   const [items, setItems] = useState<ContinueWatchingItem[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchContinueWatching = async () => {
+      // Nao buscar se nao houver userId (usuario nao autenticado)
+      if (!userId) {
+        setLoading(false);
+        return;
+      }
+      
       try {
         const response = await fetch(`${API_BASE}/api/progress/user/${userId}/continue-watching`);
         const data = await response.json();
