@@ -9,6 +9,7 @@ interface GlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
     aspectRatio?: 'poster' | 'video' | 'square';
     isFocused?: boolean;
     onPress?: () => void;
+    showLogo?: boolean; // Mostrar logo RedFlix nas imagens TMDB
 }
 
 export function GlassCard({
@@ -20,6 +21,7 @@ export function GlassCard({
     className,
     isFocused = false,
     onPress,
+    showLogo = false,
     children,
     ...props
 }: GlassCardProps) {
@@ -47,22 +49,33 @@ export function GlassCard({
             tabIndex={0}
             {...props}
         >
-            {/* Background Image */}
-            {imageUrl && (
-                <div className="absolute inset-0">
-                    <img
-                        src={imageUrl}
-                        alt={title || 'Card Image'}
-                        className={cn(
-                            'h-full w-full object-cover transition-transform duration-500',
-                            isHovered ? 'scale-110' : 'scale-100'
+                        {/* Background Image */}
+                        {imageUrl && (
+                            <div className="absolute inset-0">
+                                <img
+                                    src={imageUrl}
+                                    alt={title || 'Card Image'}
+                                    className={cn(
+                                        'h-full w-full object-cover transition-transform duration-500',
+                                        isHovered ? 'scale-110' : 'scale-100'
+                                    )}
+                                    loading="lazy"
+                                />
+                                {/* Gradient Overlay */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80" />
+                    
+                                {/* Logo RedFlix para imagens TMDB */}
+                                {showLogo && (
+                                    <div className="absolute top-2 right-2 z-10">
+                                        <img
+                                            src="https://chemorena.com/redfliz.png"
+                                            alt="RedFlix"
+                                            className="w-8 h-8 object-contain opacity-80 drop-shadow-lg"
+                                        />
+                                    </div>
+                                )}
+                            </div>
                         )}
-                        loading="lazy"
-                    />
-                    {/* Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent opacity-80" />
-                </div>
-            )}
 
             {/* Content */}
             <div className="absolute inset-0 flex flex-col justify-end p-4 opacity-100 transition-opacity duration-300">
