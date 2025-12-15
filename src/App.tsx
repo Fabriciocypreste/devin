@@ -83,6 +83,8 @@ import { ImagePreloadMonitor } from './components/ImagePreloadMonitor';
 import { loadAllContentFromDatabase, convertToMovieFormat } from './utils/databaseContentLoader'; // ✅ ÚNICA FONTE: BANCO DE DADOS
 import { initializeImageCache } from './utils/imageCache';
 import { preloadCriticalResources } from './utils/resourcePreloader';
+import { setupTVMode } from './utils/tvNavigation';
+import { initSecurityProtections } from './utils/securityChecks';
 
 
 
@@ -678,10 +680,23 @@ function App() {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
   }, []);
 
-  // Preload de recursos críticos na inicialização
-  useEffect(() => {
-    preloadCriticalResources();
-  }, []);
+    // Preload de recursos críticos na inicialização
+    useEffect(() => {
+      preloadCriticalResources();
+    }, []);
+
+    // Inicializar TV Mode e Security Protections
+    useEffect(() => {
+      console.log('Initializing TV Mode and Security Protections...');
+    
+      // Setup TV navigation for Android TV / TV Box
+      setupTVMode();
+      console.log('TV Mode initialized');
+    
+      // Initialize security protections (device fingerprint, devtools detection, etc)
+      initSecurityProtections();
+      console.log('Security Protections initialized');
+    }, []);
 
   useEffect(() => {
     async function fetchData() {
