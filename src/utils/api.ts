@@ -1,11 +1,11 @@
 /**
  * REDFLIX API CLIENT
- * Cliente para comunicação com o backend Supabase
+ * Cliente para comunicação com o backend local
+ * Integrado com o Admin Dashboard para refletir alterações em tempo real
  */
 
-import { projectId, publicAnonKey } from './supabase/info';
-
-const API_BASE_URL = `https://${projectId}.supabase.co/functions/v1/make-server-2363f5d6`;
+// Backend local - mesma base de dados do Admin Dashboard
+const API_BASE_URL = 'http://localhost:3333/api';
 
 interface ApiOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -15,6 +15,7 @@ interface ApiOptions {
 
 /**
  * Função principal para fazer requisições à API
+ * Conecta ao backend local que compartilha o banco de dados com o Admin Dashboard
  */
 async function apiRequest<T = any>(
   endpoint: string, 
@@ -24,8 +25,12 @@ async function apiRequest<T = any>(
 
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
-    'Authorization': `Bearer ${token || publicAnonKey}`,
   };
+  
+  // Adicionar token de autenticação se fornecido
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
 
   const config: RequestInit = {
     method,
