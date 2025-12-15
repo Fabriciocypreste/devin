@@ -280,3 +280,13 @@ model Subscriber {
   @@index([plan])
   @@index([createdAt])
 }
+
+// Configuracao do app - distribuicao e P2P
+model AppConfig {
+  id          Int      @id @default(autoincrement())
+  key         String   @unique
+  value       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

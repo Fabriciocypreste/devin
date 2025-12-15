@@ -139,6 +139,8 @@ export interface Content {
   streamUrl?: string;
   active: boolean;
   featured: boolean;
+  channelNumber?: number;
+  isLive?: boolean;
   _count?: { viewHistory: number; favorites: number };
 }
 
