@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import * as api from './services/api'
 
-type Tab = 'dashboard' | 'content' | 'users' | 'channels' | 'categories' | 'banners' | 'customize' | 'settings'
+type Tab = 'dashboard' | 'content' | 'users' | 'channels' | 'categories' | 'banners' | 'customize' | 'settings' | 'accesscodes'
 
 function App() {
   const [tab, setTab] = useState<Tab>('dashboard')
@@ -18,10 +18,14 @@ function App() {
   const [users, setUsers] = useState<api.User[]>([])
   const [banners, setBanners] = useState<api.Banner[]>([])
   const [siteConfigs, setSiteConfigs] = useState<api.SiteConfig[]>([])
-  const [contentPage, setContentPage] = useState(1)
-  const [contentTotal, setContentTotal] = useState(0)
-  const [userPage, setUserPage] = useState(1)
-  const [userTotal, setUserTotal] = useState(0)
+    const [contentPage, setContentPage] = useState(1)
+    const [contentTotal, setContentTotal] = useState(0)
+    const [userPage, setUserPage] = useState(1)
+    const [userTotal, setUserTotal] = useState(0)
+    const [accessCodes, setAccessCodes] = useState<api.AccessCode[]>([])
+    const [accessCodeStats, setAccessCodeStats] = useState<api.AccessCodeStats | null>(null)
+    const [newCodeEmail, setNewCodeEmail] = useState('')
+    const [newCodeDuration, setNewCodeDuration] = useState(60)
 
   useEffect(() => {
     loadCategories()
@@ -34,11 +38,12 @@ function App() {
     loadChannels()
   }, [selectedCategory])
 
-  useEffect(() => {
-    if (tab === 'content') loadContents()
-    if (tab === 'users') loadUsers()
-    if (tab === 'banners') loadBanners()
-  }, [tab, contentPage, userPage])
+    useEffect(() => {
+      if (tab === 'content') loadContents()
+      if (tab === 'users') loadUsers()
+      if (tab === 'banners') loadBanners()
+      if (tab === 'accesscodes') loadAccessCodes()
+    }, [tab, contentPage, userPage])
 
   const showMessage = (msg: string, type: 'success' | 'error' = 'success') => {
     setMessage(msg)
@@ -93,14 +98,51 @@ function App() {
     }
   }
 
-  const loadSiteConfigs = async () => {
-    try {
-      const data = await api.getSiteConfigs()
-      setSiteConfigs(data || [])
-    } catch (err) {
-      console.error('Error loading site configs:', err)
+    const loadSiteConfigs = async () => {
+      try {
+        const data = await api.getSiteConfigs()
+        setSiteConfigs(data || [])
+      } catch (err) {
+        console.error('Error loading site configs:', err)
+      }
     }
-  }
+
+    const loadAccessCodes = async () => {
+      try {
+        const [codesData, statsData] = await Promise.all([
+          api.getAccessCodes(),
+          api.getAccessCodeStats()
+        ])
+        setAccessCodes(codesData.codes || [])
+        setAccessCodeStats(statsData)
+      } catch (err) {
+        console.error('Error loading access codes:', err)
+      }
+    }
+
+    const handleGenerateCode = async () => {
+      try {
+        const result = await api.generateAccessCode(newCodeEmail || undefined, newCodeDuration)
+        if (result.success) {
+          showMessage(`Codigo gerado: ${result.accessCode.code}`)
+          setNewCodeEmail('')
+          loadAccessCodes()
+        }
+      } catch (err) {
+        showMessage('Erro ao gerar codigo', 'error')
+      }
+    }
+
+    const handleRevokeCode = async (id: number) => {
+      if (!confirm('Tem certeza que deseja revogar este codigo?')) return
+      try {
+        await api.revokeAccessCode(id)
+        showMessage('Codigo revogado!')
+        loadAccessCodes()
+      } catch (err) {
+        showMessage('Erro ao revogar codigo', 'error')
+      }
+    }
 
   const loadCategories = async () => {
     try {
@@ -245,16 +287,17 @@ function App() {
     }
   }
 
-  const tabs: { id: Tab; label: string; icon: string }[] = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'content', label: 'Conteúdo', icon: '🎬' },
-    { id: 'users', label: 'Usuários', icon: '👥' },
-    { id: 'channels', label: 'Canais', icon: '📺' },
-    { id: 'categories', label: 'Categorias', icon: '📁' },
-    { id: 'banners', label: 'Banners', icon: '🖼️' },
-    { id: 'customize', label: 'Personalizar', icon: '🎨' },
-    { id: 'settings', label: 'Configurações', icon: '⚙️' }
-  ]
+    const tabs: { id: Tab; label: string; icon: string }[] = [
+      { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+      { id: 'content', label: 'Conteúdo', icon: '🎬' },
+      { id: 'users', label: 'Usuários', icon: '👥' },
+      { id: 'accesscodes', label: 'Codigos', icon: '🔑' },
+      { id: 'channels', label: 'Canais', icon: '📺' },
+      { id: 'categories', label: 'Categorias', icon: '📁' },
+      { id: 'banners', label: 'Banners', icon: '🖼️' },
+      { id: 'customize', label: 'Personalizar', icon: '🎨' },
+      { id: 'settings', label: 'Configurações', icon: '⚙️' }
+    ]
 
   return (
     <div className="min-h-screen bg-[#141414]">
@@ -463,21 +506,130 @@ function App() {
           </div>
         )}
 
-        {tab === 'channels' && (
-          <div className="space-y-4">
-            <div className="flex gap-4 items-center">
-              <select
-                value={selectedCategory || ''}
-                onChange={(e) => setSelectedCategory(e.target.value ? Number(e.target.value) : null)}
-                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white"
-              >
-                <option value="">Todas as categorias</option>
-                {categories.map(cat => (
-                  <option key={cat.id} value={cat.id}>{cat.name} ({cat._count?.channels || 0})</option>
-                ))}
-              </select>
-              <span className="text-gray-400">{channels.length} canais</span>
-            </div>
+                {tab === 'accesscodes' && (
+                  <div className="space-y-6">
+                    <h2 className="text-2xl font-bold">Codigos de Acesso (Trial)</h2>
+            
+                    {accessCodeStats && (
+                      <div className="grid grid-cols-4 gap-4">
+                        <div className="bg-green-900/30 border border-green-700 rounded-lg p-4">
+                          <p className="text-3xl font-bold text-green-400">{accessCodeStats.active}</p>
+                          <p className="text-sm text-gray-400">Ativos</p>
+                        </div>
+                        <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-4">
+                          <p className="text-3xl font-bold text-blue-400">{accessCodeStats.used}</p>
+                          <p className="text-sm text-gray-400">Usados</p>
+                        </div>
+                        <div className="bg-red-900/30 border border-red-700 rounded-lg p-4">
+                          <p className="text-3xl font-bold text-red-400">{accessCodeStats.expired}</p>
+                          <p className="text-sm text-gray-400">Expirados</p>
+                        </div>
+                        <div className="bg-gray-800 border border-gray-700 rounded-lg p-4">
+                          <p className="text-3xl font-bold text-white">{accessCodeStats.total}</p>
+                          <p className="text-sm text-gray-400">Total</p>
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="bg-gray-900 rounded-lg p-6">
+                      <h3 className="text-lg font-semibold mb-4">Gerar Novo Codigo</h3>
+                      <div className="flex gap-4 items-end">
+                        <div className="flex-1">
+                          <label className="block text-sm text-gray-400 mb-1">Email (opcional)</label>
+                          <input
+                            type="email"
+                            value={newCodeEmail}
+                            onChange={(e) => setNewCodeEmail(e.target.value)}
+                            placeholder="usuario@email.com"
+                            className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white"
+                          />
+                        </div>
+                        <div className="w-32">
+                          <label className="block text-sm text-gray-400 mb-1">Duracao (min)</label>
+                          <input
+                            type="number"
+                            value={newCodeDuration}
+                            onChange={(e) => setNewCodeDuration(Number(e.target.value))}
+                            min={1}
+                            max={1440}
+                            className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white"
+                          />
+                        </div>
+                        <button
+                          onClick={handleGenerateCode}
+                          className="px-6 py-2 bg-[#E50914] text-white rounded hover:bg-red-700"
+                        >
+                          Gerar Codigo
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="bg-gray-900 rounded-lg overflow-hidden">
+                      <table className="w-full">
+                        <thead className="bg-gray-800">
+                          <tr>
+                            <th className="px-4 py-3 text-left">Codigo</th>
+                            <th className="px-4 py-3 text-left">Email</th>
+                            <th className="px-4 py-3 text-left">Status</th>
+                            <th className="px-4 py-3 text-left">Expira em</th>
+                            <th className="px-4 py-3 text-left">Criado em</th>
+                            <th className="px-4 py-3 text-left">Acoes</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {accessCodes.map(code => (
+                            <tr key={code.id} className="border-t border-gray-800 hover:bg-gray-800/50">
+                              <td className="px-4 py-3 font-mono text-yellow-400">{code.code}</td>
+                              <td className="px-4 py-3 text-gray-400">{code.email || '-'}</td>
+                              <td className="px-4 py-3">
+                                <span className={`px-3 py-1 rounded text-xs ${
+                                  code.status === 'active' ? 'bg-green-900 text-green-300' :
+                                  code.status === 'used' ? 'bg-blue-900 text-blue-300' :
+                                  'bg-red-900 text-red-300'
+                                }`}>
+                                  {code.status === 'active' ? 'Ativo' : code.status === 'used' ? 'Usado' : 'Expirado'}
+                                </span>
+                              </td>
+                              <td className="px-4 py-3 text-gray-400">{new Date(code.expiresAt).toLocaleString()}</td>
+                              <td className="px-4 py-3 text-gray-400">{new Date(code.createdAt).toLocaleString()}</td>
+                              <td className="px-4 py-3">
+                                {code.status === 'active' && (
+                                  <button
+                                    onClick={() => handleRevokeCode(code.id)}
+                                    className="px-3 py-1 bg-red-900 text-red-300 rounded text-xs hover:bg-red-800"
+                                  >
+                                    Revogar
+                                  </button>
+                                )}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                      {accessCodes.length === 0 && (
+                        <div className="p-8 text-center text-gray-400">
+                          Nenhum codigo de acesso encontrado
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {tab === 'channels' && (
+                  <div className="space-y-4">
+                    <div className="flex gap-4 items-center">
+                      <select
+                        value={selectedCategory || ''}
+                        onChange={(e) => setSelectedCategory(e.target.value ? Number(e.target.value) : null)}
+                        className="px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white"
+                      >
+                        <option value="">Todas as categorias</option>
+                        {categories.map(cat => (
+                          <option key={cat.id} value={cat.id}>{cat.name} ({cat._count?.channels || 0})</option>
+                        ))}
+                      </select>
+                      <span className="text-gray-400">{channels.length} canais</span>
+                    </div>
 
             <div className="bg-gray-900 rounded-lg overflow-hidden">
               <table className="w-full">

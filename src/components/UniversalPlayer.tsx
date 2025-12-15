@@ -55,13 +55,14 @@ export function UniversalPlayer({
   onNextEpisode 
 }: UniversalPlayerProps) {
   const { userId } = useAuth(); // Obter userId do contexto de autenticacao
-  const [playerMode, setPlayerMode] = useState<'stream' | 'trailer' | 'placeholder'>('placeholder');
-  const [isLoading, setIsLoading] = useState(true);
-  const [playerError, setPlayerError] = useState<string | null>(null);
-  const [nextEpisode, setNextEpisode] = useState<NextEpisode | null>(null);
-  const [showNextEpisodeCountdown, setShowNextEpisodeCountdown] = useState(false);
-  const [countdown, setCountdown] = useState(10);
-  const [progressLoaded, setProgressLoaded] = useState(false);
+    const [playerMode, setPlayerMode] = useState<'stream' | 'trailer' | 'placeholder'>('placeholder');
+    const [isLoading, setIsLoading] = useState(true);
+    const [playerError, setPlayerError] = useState<string | null>(null);
+    const [subscriptionError, setSubscriptionError] = useState<{ code: string; message: string } | null>(null);
+    const [nextEpisode, setNextEpisode] = useState<NextEpisode | null>(null);
+    const [showNextEpisodeCountdown, setShowNextEpisodeCountdown] = useState(false);
+    const [countdown, setCountdown] = useState(10);
+    const [progressLoaded, setProgressLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const hlsRef = useRef<Hls | null>(null);
   const saveProgressTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -71,25 +72,56 @@ export function UniversalPlayer({
   const mediaType = movie.first_air_date ? 'tv' : 'movie';
   const actualContentId = contentId || movie.id;
 
-  // Funcao para salvar progresso no backend
-  const saveProgress = useCallback(async (currentTime: number, duration: number) => {
-    try {
-      await fetch(`${API_BASE}/api/progress`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId,
-          contentId: actualContentId,
-          episodeId: episodeId || null,
-          watchedTime: Math.floor(currentTime),
-          duration: Math.floor(duration)
-        })
-      });
-      console.log('✅ Progresso salvo:', Math.floor(currentTime), 'de', Math.floor(duration), 'segundos');
-    } catch (error) {
-      console.error('❌ Erro ao salvar progresso:', error);
-    }
-  }, [userId, actualContentId, episodeId]);
+    // Funcao para verificar subscription antes de reproduzir
+    const checkSubscription = useCallback(async (): Promise<boolean> => {
+      try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+          setSubscriptionError({ code: 'NO_TOKEN', message: 'Voce precisa estar logado para assistir.' });
+          return false;
+        }
+      
+        const response = await fetch(`${API_BASE}/api/streaming/check-access`, {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+      
+        if (!response.ok) {
+          const data = await response.json();
+          if (data.code === 'SUBSCRIPTION_REQUIRED') {
+            setSubscriptionError({ code: 'SUBSCRIPTION_REQUIRED', message: 'Voce precisa de uma assinatura ativa para assistir este conteudo.' });
+            return false;
+          }
+          if (data.code === 'SUBSCRIPTION_EXPIRED') {
+            setSubscriptionError({ code: 'SUBSCRIPTION_EXPIRED', message: 'Sua assinatura expirou. Renove para continuar assistindo.' });
+            return false;
+          }
+        }
+        return true;
+      } catch (error) {
+        console.error('Erro ao verificar subscription:', error);
+        return true; // Em caso de erro, permitir reproducao
+      }
+    }, []);
+
+    // Funcao para salvar progresso no backend
+    const saveProgress = useCallback(async (currentTime: number, duration: number) => {
+      try {
+        await fetch(`${API_BASE}/api/progress`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            userId,
+            contentId: actualContentId,
+            episodeId: episodeId || null,
+            watchedTime: Math.floor(currentTime),
+            duration: Math.floor(duration)
+          })
+        });
+        console.log('Progresso salvo:', Math.floor(currentTime), 'de', Math.floor(duration), 'segundos');
+      } catch (error) {
+        console.error('Erro ao salvar progresso:', error);
+      }
+    }, [userId, actualContentId, episodeId]);
 
   // Funcao para carregar progresso do backend
   const loadProgress = useCallback(async () => {
@@ -245,23 +277,32 @@ export function UniversalPlayer({
     }
   }, [onNextEpisode, nextEpisode]);
 
-  useEffect(() => {
-    // Determinar qual player usar
-    if (streamUrl) {
-      setPlayerMode('stream');
-      console.log('🎬 Player Mode: STREAM');
-      console.log('📡 Stream URL:', streamUrl);
-    } else if (trailerUrl) {
-      setPlayerMode('trailer');
-      console.log('🎬 Player Mode: TRAILER (YouTube)');
-      console.log('🎥 Trailer Key:', trailerUrl);
-    } else {
-      setPlayerMode('placeholder');
-      console.log('🎬 Player Mode: PLACEHOLDER');
-    }
+    useEffect(() => {
+      // Verificar subscription e determinar qual player usar
+      const initializePlayer = async () => {
+        if (streamUrl) {
+          // Verificar subscription antes de permitir streaming
+          const hasAccess = await checkSubscription();
+          if (!hasAccess) {
+            setIsLoading(false);
+            return;
+          }
+          setPlayerMode('stream');
+          console.log('Player Mode: STREAM');
+          console.log('Stream URL:', streamUrl);
+        } else if (trailerUrl) {
+          setPlayerMode('trailer');
+          console.log('Player Mode: TRAILER (YouTube)');
+          console.log('Trailer Key:', trailerUrl);
+        } else {
+          setPlayerMode('placeholder');
+          console.log('Player Mode: PLACEHOLDER');
+        }
+        setIsLoading(false);
+      };
     
-    setIsLoading(false);
-  }, [streamUrl, trailerUrl]);
+      initializePlayer();
+    }, [streamUrl, trailerUrl, checkSubscription]);
 
   // Initialize HLS player for stream URLs
   useEffect(() => {
@@ -424,16 +465,46 @@ export function UniversalPlayer({
         </div>
       )}
 
-      {/* Video Player */}
-      <div className="relative w-full max-w-7xl aspect-video">
-        {isLoading ? (
-          <div className="w-full h-full bg-[#000] rounded flex items-center justify-center">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
-              <p className="text-white font-['Inter:Medium',sans-serif]">Carregando...</p>
-            </div>
-          </div>
-        ) : playerMode === 'stream' && streamUrl ? (
+            {/* Video Player */}
+            <div className="relative w-full max-w-7xl aspect-video">
+              {subscriptionError ? (
+                <div className="w-full h-full bg-gradient-to-br from-[#1a1a1a] to-black rounded flex items-center justify-center">
+                  <div className="text-center max-w-md p-8">
+                    <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-red-600/20 flex items-center justify-center">
+                      <svg className="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                    </div>
+                    <h3 className="text-white font-['Inter:Bold',sans-serif] text-[24px] mb-4">
+                      {subscriptionError.code === 'SUBSCRIPTION_EXPIRED' ? 'Assinatura Expirada' : 'Assinatura Necessaria'}
+                    </h3>
+                    <p className="text-white/70 font-['Inter:Regular',sans-serif] text-[16px] mb-6">
+                      {subscriptionError.message}
+                    </p>
+                    <div className="flex gap-4 justify-center">
+                      <button
+                        onClick={handleClose}
+                        className="px-6 py-3 bg-white/10 text-white rounded-lg hover:bg-white/20 transition"
+                      >
+                        Voltar
+                      </button>
+                      <button
+                        onClick={() => window.location.href = '/planos'}
+                        className="px-6 py-3 bg-[#E50914] text-white rounded-lg hover:bg-[#f40612] transition"
+                      >
+                        Ver Planos
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : isLoading ? (
+                <div className="w-full h-full bg-[#000] rounded flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-red-600 mx-auto mb-4"></div>
+                    <p className="text-white font-['Inter:Medium',sans-serif]">Carregando...</p>
+                  </div>
+                </div>
+              ) : playerMode === 'stream' && streamUrl ? (
           // Player de Stream (MP4/HLS nativo)
           <div className="w-full h-full bg-black rounded overflow-hidden relative">
             <video
