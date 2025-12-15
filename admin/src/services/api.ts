@@ -270,3 +270,58 @@ export async function setSiteConfig(key: string, value: string): Promise<void> {
 export async function initSiteDefaults(): Promise<void> {
   await fetch(`${API_URL}/siteconfig/defaults/init`);
 }
+
+// Access Codes (Trial) API
+export interface AccessCode {
+  id: number;
+  code: string;
+  email?: string;
+  userId?: number;
+  expiresAt: string;
+  usedAt?: string;
+  status: string;
+  createdBy: number;
+  createdAt: string;
+}
+
+export interface AccessCodeStats {
+  active: number;
+  used: number;
+  expired: number;
+  total: number;
+}
+
+export async function getAccessCodes(status?: string, page = 1): Promise<{ codes: AccessCode[]; pagination: { total: number; pages: number } }> {
+  let url = `${API_URL}/access-codes?page=${page}`;
+  if (status) url += `&status=${status}`;
+  const res = await fetch(url, {
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+  });
+  return res.json();
+}
+
+export async function generateAccessCode(email?: string, durationMinutes = 60): Promise<{ success: boolean; accessCode: AccessCode }> {
+  const res = await fetch(`${API_URL}/access-codes/generate`, {
+    method: 'POST',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+    },
+    body: JSON.stringify({ email, durationMinutes })
+  });
+  return res.json();
+}
+
+export async function revokeAccessCode(id: number): Promise<void> {
+  await fetch(`${API_URL}/access-codes/${id}`, { 
+    method: 'DELETE',
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+  });
+}
+
+export async function getAccessCodeStats(): Promise<AccessCodeStats> {
+  const res = await fetch(`${API_URL}/access-codes/stats`, {
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+  });
+  return res.json();
+}
