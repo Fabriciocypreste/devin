@@ -237,3 +237,21 @@ model Banner {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+// Código de acesso temporário (trial) - 1 hora de duração
+model AccessCode {
+  id          Int      @id @default(autoincrement())
+  code        String   @unique
+  userId      Int?
+  email       String?
+  expiresAt   DateTime
+  usedAt      DateTime?
+  status      String   @default("active") // active, used, expired
+  createdBy   Int      // admin que criou
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([code])
+  @@index([status])
+  @@index([expiresAt])
+}
