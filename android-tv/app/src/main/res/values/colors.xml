@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#E50914</color>
+    <color name="primary_dark">#B20710</color>
+    <color name="accent">#E50914</color>
+    <color name="background">#0A0A0A</color>
+    <color name="card_background">#1A1A2E</color>
+    <color name="channel_card_background">#2A2A4E</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#CCCCCC</color>
+    <color name="focus_color">#E50914</color>
+</resources>

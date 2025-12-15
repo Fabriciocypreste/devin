@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RedFlix</string>
+    <string name="browse_title">RedFlix</string>
+    <string name="search_hint">Buscar filmes, series e canais</string>
+    <string name="search_results">Resultados da busca</string>
+    <string name="no_results">Nenhum resultado encontrado</string>
+    <string name="loading">Carregando...</string>
+    <string name="error_loading">Erro ao carregar conteudo</string>
+    <string name="continue_watching">Continuar Assistindo</string>
+    <string name="popular_movies">Filmes Populares</string>
+    <string name="popular_series">Series Populares</string>
+    <string name="live_channels">Canais ao Vivo</string>
+    <string name="all_movies">Todos os Filmes</string>
+    <string name="all_series">Todas as Series</string>
+    <string name="channel_not_found">Canal nao encontrado</string>
+    <string name="login_title">Entrar</string>
+    <string name="access_code_hint">Codigo de acesso</string>
+    <string name="login_button">Entrar</string>
+    <string name="invalid_code">Codigo invalido</string>
+    <string name="play">Assistir</string>
+    <string name="details">Detalhes</string>
+</resources>

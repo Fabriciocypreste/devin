@@ -96,7 +96,7 @@ model Content {
   tmdbId       Int?
   title        String
   originalTitle String?
-  type         String        @default("movie")
+  type         String        @default("movie") // movie, series, live
   overview     String?
   posterPath   String?
   backdropPath String?
@@ -113,6 +113,8 @@ model Content {
   featured     Boolean       @default(false)
   active       Boolean       @default(true)
   order        Int           @default(0)
+  channelNumber Int?         @unique // Numero do canal para conteudo LIVE (ex: 12, 45, 102)
+  isLive       Boolean       @default(false) // Indica se e conteudo ao vivo
   createdAt    DateTime      @default(now())
   updatedAt    DateTime      @updatedAt
   viewHistory  ViewHistory[]
@@ -122,6 +124,8 @@ model Content {
   @@index([type])
   @@index([featured])
   @@index([active])
+  @@index([channelNumber])
+  @@index([isLive])
 }
 
 model Season {
