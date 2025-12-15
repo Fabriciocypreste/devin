@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.RedFlixTV" parent="Theme.Leanback">
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:windowBackground">@color/background</item>
+        <item name="defaultBrandColor">@color/primary</item>
+        <item name="defaultBrandColorDark">@color/primary_dark</item>
+    </style>
+
+    <style name="Theme.RedFlixTV.Player" parent="Theme.RedFlixTV">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+    <style name="CardStyle" parent="Widget.Leanback.ImageCardViewStyle">
+        <item name="cardBackground">@color/card_background</item>
+    </style>
+
+    <style name="ChannelCardStyle" parent="Widget.Leanback.ImageCardViewStyle">
+        <item name="cardBackground">@color/channel_card_background</item>
+    </style>
+</resources>

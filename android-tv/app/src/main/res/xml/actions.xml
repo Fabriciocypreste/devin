@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Google Assistant App Actions for RedFlix TV -->
+<actions>
+    <!-- Open channel by number: "Abrir canal 12", "Assistir canal 45" -->
+    <action intentName="actions.intent.OPEN_APP_FEATURE">
+        <fulfillment urlTemplate="redflix://channel/{channelNumber}">
+            <parameter-mapping
+                intentParameter="feature"
+                urlParameter="channelNumber" />
+        </fulfillment>
+    </action>
+    
+    <!-- Play content: "Assistir Breaking Bad", "Reproduzir filme X" -->
+    <action intentName="actions.intent.PLAY_MEDIA">
+        <fulfillment urlTemplate="redflix://play/{contentId}">
+            <parameter-mapping
+                intentParameter="mediaObject.name"
+                urlParameter="contentId" />
+        </fulfillment>
+    </action>
+    
+    <!-- Continue watching: "Continuar assistindo" -->
+    <action intentName="actions.intent.GET_THING">
+        <fulfillment urlTemplate="redflix://continue" />
+    </action>
+    
+    <!-- Search: "Buscar filmes de acao" -->
+    <action intentName="actions.intent.SEARCH">
+        <fulfillment urlTemplate="redflix://search?q={query}">
+            <parameter-mapping
+                intentParameter="query"
+                urlParameter="query" />
+        </fulfillment>
+    </action>
+</actions>

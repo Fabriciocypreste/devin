@@ -1,0 +1,20 @@
+{
+    "id": "com.redflix.tv",
+    "version": "1.0.0",
+    "vendor": "RedFlix",
+    "type": "web",
+    "main": "index.html",
+    "title": "RedFlix",
+    "icon": "icon.png",
+    "largeIcon": "largeIcon.png",
+    "bgImage": "bgImage.png",
+    "splashBackground": "#0a0a0a",
+    "transparent": false,
+    "resolution": "1920x1080",
+    "disableBackHistoryAPI": false,
+    "handlesRelaunch": false,
+    "requiredPermissions": [
+        "time.query",
+        "activity.operation"
+    ]
+}
