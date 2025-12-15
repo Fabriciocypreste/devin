@@ -571,6 +571,7 @@ function App() {
                     <th className="px-4 py-3 text-left">Poster</th>
                     <th className="px-4 py-3 text-left">Titulo</th>
                     <th className="px-4 py-3 text-left">Tipo</th>
+                    <th className="px-4 py-3 text-left">Canal</th>
                     <th className="px-4 py-3 text-left">Status</th>
                     <th className="px-4 py-3 text-left">Acoes</th>
                   </tr>
@@ -587,9 +588,25 @@ function App() {
                       </td>
                       <td className="px-4 py-3">{content.title}</td>
                       <td className="px-4 py-3">
-                        <span className={`px-2 py-1 rounded text-xs ${content.type === 'movie' ? 'bg-blue-900 text-blue-300' : 'bg-purple-900 text-purple-300'}`}>
-                          {content.type}
-                        </span>
+                        <div className="flex flex-col gap-1">
+                          <span className={`px-2 py-1 rounded text-xs inline-block w-fit ${content.type === 'movie' ? 'bg-blue-900 text-blue-300' : content.type === 'live' ? 'bg-red-900 text-red-300' : 'bg-purple-900 text-purple-300'}`}>
+                            {content.type === 'live' ? 'LIVE' : content.type === 'movie' ? 'FILME' : 'SERIE'}
+                          </span>
+                          {content.isLive && (
+                            <span className="px-2 py-1 rounded text-xs bg-red-600 text-white inline-block w-fit animate-pulse">
+                              AO VIVO
+                            </span>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3">
+                        {content.channelNumber ? (
+                          <span className="px-2 py-1 rounded text-xs bg-yellow-900 text-yellow-300 font-mono">
+                            CH {content.channelNumber}
+                          </span>
+                        ) : (
+                          <span className="text-gray-500 text-xs">-</span>
+                        )}
                       </td>
                       <td className="px-4 py-3">
                         <span className={`px-3 py-1 rounded text-xs ${content.active ? 'bg-green-900 text-green-300' : 'bg-gray-700 text-gray-400'}`}>

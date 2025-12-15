@@ -99,11 +99,88 @@ class PlayerActivity : FragmentActivity() {
     private fun changeToChannel(channelNumber: Int) {
         currentChannelNumber = channelNumber
         showChannelInfo(channelNumber, "Canal $channelNumber")
-        // TODO: Load channel URL from API and play
+        
+        Thread {
+            try {
+                val apiBase = "https://api.redflix.com"
+                val url = java.net.URL("$apiBase/api/content/channel/$channelNumber")
+                val connection = url.openConnection() as java.net.HttpURLConnection
+                connection.requestMethod = "GET"
+                connection.setRequestProperty("Content-Type", "application/json")
+                
+                if (connection.responseCode == 200) {
+                    val reader = java.io.BufferedReader(java.io.InputStreamReader(connection.inputStream))
+                    val response = reader.readText()
+                    reader.close()
+                    
+                    val jsonObject = org.json.JSONObject(response)
+                    val streamUrl = jsonObject.optString("streamUrl", "")
+                    val channelName = jsonObject.optString("title", "Canal $channelNumber")
+                    
+                    runOnUiThread {
+                        if (streamUrl.isNotEmpty()) {
+                            showChannelInfo(channelNumber, channelName)
+                            playStream(streamUrl)
+                        } else {
+                            showError("Canal $channelNumber nao encontrado")
+                        }
+                    }
+                } else {
+                    runOnUiThread {
+                        showError("Canal $channelNumber nao encontrado")
+                    }
+                }
+                connection.disconnect()
+            } catch (e: Exception) {
+                runOnUiThread {
+                    showError("Erro ao carregar canal: ${e.message}")
+                }
+            }
+        }.start()
     }
     
     private fun loadAndPlayContent(contentId: Int) {
-        // TODO: Load content URL from API and play
+        Thread {
+            try {
+                val apiBase = "https://api.redflix.com"
+                val url = java.net.URL("$apiBase/api/content/$contentId")
+                val connection = url.openConnection() as java.net.HttpURLConnection
+                connection.requestMethod = "GET"
+                connection.setRequestProperty("Content-Type", "application/json")
+                
+                if (connection.responseCode == 200) {
+                    val reader = java.io.BufferedReader(java.io.InputStreamReader(connection.inputStream))
+                    val response = reader.readText()
+                    reader.close()
+                    
+                    val jsonObject = org.json.JSONObject(response)
+                    val streamUrl = jsonObject.optString("streamUrl", "")
+                    val title = jsonObject.optString("title", "Conteudo")
+                    val channelNum = jsonObject.optInt("channelNumber", 0)
+                    
+                    runOnUiThread {
+                        if (streamUrl.isNotEmpty()) {
+                            if (channelNum > 0) {
+                                currentChannelNumber = channelNum
+                                showChannelInfo(channelNum, title)
+                            }
+                            playStream(streamUrl)
+                        } else {
+                            showError("Stream nao disponivel")
+                        }
+                    }
+                } else {
+                    runOnUiThread {
+                        showError("Conteudo nao encontrado")
+                    }
+                }
+                connection.disconnect()
+            } catch (e: Exception) {
+                runOnUiThread {
+                    showError("Erro ao carregar conteudo: ${e.message}")
+                }
+            }
+        }.start()
     }
     
     private fun showChannelInfo(number: Int, name: String) {
