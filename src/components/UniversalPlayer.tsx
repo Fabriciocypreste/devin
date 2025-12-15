@@ -3,7 +3,8 @@ import { Movie, getTitle } from '../utils/tmdb';
 import { useAuth } from '../contexts/AuthContext';
 import Hls from 'hls.js';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3333';
+// API desabilitada em produção - features de progresso só funcionam com backend local
+const API_BASE = import.meta.env.VITE_API_BASE || '';
 
 // Icons inline
 const X = ({ size = 24 }: { size?: number }) => (

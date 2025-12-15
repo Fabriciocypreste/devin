@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Movie } from '../utils/tmdb';
 import { useAuth } from '../contexts/AuthContext';
 
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:3333';
+// API desabilitada em produção - features de progresso só funcionam com backend local
+const API_BASE = import.meta.env.VITE_API_BASE || '';
 
 interface ContinueWatchingItem {
   id: string;

@@ -1,11 +1,12 @@
 /**
  * REDFLIX API CLIENT
- * Cliente para comunicação com o backend local
- * Integrado com o Admin Dashboard para refletir alterações em tempo real
+ * Cliente para comunicação com a API
+ * Suporta backend local (desenvolvimento) ou Supabase (produção)
  */
 
-// Backend local - mesma base de dados do Admin Dashboard
-const API_BASE_URL = 'http://localhost:3333/api';
+// Em produção, usar Supabase. Em desenvolvimento, pode usar backend local via VITE_API_URL
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://ufnqkfvwjnlvqbfzcupu.supabase.co/rest/v1';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmbnFrZnZ3am5sdnFiZnpjdXB1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzQyMjI3NzcsImV4cCI6MjA0OTc5ODc3N30.LluM_AdOx19eWXwrgkw';
 
 interface ApiOptions {
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE';
@@ -25,12 +26,9 @@ async function apiRequest<T = any>(
 
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
+    'apikey': SUPABASE_ANON_KEY,
+    'Authorization': `Bearer ${token || SUPABASE_ANON_KEY}`,
   };
-  
-  // Adicionar token de autenticação se fornecido
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
 
   const config: RequestInit = {
     method,

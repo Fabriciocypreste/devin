@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 const redflixLogo = 'http://chemorena.com/redfliz.png';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3333';
+// API desabilitada em produção - cadastros são feitos manualmente
+const API_BASE = import.meta.env.VITE_API_URL || '';
 
 // Icons inline to avoid lucide-react dependency
 const Check = ({ className = "", strokeWidth = 2 }: { className?: string; strokeWidth?: number }) => (

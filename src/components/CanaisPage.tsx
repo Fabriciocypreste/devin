@@ -62,28 +62,9 @@ export function CanaisPage({ onClose }: CanaisPageProps) {
       try {
         setLoading(true);
         
-        // Try backend API first (port 3333)
-        try {
-          const apiResponse = await fetch('http://localhost:3333/api/channels');
-          if (apiResponse.ok) {
-            const apiData = await apiResponse.json();
-            if (apiData.length > 0) {
-              const mappedChannels = apiData.map((ch: any) => ({
-                id: String(ch.id),
-                name: ch.name,
-                title: ch.name,
-                logo: ch.logo,
-                group: ch.category?.name || 'Sem Categoria',
-                url: ch.url,
-              }));
-              processChannels(mappedChannels);
-              console.log('✅ Canais carregados da API do backend');
-              return;
-            }
-          }
-        } catch (apiErr) {
-          console.log('Backend API não disponível, usando JSON local');
-        }
+        // Backend API só disponível em desenvolvimento local
+        // Em produção, usar JSON local diretamente
+        console.log('Carregando canais do JSON local...');
         
         // Fallback to local JSON
         const baseUrl = window.location.origin;
