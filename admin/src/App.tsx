@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import * as api from './services/api'
 
-type Tab = 'dashboard' | 'content' | 'users' | 'channels' | 'categories' | 'banners' | 'customize' | 'settings' | 'accesscodes'
+type Tab = 'dashboard' | 'content' | 'users' | 'channels' | 'categories' | 'banners' | 'customize' | 'settings' | 'accesscodes' | 'subscribers'
 
 function App() {
   const [tab, setTab] = useState<Tab>('dashboard')
@@ -26,6 +26,9 @@ function App() {
     const [accessCodeStats, setAccessCodeStats] = useState<api.AccessCodeStats | null>(null)
     const [newCodeEmail, setNewCodeEmail] = useState('')
     const [newCodeDuration, setNewCodeDuration] = useState(60)
+    const [subscribers, setSubscribers] = useState<api.Subscriber[]>([])
+    const [subscriberStats, setSubscriberStats] = useState<api.SubscriberStats | null>(null)
+    const [subscriberFilter, setSubscriberFilter] = useState<string>('')
 
   useEffect(() => {
     loadCategories()
@@ -43,7 +46,8 @@ function App() {
       if (tab === 'users') loadUsers()
       if (tab === 'banners') loadBanners()
       if (tab === 'accesscodes') loadAccessCodes()
-    }, [tab, contentPage, userPage])
+      if (tab === 'subscribers') loadSubscribers()
+    }, [tab, contentPage, userPage, subscriberFilter])
 
   const showMessage = (msg: string, type: 'success' | 'error' = 'success') => {
     setMessage(msg)
@@ -141,6 +145,51 @@ function App() {
         loadAccessCodes()
       } catch (err) {
         showMessage('Erro ao revogar codigo', 'error')
+      }
+    }
+
+    const loadSubscribers = async () => {
+      try {
+        const [subsData, statsData] = await Promise.all([
+          api.getSubscribers(subscriberFilter || undefined),
+          api.getSubscriberStats()
+        ])
+        setSubscribers(subsData.subscribers || [])
+        setSubscriberStats(statsData)
+      } catch (err) {
+        console.error('Error loading subscribers:', err)
+      }
+    }
+
+    const handleApproveSubscriber = async (id: number) => {
+      try {
+        await api.approveSubscriber(id)
+        showMessage('Assinante aprovado!')
+        loadSubscribers()
+      } catch (err) {
+        showMessage('Erro ao aprovar assinante', 'error')
+      }
+    }
+
+    const handleRejectSubscriber = async (id: number) => {
+      if (!confirm('Tem certeza que deseja rejeitar este assinante?')) return
+      try {
+        await api.rejectSubscriber(id)
+        showMessage('Assinante rejeitado')
+        loadSubscribers()
+      } catch (err) {
+        showMessage('Erro ao rejeitar assinante', 'error')
+      }
+    }
+
+    const handleDeleteSubscriber = async (id: number) => {
+      if (!confirm('Tem certeza que deseja excluir este assinante?')) return
+      try {
+        await api.deleteSubscriber(id)
+        showMessage('Assinante excluido!')
+        loadSubscribers()
+      } catch (err) {
+        showMessage('Erro ao excluir assinante', 'error')
       }
     }
 
@@ -289,6 +338,7 @@ function App() {
 
     const tabs: { id: Tab; label: string; icon: string }[] = [
       { id: 'dashboard', label: 'Dashboard', icon: '📊' },
+      { id: 'subscribers', label: 'Assinantes', icon: '💳' },
       { id: 'content', label: 'Conteúdo', icon: '🎬' },
       { id: 'users', label: 'Usuários', icon: '👥' },
       { id: 'accesscodes', label: 'Codigos', icon: '🔑' },
@@ -393,6 +443,120 @@ function App() {
                 <div className="text-3xl font-bold text-[#E50914]">{channels.length}</div>
                 <div className="text-gray-400">Canais IPTV</div>
               </div>
+            </div>
+          </div>
+        )}
+
+        {tab === 'subscribers' && (
+          <div className="space-y-6">
+            <h2 className="text-2xl font-bold">Novos Assinantes</h2>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-gray-900 p-4 rounded-lg">
+                <div className="text-3xl font-bold text-yellow-500">{subscriberStats?.pending || 0}</div>
+                <div className="text-gray-400">Pendentes</div>
+              </div>
+              <div className="bg-gray-900 p-4 rounded-lg">
+                <div className="text-3xl font-bold text-green-500">{subscriberStats?.approved || 0}</div>
+                <div className="text-gray-400">Aprovados</div>
+              </div>
+              <div className="bg-gray-900 p-4 rounded-lg">
+                <div className="text-3xl font-bold text-red-500">{subscriberStats?.rejected || 0}</div>
+                <div className="text-gray-400">Rejeitados</div>
+              </div>
+              <div className="bg-gray-900 p-4 rounded-lg">
+                <div className="text-3xl font-bold text-green-400">R$ {(subscriberStats?.pendingRevenue || 0).toFixed(2)}</div>
+                <div className="text-gray-400">Receita Pendente</div>
+              </div>
+            </div>
+
+            <div className="flex gap-4 items-center">
+              <select
+                value={subscriberFilter}
+                onChange={(e) => setSubscriberFilter(e.target.value)}
+                className="px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white"
+              >
+                <option value="">Todos os status</option>
+                <option value="pending">Pendentes</option>
+                <option value="approved">Aprovados</option>
+                <option value="rejected">Rejeitados</option>
+              </select>
+              <span className="text-gray-400">{subscribers.length} assinantes</span>
+            </div>
+
+            <div className="bg-gray-900 rounded-lg overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-gray-800">
+                  <tr>
+                    <th className="px-4 py-3 text-left">Nome</th>
+                    <th className="px-4 py-3 text-left">Email</th>
+                    <th className="px-4 py-3 text-left">WhatsApp</th>
+                    <th className="px-4 py-3 text-left">Plano</th>
+                    <th className="px-4 py-3 text-left">Valor</th>
+                    <th className="px-4 py-3 text-left">Status</th>
+                    <th className="px-4 py-3 text-left">Data</th>
+                    <th className="px-4 py-3 text-left">Acoes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {subscribers.map(sub => (
+                    <tr key={sub.id} className="border-t border-gray-800 hover:bg-gray-800/50">
+                      <td className="px-4 py-3 font-semibold">{sub.name}</td>
+                      <td className="px-4 py-3 text-gray-400">{sub.email}</td>
+                      <td className="px-4 py-3 text-gray-400">{sub.whatsapp}</td>
+                      <td className="px-4 py-3">
+                        <span className={`px-2 py-1 rounded text-xs ${
+                          sub.plan === 'anual' ? 'bg-purple-900 text-purple-300' :
+                          sub.plan === 'trimestral' ? 'bg-blue-900 text-blue-300' :
+                          'bg-gray-700 text-gray-300'
+                        }`}>
+                          {sub.plan === 'mensal' ? 'Mensal' : sub.plan === 'trimestral' ? '3 Meses' : '1 Ano'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-green-400">R$ {sub.planPrice.toFixed(2)}</td>
+                      <td className="px-4 py-3">
+                        <span className={`px-3 py-1 rounded text-xs ${
+                          sub.status === 'pending' ? 'bg-yellow-900 text-yellow-300' :
+                          sub.status === 'approved' ? 'bg-green-900 text-green-300' :
+                          'bg-red-900 text-red-300'
+                        }`}>
+                          {sub.status === 'pending' ? 'Pendente' : sub.status === 'approved' ? 'Aprovado' : 'Rejeitado'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-gray-400">{new Date(sub.createdAt).toLocaleDateString()}</td>
+                      <td className="px-4 py-3 space-x-2">
+                        {sub.status === 'pending' && (
+                          <>
+                            <button
+                              onClick={() => handleApproveSubscriber(sub.id)}
+                              className="px-3 py-1 bg-green-900 text-green-300 rounded text-xs hover:bg-green-800"
+                            >
+                              Aprovar
+                            </button>
+                            <button
+                              onClick={() => handleRejectSubscriber(sub.id)}
+                              className="px-3 py-1 bg-red-900 text-red-300 rounded text-xs hover:bg-red-800"
+                            >
+                              Rejeitar
+                            </button>
+                          </>
+                        )}
+                        <button
+                          onClick={() => handleDeleteSubscriber(sub.id)}
+                          className="px-3 py-1 bg-gray-700 text-gray-300 rounded text-xs hover:bg-gray-600"
+                        >
+                          Excluir
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              {subscribers.length === 0 && (
+                <div className="p-8 text-center text-gray-400">
+                  Nenhum assinante encontrado
+                </div>
+              )}
             </div>
           </div>
         )}

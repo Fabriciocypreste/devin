@@ -16,6 +16,7 @@ import contentImportRouter from './routes/contentImport';
 import authRouter from './routes/auth';
 import accessCodesRouter from './routes/accessCodes';
 import streamingRouter from './routes/streaming';
+import subscribersRouter from './routes/subscribers';
 
 const app = express();
 const PORT = process.env.PORT || 3333;
@@ -44,6 +45,7 @@ app.use('/api/content-import', contentImportRouter);
 app.use('/api/auth', authRouter);
 app.use('/api/access-codes', accessCodesRouter);
 app.use('/api/streaming', streamingRouter);
+app.use('/api/subscribers', subscribersRouter);
 
 app.get('/api', (req, res) => {
   res.json({

@@ -325,3 +325,75 @@ export async function getAccessCodeStats(): Promise<AccessCodeStats> {
   });
   return res.json();
 }
+
+// Subscribers (Novos Assinantes) API
+export interface Subscriber {
+  id: number;
+  name: string;
+  email: string;
+  whatsapp: string;
+  plan: string;
+  planPrice: number;
+  planMonths: number;
+  status: string;
+  notes?: string;
+  approvedBy?: number;
+  approvedAt?: string;
+  createdAt: string;
+}
+
+export interface SubscriberStats {
+  pending: number;
+  approved: number;
+  rejected: number;
+  total: number;
+  pendingRevenue: number;
+  approvedRevenue: number;
+}
+
+export async function getSubscribers(status?: string, page = 1): Promise<{ subscribers: Subscriber[]; pagination: { total: number; pages: number } }> {
+  let url = `${API_URL}/subscribers?page=${page}`;
+  if (status) url += `&status=${status}`;
+  const res = await fetch(url, {
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+  });
+  return res.json();
+}
+
+export async function getSubscriberStats(): Promise<SubscriberStats> {
+  const res = await fetch(`${API_URL}/subscribers/stats`, {
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+  });
+  return res.json();
+}
+
+export async function approveSubscriber(id: number, notes?: string): Promise<{ success: boolean; subscriber: Subscriber }> {
+  const res = await fetch(`${API_URL}/subscribers/${id}/approve`, {
+    method: 'PUT',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+    },
+    body: JSON.stringify({ notes })
+  });
+  return res.json();
+}
+
+export async function rejectSubscriber(id: number, notes?: string): Promise<{ success: boolean; subscriber: Subscriber }> {
+  const res = await fetch(`${API_URL}/subscribers/${id}/reject`, {
+    method: 'PUT',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+    },
+    body: JSON.stringify({ notes })
+  });
+  return res.json();
+}
+
+export async function deleteSubscriber(id: number): Promise<void> {
+  await fetch(`${API_URL}/subscribers/${id}`, { 
+    method: 'DELETE',
+    headers: { 'Authorization': `Bearer ${localStorage.getItem('adminToken')}` }
+  });
+}
