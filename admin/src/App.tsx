@@ -544,17 +544,25 @@ function App() {
                             className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white"
                           />
                         </div>
-                        <div className="w-32">
-                          <label className="block text-sm text-gray-400 mb-1">Duracao (min)</label>
-                          <input
-                            type="number"
-                            value={newCodeDuration}
-                            onChange={(e) => setNewCodeDuration(Number(e.target.value))}
-                            min={1}
-                            max={1440}
-                            className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white"
-                          />
-                        </div>
+                                                <div className="w-48">
+                                                  <label className="block text-sm text-gray-400 mb-1">Duracao do Teste</label>
+                                                  <select
+                                                    value={newCodeDuration}
+                                                    onChange={(e) => setNewCodeDuration(Number(e.target.value))}
+                                                    className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded text-white"
+                                                  >
+                                                    <option value={15}>15 minutos</option>
+                                                    <option value={30}>30 minutos</option>
+                                                    <option value={60}>1 hora</option>
+                                                    <option value={120}>2 horas</option>
+                                                    <option value={180}>3 horas</option>
+                                                    <option value={360}>6 horas</option>
+                                                    <option value={720}>12 horas</option>
+                                                    <option value={1440}>24 horas</option>
+                                                    <option value={4320}>3 dias</option>
+                                                    <option value={10080}>7 dias</option>
+                                                  </select>
+                                                </div>
                         <button
                           onClick={handleGenerateCode}
                           className="px-6 py-2 bg-[#E50914] text-white rounded hover:bg-red-700"
