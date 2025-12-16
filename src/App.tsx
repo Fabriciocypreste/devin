@@ -48,7 +48,7 @@ import { MoviesPage } from './components/MoviesPage';
 import { SeriesPage } from './components/SeriesPage';
 import { BombandoPage } from './components/BombandoPage';
 import { IPTVPage } from './components/IPTVPage';
-import { CanaisPage } from './components/CanaisPage';
+import { CanaisPage } from './pages/CanaisPage';
 import { SearchOverlay } from './components/SearchOverlay';
 import { SearchResultsPage } from './components/SearchResultsPage';
 import { ContentRow } from './components/ContentRow';
