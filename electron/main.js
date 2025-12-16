@@ -25,8 +25,8 @@ function createWindow() {
   const isDev = process.env.NODE_ENV === 'development';
   
   if (isDev) {
-    // Development mode - load from localhost
-    mainWindow.loadURL(process.env.REDFLIX_URL || 'http://localhost:3001');
+    // Development mode - load from localhost (port 3000 matching vite.config.ts)
+    mainWindow.loadURL(process.env.REDFLIX_URL || 'http://localhost:3000');
   } else {
     // Production mode - load from local build files
     // When packaged, extraResources are in process.resourcesPath/dist
