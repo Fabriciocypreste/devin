@@ -1,4 +1,8 @@
 /**
+ * @deprecated This file is no longer the primary content loader for the application.
+ * The app now uses databaseContentLoader.ts to load content from Supabase database.
+ * This file is kept for backward compatibility and reference only.
+ * 
  * M3U Content Loader - Carrega filmes e séries do GitHub via servidor
  * FONTE: https://github.com/Fabriciocypreste/lista
  * ENRIQUECIMENTO: TMDB API para imagens (posters, backdrops, logos)

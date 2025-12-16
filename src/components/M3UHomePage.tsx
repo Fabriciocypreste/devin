@@ -1,4 +1,8 @@
 /**
+ * @deprecated This component is no longer used in the main application.
+ * App.tsx now renders content directly from the database using databaseContentLoader.
+ * This component is kept for backward compatibility and reference only.
+ * 
  * M3U Home Page - Página inicial com conteúdo do lista.m3u
  * Exibe filmes e séries em carrosséis categorizados
  */

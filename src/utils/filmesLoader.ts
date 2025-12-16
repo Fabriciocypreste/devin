@@ -1,5 +1,9 @@
 /**
- * Carregar filmes.txt via proxy do servidor
+ * @deprecated This file is no longer used in the application.
+ * The app now uses databaseContentLoader.ts to load content from Supabase database.
+ * This file is kept for reference only.
+ * 
+ * Original purpose: Carregar filmes.txt via proxy do servidor
  */
 async function loadFilmesTxt(): Promise<string> {
   console.log('📡 Tentando carregar filmes.txt...');
