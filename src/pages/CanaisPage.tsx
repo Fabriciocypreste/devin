@@ -22,8 +22,8 @@ import {
   clearAdultAccess,
   getSessionTimeRemaining,
 } from '../utils/adultContentProtection';
-import { PasswordModal } from './PasswordModal';
-import { PlayerModal } from './PlayerModal';
+import { PasswordModal } from '../components/PasswordModal';
+import { PlayerModal } from '../components/PlayerModal';
 
 export function CanaisPage() {
   const [allChannels, setAllChannels] = useState<Channel[]>([]);

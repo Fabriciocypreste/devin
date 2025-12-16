@@ -7,7 +7,9 @@
  * - Usa sessionStorage para controle
  */
 
-const ADULT_PASSWORD = '1234'; // Senha padrão
+// TODO: For production, move this to environment variables
+// or implement a more secure authentication mechanism
+const ADULT_PASSWORD = '1234'; // Senha padrão (configurável)
 const SESSION_KEY = 'redflix_adult_access';
 const SESSION_DURATION = 30 * 60 * 1000; // 30 minutos em millisegundos
 

@@ -21,6 +21,7 @@ export function PlayerModal({ channel, onClose }: PlayerModalProps) {
   const hlsRef = useRef<Hls | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [retryTrigger, setRetryTrigger] = useState(0); // For manual retry
 
   useEffect(() => {
     if (!channel || !videoRef.current) return;
@@ -101,7 +102,7 @@ export function PlayerModal({ channel, onClose }: PlayerModalProps) {
         hlsRef.current = null;
       }
     };
-  }, [channel]);
+  }, [channel, retryTrigger]); // Include retryTrigger to allow manual retries
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -166,12 +167,8 @@ export function PlayerModal({ channel, onClose }: PlayerModalProps) {
                 onClick={() => {
                   setError(null);
                   setIsLoading(true);
-                  // Forçar recriação do player
-                  if (hlsRef.current) {
-                    hlsRef.current.destroy();
-                    hlsRef.current = null;
-                  }
-                  // Recarregar via useEffect
+                  // Trigger retry by incrementing retryTrigger
+                  setRetryTrigger(prev => prev + 1);
                 }}
                 className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition"
               >
