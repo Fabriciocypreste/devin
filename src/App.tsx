@@ -48,7 +48,8 @@ import { MoviesPage } from './components/MoviesPage';
 import { SeriesPage } from './components/SeriesPage';
 import { BombandoPage } from './components/BombandoPage';
 import { IPTVPage } from './components/IPTVPage';
-import { CanaisPage } from './components/CanaisPage';
+import { CanaisPage as CanaisPageNew } from './pages/CanaisPage';
+import { CanaisPage as CanaisPageOld } from './components/CanaisPage';
 import { SearchOverlay } from './components/SearchOverlay';
 import { SearchResultsPage } from './components/SearchResultsPage';
 import { ContentRow } from './components/ContentRow';
@@ -1824,13 +1825,9 @@ function App() {
     );
   }
 
-  // Show Canais page
+  // Show Canais page (NEW - With LISTAREAL.m3u parser and adult protection)
   if (showCanaisPage) {
-    return (
-      <CanaisPage
-        onClose={() => setShowCanaisPage(false)}
-      />
-    );
+    return <CanaisPageNew />;
   }
 
   // Show person details if a person is selected
