@@ -20,20 +20,24 @@ export interface Channel {
 }
 
 /**
- * Detecta se um canal é adulto baseado na categoria ou nome
+ * Detecta se um canal é adulto baseado APENAS na categoria
+ * (não no nome do canal, para evitar falsos positivos)
  */
 function isAdultChannel(group: string, name: string): boolean {
-  const adultKeywords = [
-    'adulto', 'adult', 'xxx', '+18', '18+',
-    'onlyfans', 'sexy', 'hot', 'erotic'
+  const groupLower = group.toLowerCase();
+  
+  // Categorias adultas conhecidas
+  const adultCategories = [
+    'adultos',
+    'xxx adultos',
+    'xxx onlyfans',
+    'series | onlyfans',
+    '+18',
+    '18+'
   ];
   
-  const groupLower = group.toLowerCase();
-  const nameLower = name.toLowerCase();
-  
-  return adultKeywords.some(keyword => 
-    groupLower.includes(keyword) || nameLower.includes(keyword)
-  );
+  // Verifica se a categoria corresponde exatamente a uma categoria adulta
+  return adultCategories.some(category => groupLower === category);
 }
 
 /**
