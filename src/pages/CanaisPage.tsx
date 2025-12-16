@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { Channel } from '../services/m3uParser';
 import { loadCanais, getCategories, filterCanais } from '../services/canaisService';
-import { PlayerModal } from './PlayerModal';
+import { PlayerModal } from '../components/PlayerModal';
 import '../styles/canais.css';
 
 interface CanaisPageProps {

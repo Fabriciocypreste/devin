@@ -30,7 +30,7 @@ export async function loadCanais(): Promise<Channel[]> {
  */
 export function getCategories(canais: Channel[]): string[] {
   const categories = canais.map(c => c.group).filter(g => g);
-  const uniqueCategories = [...new Set(categories)].sort();
+  const uniqueCategories = Array.from(new Set(categories)).sort();
   return ['Todas', ...uniqueCategories];
 }
 

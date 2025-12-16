@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test M3U Parser</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0a0e27;
+      color: #e0e6ed;
+      padding: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #00d9ff;
+    }
+    .stats {
+      background: #1a1f3a;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+    .stat-item {
+      margin: 10px 0;
+      padding: 10px;
+      background: rgba(0, 217, 255, 0.1);
+      border-radius: 4px;
+    }
+    .channels {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .channel {
+      background: #1a1f3a;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 217, 255, 0.2);
+    }
+    .channel h3 {
+      margin: 0 0 10px 0;
+      color: #00d9ff;
+      font-size: 14px;
+    }
+    .channel-logo {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      background: #2a2f4a;
+    }
+    .channel-group {
+      display: inline-block;
+      padding: 4px 8px;
+      background: rgba(0, 217, 255, 0.2);
+      color: #00d9ff;
+      font-size: 12px;
+      border-radius: 12px;
+      margin-top: 8px;
+    }
+    button {
+      background: #00d9ff;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 10px 5px;
+    }
+    button:hover {
+      background: #00b8dd;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+    }
+    .error {
+      background: #dc2626;
+      color: white;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>📺 M3U Parser Test</h1>
+  
+  <div id="controls">
+    <button onclick="loadChannels()">Load Channels</button>
+    <button onclick="showStats()">Show Statistics</button>
+    <button onclick="clearResults()">Clear</button>
+  </div>
+
+  <div id="loading" class="loading" style="display: none;">
+    <p>Loading channels...</p>
+  </div>
+
+  <div id="error" class="error" style="display: none;"></div>
+
+  <div id="stats" class="stats" style="display: none;">
+    <h2>Statistics</h2>
+    <div id="stats-content"></div>
+  </div>
+
+  <div id="channels" class="channels"></div>
+
+  <script type="module">
+    // Simple M3U parser for testing
+    async function parseM3U(url) {
+      const response = await fetch(url);
+      const content = await response.text();
+      
+      const channels = [];
+      const lines = content.split('\n');
+      let currentChannel = null;
+      
+      for (const line of lines) {
+        const trimmed = line.trim();
+        
+        if (trimmed.startsWith('#EXTINF:')) {
+          currentChannel = {};
+          
+          // Extract tvg-name
+          const tvgName = trimmed.match(/tvg-name="([^"]*)"/);
+          if (tvgName) currentChannel.name = tvgName[1];
+          
+          // Extract tvg-logo
+          const tvgLogo = trimmed.match(/tvg-logo="([^"]*)"/);
+          if (tvgLogo) currentChannel.logo = tvgLogo[1];
+          
+          // Extract group-title
+          const groupTitle = trimmed.match(/group-title="([^"]*)"/);
+          if (groupTitle) currentChannel.group = groupTitle[1];
+          
+          // If no name, try after comma
+          if (!currentChannel.name) {
+            const commaIndex = trimmed.lastIndexOf(',');
+            if (commaIndex !== -1) {
+              currentChannel.name = trimmed.substring(commaIndex + 1).trim();
+            }
+          }
+        }
+        else if (currentChannel && (trimmed.startsWith('http://') || trimmed.startsWith('https://'))) {
+          currentChannel.url = trimmed;
+          currentChannel.id = `channel-${channels.length}`;
+          
+          if (currentChannel.name && currentChannel.url) {
+            channels.push(currentChannel);
+          }
+          currentChannel = null;
+        }
+      }
+      
+      return channels;
+    }
+
+    window.loadChannels = async function() {
+      const loadingDiv = document.getElementById('loading');
+      const errorDiv = document.getElementById('error');
+      const channelsDiv = document.getElementById('channels');
+      const statsDiv = document.getElementById('stats');
+      
+      loadingDiv.style.display = 'block';
+      errorDiv.style.display = 'none';
+      statsDiv.style.display = 'none';
+      channelsDiv.innerHTML = '';
+      
+      try {
+        const channels = await parseM3U('/LISTAREAL.m3u');
+        
+        if (channels.length === 0) {
+          throw new Error('No channels found');
+        }
+        
+        // Store for stats
+        window.channelsData = channels;
+        
+        // Show first 20 channels
+        const displayChannels = channels.slice(0, 20);
+        
+        displayChannels.forEach(channel => {
+          const channelDiv = document.createElement('div');
+          channelDiv.className = 'channel';
+          channelDiv.innerHTML = `
+            ${channel.logo ? `<img src="${channel.logo}" class="channel-logo" alt="${channel.name}" onerror="this.style.display='none'">` : ''}
+            <h3>${channel.name}</h3>
+            <span class="channel-group">${channel.group || 'Sem categoria'}</span>
+          `;
+          channelsDiv.appendChild(channelDiv);
+        });
+        
+        console.log(`Loaded ${channels.length} channels`);
+        alert(`✅ Successfully loaded ${channels.length} channels!\nShowing first 20. Click "Show Statistics" for more info.`);
+      } catch (error) {
+        console.error('Error loading channels:', error);
+        errorDiv.textContent = `Error: ${error.message}`;
+        errorDiv.style.display = 'block';
+      } finally {
+        loadingDiv.style.display = 'none';
+      }
+    };
+
+    window.showStats = function() {
+      if (!window.channelsData) {
+        alert('Please load channels first');
+        return;
+      }
+      
+      const channels = window.channelsData;
+      const statsDiv = document.getElementById('stats');
+      const statsContent = document.getElementById('stats-content');
+      
+      // Calculate statistics
+      const groups = {};
+      channels.forEach(ch => {
+        const group = ch.group || 'Sem categoria';
+        groups[group] = (groups[group] || 0) + 1;
+      });
+      
+      const sortedGroups = Object.entries(groups)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 10);
+      
+      let html = `
+        <div class="stat-item">
+          <strong>Total de Canais:</strong> ${channels.length}
+        </div>
+        <div class="stat-item">
+          <strong>Total de Categorias:</strong> ${Object.keys(groups).length}
+        </div>
+        <div class="stat-item">
+          <strong>Top 10 Categorias:</strong>
+          <ul>
+            ${sortedGroups.map(([name, count]) => `<li>${name}: ${count} canais</li>`).join('')}
+          </ul>
+        </div>
+      `;
+      
+      statsContent.innerHTML = html;
+      statsDiv.style.display = 'block';
+    };
+
+    window.clearResults = function() {
+      document.getElementById('channels').innerHTML = '';
+      document.getElementById('stats').style.display = 'none';
+      document.getElementById('error').style.display = 'none';
+    };
+  </script>
+</body>
+</html>
