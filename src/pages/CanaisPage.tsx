@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Channel } from '../services/m3uParser';
 import { loadCanais, getCategories, filterCanais } from '../services/canaisService';
 import { PlayerModal } from '../components/PlayerModal';
+import { LOGO_PLACEHOLDER_SVG } from '../services/canaisConstants';
 import '../styles/canais.css';
 
 interface CanaisPageProps {
@@ -154,7 +155,7 @@ export function CanaisPage({ onClose }: CanaisPageProps) {
                       className="canal-logo"
                       onError={(e) => {
                         // Fallback to placeholder if logo fails to load
-                        (e.target as HTMLImageElement).src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="112" viewBox="0 0 200 112"%3E%3Crect fill="%231a1f3a" width="200" height="112"/%3E%3Ctext x="50%25" y="50%25" dominant-baseline="middle" text-anchor="middle" fill="%2300d9ff" font-size="48" font-family="Arial, sans-serif"%3E📺%3C/text%3E%3C/svg%3E';
+                        (e.target as HTMLImageElement).src = LOGO_PLACEHOLDER_SVG;
                       }}
                     />
                   ) : (

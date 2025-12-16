@@ -5,7 +5,8 @@
 
 import { parseM3U, Channel } from './m3uParser';
 
-const M3U_URL = '/LISTAREAL.m3u';
+// Configuration
+const M3U_URL = import.meta.env.VITE_M3U_URL || '/LISTAREAL.m3u';
 
 /**
  * Load all channels from M3U file

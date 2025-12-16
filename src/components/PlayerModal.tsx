@@ -6,6 +6,7 @@
 import React, { useEffect, useRef } from 'react';
 import Hls from 'hls.js';
 import { Channel } from '../services/m3uParser';
+import { HLS_CONFIG } from '../services/canaisConstants';
 
 interface PlayerModalProps {
   channel: Channel;
@@ -44,11 +45,7 @@ export function PlayerModal({ channel, onClose }: PlayerModalProps) {
 
     // Check if HLS is supported
     if (Hls.isSupported()) {
-      const hls = new Hls({
-        enableWorker: true,
-        lowLatencyMode: true,
-        backBufferLength: 90,
-      });
+      const hls = new Hls(HLS_CONFIG);
 
       hlsRef.current = hls;
 
