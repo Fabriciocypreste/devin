@@ -1,304 +1,195 @@
-/**
- * REDFLIX AUTH CONTEXT
- * Gerenciamento de autenticação e sessão do usuário
- */
-
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { api } from '../utils/api';
 
 interface User {
-  id: number;
+  id: string;
   email: string;
   name: string;
   avatar?: string;
   role?: string;
-  plan?: string;
-}
-
-interface Profile {
-  id: string;
-  user_id: string;
-  name: string;
-  avatar_url?: string;
-  is_kids: boolean;
-  maturity_rating: string;
 }
 
 interface AuthContextType {
   user: User | null;
-  userId: number | null; // ID do usuario para uso em componentes (substitui hardcoding)
-  accessToken: string | null;
-  profiles: Profile[];
-  selectedProfile: Profile | null;
-  isAuthenticated: boolean;
-  isLoading: boolean;
-
-  // Métodos de autenticação
-  signup: (email: string, password: string, name: string, phone?: string) => Promise<void>;
-  signin: (email: string, password: string) => Promise<void>;
-  signout: () => Promise<void>;
-
-  // Métodos de perfil
-  selectProfile: (profile: Profile) => void;
-  loadProfiles: () => Promise<void>;
-  createProfile: (name: string, isKids?: boolean) => Promise<void>;
+  loading: boolean;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  updateProfile: (data: Partial<User>) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const STORAGE_KEYS = {
-  TOKEN: 'redflix_access_token',
-  USER: 'redflix_user',
-  PROFILE: 'redflix_selected_profile',
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [profiles, setProfiles] = useState<Profile[]>([]);
-  const [selectedProfile, setSelectedProfile] = useState<Profile | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  // Carregar dados do localStorage na inicialização
   useEffect(() => {
-    const loadSession = async () => {
+    // Check for stored user data
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
       try {
-        const storedToken = localStorage.getItem(STORAGE_KEYS.TOKEN);
-        const storedUser = localStorage.getItem(STORAGE_KEYS.USER);
-        const storedProfile = localStorage.getItem(STORAGE_KEYS.PROFILE);
-
-        if (storedToken && storedUser) {
-          setAccessToken(storedToken);
-          setUser(JSON.parse(storedUser));
-
-          // Carregar perfis (com try-catch para evitar crash)
-          try {
-            const { profiles: loadedProfiles } = await api.profiles.list(storedToken);
-            setProfiles(loadedProfiles);
-
-            // Restaurar perfil selecionado
-            if (storedProfile) {
-              const profile = JSON.parse(storedProfile);
-              setSelectedProfile(profile);
-            } else if (loadedProfiles.length > 0) {
-              setSelectedProfile(loadedProfiles[0]);
-            }
-          } catch (profileError) {
-            console.error('Erro ao carregar perfis:', profileError);
-            // Continua sem perfis, mas mantém a sessão
-          }
-        }
+        setUser(JSON.parse(storedUser));
       } catch (error) {
-        console.error('Erro ao carregar sessão:', error);
-        // Limpar dados inválidos
-        localStorage.removeItem(STORAGE_KEYS.TOKEN);
-        localStorage.removeItem(STORAGE_KEYS.USER);
-        localStorage.removeItem(STORAGE_KEYS.PROFILE);
-      } finally {
-        setIsLoading(false);
+        console.error('Error parsing stored user:', error);
+        localStorage.removeItem('user');
       }
-    };
-
-    loadSession();
+    }
+    setLoading(false);
   }, []);
 
-  /**
-   * Cadastro de novo usuário
-   */
-  const signup = async (email: string, password: string, name: string, phone?: string) => {
+  const signIn = async (email: string, password: string) => {
     try {
-      const response = await api.auth.signup({ email, password, name, phone });
+      console.log('═══════════════════════════════════════════════════════');
+      console.log('🚨 FAKE LOGIN MODE - DEVELOPMENT ONLY 🚨');
+      console.log('═══════════════════════════════════════════════════════');
+      console.log('⚠️  This is a simulated authentication system');
+      console.log('⚠️  ANY email and password combination will work');
+      console.log('⚠️  No actual validation is being performed');
+      console.log('═══════════════════════════════════════════════════════');
+      
+      setLoading(true);
 
-      if (response.success) {
-        // Fazer login automaticamente após cadastro
-        await signin(email, password);
-      }
-    } catch (error) {
-      console.error('Erro no cadastro:', error);
-      throw error;
-    }
-  };
-
-  /**
-   * Login
-   */
-  const signin = async (email: string, password: string) => {
-    try {
-      console.log('🔐 [AuthContext] Iniciando signin FAKE (Bypass)...', { email });
-
-      // SIMULAÇÃO DE LOGIN (Bypass para desenvolvimento)
-      const fakeUser: User = {
-        id: 1, // ID numerico para compatibilidade com o banco de dados
-        email: email,
-        name: email.split('@')[0] || 'Usuário Teste',
-        role: 'user',
-        plan: 'basic'
-      };
-      const fakeToken = 'fake-jwt-token-dev-bypass';
-
-      // Salvar token e usuário
-      setAccessToken(fakeToken);
-      setUser(fakeUser);
-
-      localStorage.setItem(STORAGE_KEYS.TOKEN, fakeToken);
-      localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(fakeUser));
-
-      console.log('🔐 [AuthContext] Criando perfil fake...');
-
-      // Fake profiles
-      const fakeProfiles = [
-        { id: 'p1', user_id: '123', name: 'Perfil Principal', is_kids: false, maturity_rating: 'all' },
-        { id: 'p2', user_id: '123', name: 'Kids', is_kids: true, maturity_rating: '12' }
+      // Generate a random user ID
+      const randomUserId = `user_${Math.random().toString(36).substr(2, 9)}_${Date.now()}`;
+      
+      // Extract name from email (part before @)
+      const userName = email.split('@')[0];
+      
+      // Array of avatar URLs for better fake profiles
+      const avatarUrls = [
+        'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(email),
+        'https://api.dicebear.com/7.x/bottts/svg?seed=' + encodeURIComponent(email),
+        'https://api.dicebear.com/7.x/personas/svg?seed=' + encodeURIComponent(email),
+        'https://ui-avatars.com/api/?name=' + encodeURIComponent(userName) + '&background=random&size=200',
+        'https://robohash.org/' + encodeURIComponent(email) + '?set=set4&size=200x200'
       ];
-
-      setProfiles(fakeProfiles);
-      selectProfile(fakeProfiles[0]);
-
-      console.log('🔐 [AuthContext] Login FAKE completo!');
-      return; // Retorna sucesso
-
-      /* CÓDIGO ORIGINAL DESATIVADO
-      const response = await api.auth.signin(email, password);
       
-      console.log('🔐 [AuthContext] Resposta do servidor:', response);
+      // Pick a random avatar
+      const randomAvatar = avatarUrls[Math.floor(Math.random() * avatarUrls.length)];
       
-      if (response.success && response.access_token) {
-        // ...
-      } else {
-        console.error('🔐 [AuthContext] Resposta sem success ou access_token:', response);
-        throw new Error('Resposta inválida do servidor');
-      }
-      */
+      // Create fake user profile
+      const fakeUser: User = {
+        id: randomUserId,
+        email: email,
+        name: userName.charAt(0).toUpperCase() + userName.slice(1), // Capitalize first letter
+        avatar: randomAvatar,
+        role: 'user'
+      };
+
+      console.log('✅ Login Input Received:');
+      console.log('   📧 Email:', email);
+      console.log('   🔑 Password:', password.replace(/./g, '*')); // Hide password in console
+      console.log('');
+      console.log('✅ Fake User Profile Generated:');
+      console.log('   🆔 User ID:', fakeUser.id);
+      console.log('   📧 Email:', fakeUser.email);
+      console.log('   👤 Name:', fakeUser.name);
+      console.log('   🖼️  Avatar URL:', fakeUser.avatar);
+      console.log('   🎭 Role:', fakeUser.role);
+      console.log('');
+      
+      // Simulate network delay
+      await new Promise(resolve => setTimeout(resolve, 800));
+
+      // Store user data
+      localStorage.setItem('user', JSON.stringify(fakeUser));
+      localStorage.setItem('token', `fake_token_${randomUserId}`);
+      
+      setUser(fakeUser);
+      
+      console.log('✅ Authentication Successful!');
+      console.log('✅ User data stored in localStorage');
+      console.log('✅ Fake token generated and stored');
+      console.log('═══════════════════════════════════════════════════════');
+      console.log('🎉 Welcome to the application!');
+      console.log('═══════════════════════════════════════════════════════');
+      
     } catch (error) {
-      console.error('🔐 [AuthContext] Erro no login:', error);
+      console.error('❌ Sign in error:', error);
       throw error;
-    }
-  };
-
-  /**
-   * Logout
-   */
-  const signout = async () => {
-    try {
-      if (accessToken) {
-        await api.auth.signout(accessToken);
-      }
-    } catch (error) {
-      console.error('Erro no logout:', error);
     } finally {
-      // Limpar dados locais
-      setUser(null);
-      setAccessToken(null);
-      setProfiles([]);
-      setSelectedProfile(null);
-
-      localStorage.removeItem(STORAGE_KEYS.TOKEN);
-      localStorage.removeItem(STORAGE_KEYS.USER);
-      localStorage.removeItem(STORAGE_KEYS.PROFILE);
+      setLoading(false);
     }
   };
 
-  /**
-   * Selecionar perfil
-   */
-  const selectProfile = (profile: Profile) => {
-    setSelectedProfile(profile);
-    localStorage.setItem(STORAGE_KEYS.PROFILE, JSON.stringify(profile));
-  };
-
-  /**
-   * Carregar perfis
-   */
-  const loadProfiles = async () => {
-    if (!accessToken) return;
-
+  const signUp = async (email: string, password: string, name: string) => {
     try {
-      const { profiles: loadedProfiles } = await api.profiles.list(accessToken);
-      setProfiles(loadedProfiles);
-    } catch (error) {
-      console.error('Erro ao carregar perfis:', error);
-    }
-  };
+      setLoading(true);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-  /**
-   * Criar novo perfil
-   */
-  const createProfile = async (name: string, isKids = false) => {
-    if (!accessToken) return;
-
-    try {
-      await api.profiles.create(accessToken, {
+      const newUser: User = {
+        id: Math.random().toString(36).substr(2, 9),
+        email,
         name,
-        is_kids: isKids,
-        maturity_rating: isKids ? '12' : 'all',
-      });
+        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`,
+      };
 
-      // Recarregar perfis
-      await loadProfiles();
+      localStorage.setItem('user', JSON.stringify(newUser));
+      localStorage.setItem('token', 'fake-jwt-token');
+      setUser(newUser);
     } catch (error) {
-      console.error('Erro ao criar perfil:', error);
+      console.error('Sign up error:', error);
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
-  const value: AuthContextType = {
+  const signOut = async () => {
+    try {
+      setLoading(true);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+      setUser(null);
+    } catch (error) {
+      console.error('Sign out error:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updateProfile = async (data: Partial<User>) => {
+    try {
+      setLoading(true);
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      const updatedUser = { ...user, ...data } as User;
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+      setUser(updatedUser);
+    } catch (error) {
+      console.error('Update profile error:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const value = {
     user,
-    userId: user?.id || null, // ID do usuario para uso em componentes
-    accessToken,
-    profiles,
-    selectedProfile,
-    isAuthenticated: !!user && !!accessToken,
-    isLoading,
-
-    signup,
-    signin,
-    signout,
-
-    selectProfile,
-    loadProfiles,
-    createProfile,
+    loading,
+    signIn,
+    signUp,
+    signOut,
+    updateProfile,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
-}
-
-/**
- * Hook para usar o contexto de autenticação
- */
-export function useAuth() {
-  const context = useContext(AuthContext);
-
-  if (context === undefined) {
-    // Durante o desenvolvimento com hot-reload, o contexto pode não estar disponível temporariamente
-    // Retornar valores padrão sem warning excessivo
-    const isDev = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.DEV;
-
-    if (isDev) {
-      // Mostrar warning apenas uma vez durante desenvolvimento
-      if (!(window as any).__authWarningShown) {
-        console.warn('useAuth: AuthProvider não encontrado - usando valores padrão');
-        (window as any).__authWarningShown = true;
-      }
-    }
-
-    return {
-      user: null,
-      userId: null, // ID do usuario para uso em componentes
-      accessToken: null,
-      profiles: [],
-      selectedProfile: null,
-      isAuthenticated: false,
-      isLoading: true,
-      signup: async () => { },
-      signin: async () => { },
-      signout: async () => { },
-      selectProfile: () => { },
-      loadProfiles: async () => { },
-      createProfile: async () => { },
-    } as AuthContextType;
-  }
-
-  return context;
-}
-
-export default AuthContext;
+};
