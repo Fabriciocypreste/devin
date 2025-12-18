@@ -36,6 +36,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Helper function to create User object from Supabase user
+  const createUserFromSupabaseUser = (supabaseUser: any): User => {
+    return {
+      id: supabaseUser.id,
+      email: supabaseUser.email!,
+      name: supabaseUser.user_metadata?.full_name || supabaseUser.email!.split('@')[0],
+      avatar: supabaseUser.user_metadata?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${supabaseUser.id}`,
+      role: supabaseUser.user_metadata?.role || 'user',
+    };
+  };
+
   useEffect(() => {
     // Verificar sessão existente ao carregar
     const checkSession = async () => {
@@ -46,22 +57,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         
         if (error) {
           console.error('❌ [AuthContext] Erro ao verificar sessão:', error);
+          setLoading(false);
           return;
         }
 
         if (session?.user) {
           console.log('✅ [AuthContext] Sessão encontrada:', session.user.id);
-          
-          const restoredUser: User = {
-            id: session.user.id,
-            email: session.user.email!,
-            name: session.user.user_metadata?.full_name || session.user.email!.split('@')[0],
-            avatar: session.user.user_metadata?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${session.user.id}`,
-            role: session.user.user_metadata?.role || 'user',
-          };
-
+          const restoredUser = createUserFromSupabaseUser(session.user);
           setUser(restoredUser);
-          localStorage.setItem('user', JSON.stringify(restoredUser));
         } else {
           console.log('ℹ️ [AuthContext] Nenhuma sessão encontrada');
         }
@@ -80,20 +83,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         console.log('🔔 [AuthContext] Auth state changed:', event);
 
         if (event === 'SIGNED_IN' && session?.user) {
-          const loggedUser: User = {
-            id: session.user.id,
-            email: session.user.email!,
-            name: session.user.user_metadata?.full_name || session.user.email!.split('@')[0],
-            avatar: session.user.user_metadata?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${session.user.id}`,
-            role: session.user.user_metadata?.role || 'user',
-          };
+          const loggedUser = createUserFromSupabaseUser(session.user);
           setUser(loggedUser);
-          localStorage.setItem('user', JSON.stringify(loggedUser));
         }
 
         if (event === 'SIGNED_OUT') {
           setUser(null);
           localStorage.removeItem('user');
+          localStorage.removeItem('token');
         }
       }
     );
@@ -125,20 +122,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       console.log('✅ [AuthContext] Login bem-sucedido:', data.user.id);
 
-      // Criar objeto de usuário
-      const loggedUser: User = {
-        id: data.user.id,
-        email: data.user.email!,
-        name: data.user.user_metadata?.full_name || data.user.email!.split('@')[0],
-        avatar: data.user.user_metadata?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.user.id}`,
-        role: data.user.user_metadata?.role || 'user',
-      };
-
-      // Salvar no state
-      setUser(loggedUser);
-      localStorage.setItem('user', JSON.stringify(loggedUser));
-
-      console.log('✅ [AuthContext] Usuário salvo no contexto');
+      // onAuthStateChange listener will handle setting the user
     } catch (error: any) {
       console.error('❌ [AuthContext] Erro no signIn:', error);
       throw error;
@@ -174,17 +158,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       console.log('✅ [AuthContext] Conta criada com sucesso:', data.user.id);
 
-      // Criar objeto de usuário
-      const newUser: User = {
-        id: data.user.id,
-        email: data.user.email!,
-        name: name,
-        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.user.id}`,
-        role: 'user',
-      };
-
-      setUser(newUser);
-      localStorage.setItem('user', JSON.stringify(newUser));
+      // onAuthStateChange listener will handle setting the user
     } catch (error: any) {
       console.error('❌ [AuthContext] Erro no signUp:', error);
       throw error;
