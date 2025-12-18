@@ -25,7 +25,7 @@ Este projeto utiliza variáveis de ambiente sensíveis que **NUNCA** devem ser c
    code .env
    ```
 
-3. **Nunca commite:**
+3. **Nunca comite:**
    ```bash
    # Verifique antes de commitar
    git status

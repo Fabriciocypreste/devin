@@ -96,7 +96,7 @@ npm run dev
 
 ## 🔐 Segurança
 
-⚠️ **NUNCA commite o arquivo `.env` no Git!**
+⚠️ **NUNCA comite o arquivo `.env` no Git!**
 
 O arquivo `.gitignore` já está configurado para ignorar `.env`, mas sempre verifique antes de fazer commit.
 
