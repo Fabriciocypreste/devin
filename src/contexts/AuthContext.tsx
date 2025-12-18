@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createClient } from '@supabase/supabase-js';
 
 interface User {
   id: string;
@@ -11,7 +12,8 @@ interface User {
 interface AuthContextType {
   user: User | null;
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<void>;
+  error: string | null;
+  signIn: (email: string, password: string) => Promise<User>;
   signUp: (email: string, password: string, name: string) => Promise<void>;
   signOut: () => Promise<void>;
   updateProfile: (data: Partial<User>) => Promise<void>;
@@ -31,94 +33,130 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+// Initialize Supabase client
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Check for stored user data
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
+    // Check for existing session on mount
+    const checkSession = async () => {
       try {
-        setUser(JSON.parse(storedUser));
+        const { data: { session } } = await supabase.auth.getSession();
+        
+        if (session?.user) {
+          console.log('✅ Sessão existente encontrada:', session.user.email);
+          
+          const existingUser = {
+            id: session.user.id,
+            email: session.user.email!,
+            name: session.user.user_metadata?.full_name || session.user.email!.split('@')[0],
+            avatar: session.user.user_metadata?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${session.user.id}`,
+            role: 'user' as const,
+          };
+          
+          setUser(existingUser);
+          localStorage.setItem('user', JSON.stringify(existingUser));
+          localStorage.setItem('token', session.access_token);
+        } else {
+          console.log('ℹ️ Nenhuma sessão ativa encontrada');
+          // Check for stored user data (fallback)
+          const storedUser = localStorage.getItem('user');
+          if (storedUser) {
+            try {
+              setUser(JSON.parse(storedUser));
+            } catch (error) {
+              console.error('Error parsing stored user:', error);
+              localStorage.removeItem('user');
+            }
+          }
+        }
       } catch (error) {
-        console.error('Error parsing stored user:', error);
-        localStorage.removeItem('user');
+        console.error('❌ Erro ao verificar sessão:', error);
+      } finally {
+        setLoading(false);
       }
-    }
-    setLoading(false);
+    };
+
+    checkSession();
+
+    // Listen for auth state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      console.log('🔄 Auth state changed:', event);
+      
+      if (event === 'SIGNED_OUT') {
+        setUser(null);
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+      } else if (event === 'SIGNED_IN' && session?.user) {
+        const authenticatedUser = {
+          id: session.user.id,
+          email: session.user.email!,
+          name: session.user.user_metadata?.full_name || session.user.email!.split('@')[0],
+          avatar: session.user.user_metadata?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${session.user.id}`,
+          role: 'user' as const,
+        };
+        
+        setUser(authenticatedUser);
+        localStorage.setItem('user', JSON.stringify(authenticatedUser));
+        localStorage.setItem('token', session.access_token);
+      }
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   const signIn = async (email: string, password: string) => {
     try {
-      console.log('═══════════════════════════════════════════════════════');
-      console.log('🚨 FAKE LOGIN MODE - DEVELOPMENT ONLY 🚨');
-      console.log('═══════════════════════════════════════════════════════');
-      console.log('⚠️  This is a simulated authentication system');
-      console.log('⚠️  ANY email and password combination will work');
-      console.log('⚠️  No actual validation is being performed');
-      console.log('═══════════════════════════════════════════════════════');
+      console.log('🔐 [AuthContext] Iniciando login real com Supabase...');
       
       setLoading(true);
+      setError(null);
 
-      // Generate a random user ID
-      const randomUserId = `user_${Math.random().toString(36).substr(2, 9)}_${Date.now()}`;
-      
-      // Extract name from email (part before @)
-      const userName = email.split('@')[0];
-      
-      // Array of avatar URLs for better fake profiles
-      const avatarUrls = [
-        'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(email),
-        'https://api.dicebear.com/7.x/bottts/svg?seed=' + encodeURIComponent(email),
-        'https://api.dicebear.com/7.x/personas/svg?seed=' + encodeURIComponent(email),
-        'https://ui-avatars.com/api/?name=' + encodeURIComponent(userName) + '&background=random&size=200',
-        'https://robohash.org/' + encodeURIComponent(email) + '?set=set4&size=200x200'
-      ];
-      
-      // Pick a random avatar
-      const randomAvatar = avatarUrls[Math.floor(Math.random() * avatarUrls.length)];
-      
-      // Create fake user profile
-      const fakeUser: User = {
-        id: randomUserId,
-        email: email,
-        name: userName.charAt(0).toUpperCase() + userName.slice(1), // Capitalize first letter
-        avatar: randomAvatar,
-        role: 'user'
+      // Real authentication with Supabase
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: email.trim(),
+        password: password,
+      });
+
+      if (error) {
+        console.error('❌ [AuthContext] Erro na autenticação:', error.message);
+        throw new Error(error.message);
+      }
+
+      if (!data.user) {
+        throw new Error('Usuário não encontrado');
+      }
+
+      console.log('✅ [AuthContext] Login bem-sucedido:', data.user.email);
+
+      // Create user object
+      const authenticatedUser = {
+        id: data.user.id,
+        email: data.user.email!,
+        name: data.user.user_metadata?.full_name || data.user.email!.split('@')[0],
+        avatar: data.user.user_metadata?.avatar_url || `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.user.id}`,
+        role: 'user' as const,
       };
 
-      console.log('✅ Login Input Received:');
-      console.log('   📧 Email:', email);
-      console.log('   🔑 Password:', password.replace(/./g, '*')); // Hide password in console
-      console.log('');
-      console.log('✅ Fake User Profile Generated:');
-      console.log('   🆔 User ID:', fakeUser.id);
-      console.log('   📧 Email:', fakeUser.email);
-      console.log('   👤 Name:', fakeUser.name);
-      console.log('   🖼️  Avatar URL:', fakeUser.avatar);
-      console.log('   🎭 Role:', fakeUser.role);
-      console.log('');
-      
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 800));
+      // Save to state and localStorage
+      setUser(authenticatedUser);
+      localStorage.setItem('user', JSON.stringify(authenticatedUser));
+      localStorage.setItem('token', data.session?.access_token || '');
 
-      // Store user data
-      localStorage.setItem('user', JSON.stringify(fakeUser));
-      localStorage.setItem('token', `fake_token_${randomUserId}`);
-      
-      setUser(fakeUser);
-      
-      console.log('✅ Authentication Successful!');
-      console.log('✅ User data stored in localStorage');
-      console.log('✅ Fake token generated and stored');
-      console.log('═══════════════════════════════════════════════════════');
-      console.log('🎉 Welcome to the application!');
-      console.log('═══════════════════════════════════════════════════════');
-      
-    } catch (error) {
-      console.error('❌ Sign in error:', error);
-      throw error;
+      console.log('✅ [AuthContext] Sessão criada com sucesso');
+      return authenticatedUser;
+
+    } catch (err: any) {
+      const errorMessage = err.message || 'Erro ao fazer login';
+      console.error('❌ [AuthContext] Erro no signIn:', errorMessage);
+      setError(errorMessage);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -126,23 +164,53 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signUp = async (email: string, password: string, name: string) => {
     try {
+      console.log('📝 [AuthContext] Iniciando cadastro com Supabase...');
+      
       setLoading(true);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      setError(null);
 
-      const newUser: User = {
-        id: Math.random().toString(36).substr(2, 9),
-        email,
-        name,
-        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`,
-      };
+      // Create user in Supabase Auth
+      const { data, error } = await supabase.auth.signUp({
+        email: email.trim(),
+        password: password,
+        options: {
+          data: {
+            full_name: name,
+          },
+        },
+      });
 
-      localStorage.setItem('user', JSON.stringify(newUser));
-      localStorage.setItem('token', 'fake-jwt-token');
-      setUser(newUser);
-    } catch (error) {
-      console.error('Sign up error:', error);
-      throw error;
+      if (error) {
+        console.error('❌ [AuthContext] Erro no cadastro:', error.message);
+        throw new Error(error.message);
+      }
+
+      if (!data.user) {
+        throw new Error('Erro ao criar usuário');
+      }
+
+      console.log('✅ [AuthContext] Cadastro bem-sucedido:', data.user.email);
+
+      // If email confirmation is disabled, auto login
+      if (data.session) {
+        const newUser = {
+          id: data.user.id,
+          email: data.user.email!,
+          name: name,
+          avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${data.user.id}`,
+          role: 'user' as const,
+        };
+
+        setUser(newUser);
+        localStorage.setItem('user', JSON.stringify(newUser));
+        localStorage.setItem('token', data.session.access_token);
+      }
+
+    } catch (err: any) {
+      const errorMessage = err.message || 'Erro ao criar conta';
+      console.error('❌ [AuthContext] Erro no signUp:', errorMessage);
+      setError(errorMessage);
+      throw err;
     } finally {
       setLoading(false);
     }
@@ -150,15 +218,25 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signOut = async () => {
     try {
+      console.log('👋 [AuthContext] Fazendo logout...');
       setLoading(true);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
+      
+      // Sign out from Supabase
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        console.error('❌ Erro ao fazer logout:', error);
+        throw error;
+      }
 
+      // Clear local state
       localStorage.removeItem('user');
       localStorage.removeItem('token');
       setUser(null);
+      
+      console.log('✅ [AuthContext] Logout realizado com sucesso');
     } catch (error) {
-      console.error('Sign out error:', error);
+      console.error('❌ Sign out error:', error);
       throw error;
     } finally {
       setLoading(false);
@@ -185,6 +263,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const value = {
     user,
     loading,
+    error,
     signIn,
     signUp,
     signOut,

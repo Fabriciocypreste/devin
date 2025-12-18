@@ -58,12 +58,26 @@ export function Signup({ onBack, onContinue }: SignupProps) {
     setLoading(true);
     
     try {
-      await signUp(email, password, name, phone);
+      await signUp(email, password, name);
       toast.success('✅ Conta criada com sucesso!');
       setStep(3);
     } catch (error: any) {
       console.error('❌ Erro ao criar conta:', error);
-      toast.error(error.message || 'Erro ao criar conta. Tente novamente.');
+      
+      // Specific error messages
+      let errorMessage = 'Erro ao criar conta. Tente novamente.';
+      
+      if (error.message?.includes('User already registered')) {
+        errorMessage = 'Este email já está cadastrado';
+      } else if (error.message?.includes('Password should be at least')) {
+        errorMessage = 'A senha deve ter no mínimo 6 caracteres';
+      } else if (error.message?.includes('Unable to validate email')) {
+        errorMessage = 'Email inválido';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
