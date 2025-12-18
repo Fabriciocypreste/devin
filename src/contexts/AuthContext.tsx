@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { authApi, profilesApi } from '../utils/api';
 
 interface User {
   id: string;
@@ -12,7 +13,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (email: string, password: string, name: string) => Promise<void>;
+  signUp: (email: string, password: string, name: string, phone?: string) => Promise<void>;
   signOut: () => Promise<void>;
   updateProfile: (data: Partial<User>) => Promise<void>;
 }
@@ -51,98 +52,65 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const signIn = async (email: string, password: string) => {
     try {
-      console.log('═══════════════════════════════════════════════════════');
-      console.log('🚨 FAKE LOGIN MODE - DEVELOPMENT ONLY 🚨');
-      console.log('═══════════════════════════════════════════════════════');
-      console.log('⚠️  This is a simulated authentication system');
-      console.log('⚠️  ANY email and password combination will work');
-      console.log('⚠️  No actual validation is being performed');
-      console.log('═══════════════════════════════════════════════════════');
-      
       setLoading(true);
-
-      // Generate a random user ID
-      const randomUserId = `user_${Math.random().toString(36).substr(2, 9)}_${Date.now()}`;
+      console.log('🔐 [AuthContext] Iniciando signin...', { email });
       
-      // Extract name from email (part before @)
-      const userName = email.split('@')[0];
+      // Chamar API REAL do Supabase
+      const response = await authApi.signin(email, password);
+      console.log('🔐 [AuthContext] Resposta do servidor:', response);
       
-      // Array of avatar URLs for better fake profiles
-      const avatarUrls = [
-        'https://api.dicebear.com/7.x/avataaars/svg?seed=' + encodeURIComponent(email),
-        'https://api.dicebear.com/7.x/bottts/svg?seed=' + encodeURIComponent(email),
-        'https://api.dicebear.com/7.x/personas/svg?seed=' + encodeURIComponent(email),
-        'https://ui-avatars.com/api/?name=' + encodeURIComponent(userName) + '&background=random&size=200',
-        'https://robohash.org/' + encodeURIComponent(email) + '?set=set4&size=200x200'
-      ];
+      if (!response.success) {
+        throw new Error('Falha na autenticação');
+      }
       
-      // Pick a random avatar
-      const randomAvatar = avatarUrls[Math.floor(Math.random() * avatarUrls.length)];
+      // Salvar tokens
+      localStorage.setItem('access_token', response.access_token);
+      localStorage.setItem('refresh_token', response.refresh_token);
       
-      // Create fake user profile
-      const fakeUser: User = {
-        id: randomUserId,
-        email: email,
-        name: userName.charAt(0).toUpperCase() + userName.slice(1), // Capitalize first letter
-        avatar: randomAvatar,
-        role: 'user'
+      // Criar objeto de usuário
+      const authenticatedUser: User = {
+        id: response.user.id,
+        email: response.user.email,
+        name: response.user.name,
       };
-
-      console.log('✅ Login Input Received:');
-      console.log('   📧 Email:', email);
-      console.log('   🔑 Password:', password.replace(/./g, '*')); // Hide password in console
-      console.log('');
-      console.log('✅ Fake User Profile Generated:');
-      console.log('   🆔 User ID:', fakeUser.id);
-      console.log('   📧 Email:', fakeUser.email);
-      console.log('   👤 Name:', fakeUser.name);
-      console.log('   🖼️  Avatar URL:', fakeUser.avatar);
-      console.log('   🎭 Role:', fakeUser.role);
-      console.log('');
       
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 800));
-
-      // Store user data
-      localStorage.setItem('user', JSON.stringify(fakeUser));
-      localStorage.setItem('token', `fake_token_${randomUserId}`);
+      setUser(authenticatedUser);
+      localStorage.setItem('user', JSON.stringify(authenticatedUser));
       
-      setUser(fakeUser);
+      // Carregar perfis do usuário
+      console.log('🔐 [AuthContext] Carregando perfis...');
+      const profilesResponse = await profilesApi.list(response.access_token);
+      console.log('🔐 [AuthContext] Perfis carregados:', profilesResponse);
       
-      console.log('✅ Authentication Successful!');
-      console.log('✅ User data stored in localStorage');
-      console.log('✅ Fake token generated and stored');
-      console.log('═══════════════════════════════════════════════════════');
-      console.log('🎉 Welcome to the application!');
-      console.log('═══════════════════════════════════════════════════════');
-      
-    } catch (error) {
-      console.error('❌ Sign in error:', error);
-      throw error;
+      console.log('🔐 [AuthContext] Login completo!');
+    } catch (error: any) {
+      console.error('❌ [AuthContext] Erro no signin:', error);
+      throw new Error(error.message || 'Erro ao fazer login');
     } finally {
       setLoading(false);
     }
   };
 
-  const signUp = async (email: string, password: string, name: string) => {
+  const signUp = async (email: string, password: string, name: string, phone?: string) => {
     try {
       setLoading(true);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      const newUser: User = {
-        id: Math.random().toString(36).substr(2, 9),
-        email,
-        name,
-        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=random`,
-      };
-
-      localStorage.setItem('user', JSON.stringify(newUser));
-      localStorage.setItem('token', 'fake-jwt-token');
-      setUser(newUser);
-    } catch (error) {
-      console.error('Sign up error:', error);
-      throw error;
+      console.log('🔐 [AuthContext] Iniciando signup...', { email, name });
+      
+      // Chamar API REAL do Supabase
+      const response = await authApi.signup({ email, password, name, phone });
+      console.log('🔐 [AuthContext] Resposta signup:', response);
+      
+      if (!response.success) {
+        throw new Error('Falha ao criar conta');
+      }
+      
+      // Fazer login automático após cadastro
+      await signIn(email, password);
+      
+      console.log('🔐 [AuthContext] Signup completo!');
+    } catch (error: any) {
+      console.error('❌ [AuthContext] Erro no signup:', error);
+      throw new Error(error.message || 'Erro ao criar conta');
     } finally {
       setLoading(false);
     }
@@ -151,15 +119,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const signOut = async () => {
     try {
       setLoading(true);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      localStorage.removeItem('user');
-      localStorage.removeItem('token');
+      const token = localStorage.getItem('access_token');
+      
+      if (token) {
+        await authApi.signout(token);
+      }
+      
+      // Limpar dados locais
       setUser(null);
+      localStorage.removeItem('user');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      
+      console.log('🔐 [AuthContext] Logout completo!');
     } catch (error) {
-      console.error('Sign out error:', error);
-      throw error;
+      console.error('❌ [AuthContext] Erro no signout:', error);
+      // Limpar mesmo se der erro
+      setUser(null);
+      localStorage.removeItem('user');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
     } finally {
       setLoading(false);
     }
