@@ -20,8 +20,6 @@ export function Login({ onLogin, onSignup }: LoginProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    console.log('🔑 [Login] Formulário enviado:', { email, passwordLength: password.length });
-    
     if (!email || !password) {
       toast.error('Preencha email e senha');
       return;
@@ -30,14 +28,28 @@ export function Login({ onLogin, onSignup }: LoginProps) {
     setLoading(true);
     
     try {
-      console.log('🔑 [Login] Chamando signIn...');
+      console.log('🔑 [Login] Tentando login...');
       await signIn(email, password);
-      console.log('🔑 [Login] signIn concluído com sucesso!');
+      console.log('✅ [Login] Login realizado com sucesso!');
       toast.success('✅ Login realizado com sucesso!');
       onLogin();
     } catch (error: any) {
-      console.error('❌ [Login] Erro ao fazer login:', error);
-      toast.error(error.message || 'Erro ao fazer login. Verifique suas credenciais.');
+      console.error('❌ [Login] Erro:', error);
+      
+      // Specific error messages
+      let errorMessage = 'Erro ao fazer login';
+      
+      if (error.message?.includes('Invalid login credentials')) {
+        errorMessage = 'Email ou senha incorretos';
+      } else if (error.message?.includes('Email not confirmed')) {
+        errorMessage = 'Confirme seu email antes de fazer login';
+      } else if (error.message?.includes('Too many requests')) {
+        errorMessage = 'Muitas tentativas. Aguarde alguns minutos';
+      } else if (error.message) {
+        errorMessage = error.message;
+      }
+      
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
