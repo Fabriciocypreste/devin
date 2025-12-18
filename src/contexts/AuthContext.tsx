@@ -13,9 +13,13 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   error: string | null;
-  signIn: (email: string, password: string) => Promise<User>;
+  isAuthenticated: boolean;
+  accessToken: string | null;
+  selectedProfile: User | null;
+  signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, name: string) => Promise<void>;
   signOut: () => Promise<void>;
+  signout: () => Promise<void>;  // Alias for compatibility
   updateProfile: (data: Partial<User>) => Promise<void>;
 }
 
@@ -36,12 +40,20 @@ interface AuthProviderProps {
 // Initialize Supabase client
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('❌ Missing Supabase environment variables!');
+  console.error('Required: VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY');
+  throw new Error('Supabase configuration is missing. Please check your .env file.');
+}
+
 const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [accessToken, setAccessToken] = useState<string | null>(null);
 
   useEffect(() => {
     // Check for existing session on mount
@@ -61,20 +73,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           };
           
           setUser(existingUser);
+          setAccessToken(session.access_token);
           localStorage.setItem('user', JSON.stringify(existingUser));
           localStorage.setItem('token', session.access_token);
         } else {
           console.log('ℹ️ Nenhuma sessão ativa encontrada');
-          // Check for stored user data (fallback)
-          const storedUser = localStorage.getItem('user');
-          if (storedUser) {
-            try {
-              setUser(JSON.parse(storedUser));
-            } catch (error) {
-              console.error('Error parsing stored user:', error);
-              localStorage.removeItem('user');
-            }
-          }
         }
       } catch (error) {
         console.error('❌ Erro ao verificar sessão:', error);
@@ -91,6 +94,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       
       if (event === 'SIGNED_OUT') {
         setUser(null);
+        setAccessToken(null);
         localStorage.removeItem('user');
         localStorage.removeItem('token');
       } else if (event === 'SIGNED_IN' && session?.user) {
@@ -103,6 +107,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
         
         setUser(authenticatedUser);
+        setAccessToken(session.access_token);
         localStorage.setItem('user', JSON.stringify(authenticatedUser));
         localStorage.setItem('token', session.access_token);
       }
@@ -146,11 +151,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
       // Save to state and localStorage
       setUser(authenticatedUser);
+      setAccessToken(data.session?.access_token || '');
       localStorage.setItem('user', JSON.stringify(authenticatedUser));
       localStorage.setItem('token', data.session?.access_token || '');
 
       console.log('✅ [AuthContext] Sessão criada com sucesso');
-      return authenticatedUser;
 
     } catch (err: any) {
       const errorMessage = err.message || 'Erro ao fazer login';
@@ -202,6 +207,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         };
 
         setUser(newUser);
+        setAccessToken(data.session.access_token);
         localStorage.setItem('user', JSON.stringify(newUser));
         localStorage.setItem('token', data.session.access_token);
       }
@@ -233,6 +239,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       localStorage.removeItem('user');
       localStorage.removeItem('token');
       setUser(null);
+      setAccessToken(null);
       
       console.log('✅ [AuthContext] Logout realizado com sucesso');
     } catch (error) {
@@ -243,17 +250,35 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // Alias for compatibility with existing code
+  const signout = signOut;
+
   const updateProfile = async (data: Partial<User>) => {
     try {
+      console.log('📝 [AuthContext] Atualizando perfil...');
       setLoading(true);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
 
+      // Update user metadata in Supabase
+      const { error } = await supabase.auth.updateUser({
+        data: {
+          full_name: data.name,
+          avatar_url: data.avatar,
+        },
+      });
+
+      if (error) {
+        console.error('❌ Erro ao atualizar perfil:', error);
+        throw error;
+      }
+
+      // Update local state
       const updatedUser = { ...user, ...data } as User;
       localStorage.setItem('user', JSON.stringify(updatedUser));
       setUser(updatedUser);
+      
+      console.log('✅ [AuthContext] Perfil atualizado com sucesso');
     } catch (error) {
-      console.error('Update profile error:', error);
+      console.error('❌ Update profile error:', error);
       throw error;
     } finally {
       setLoading(false);
@@ -264,9 +289,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     user,
     loading,
     error,
+    isAuthenticated: !!user,
+    accessToken,
+    selectedProfile: user, // For now, selectedProfile is the same as user
     signIn,
     signUp,
     signOut,
+    signout, // Alias for compatibility
     updateProfile,
   };
 
