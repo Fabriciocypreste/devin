@@ -15,7 +15,7 @@ export function Login({ onLogin, onSignup }: LoginProps) {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { signin } = useAuth();
+  const { signIn } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,9 +30,9 @@ export function Login({ onLogin, onSignup }: LoginProps) {
     setLoading(true);
     
     try {
-      console.log('🔑 [Login] Chamando signin...');
-      await signin(email, password);
-      console.log('🔑 [Login] Signin concluído com sucesso!');
+      console.log('🔑 [Login] Chamando signIn...');
+      await signIn(email, password);
+      console.log('🔑 [Login] signIn concluído com sucesso!');
       toast.success('✅ Login realizado com sucesso!');
       onLogin();
     } catch (error: any) {
