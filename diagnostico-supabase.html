@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagnóstico Supabase - Ferramenta Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #3ecf8e 0%, #2d9c6b 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .config-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+
+        .config-section h2 {
+            color: #2d3748;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #4a5568;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #3ecf8e;
+            box-shadow: 0 0 0 3px rgba(62, 207, 142, 0.1);
+        }
+
+        .input-group input.error {
+            border-color: #e53e3e;
+        }
+
+        .input-group input.success {
+            border-color: #38a169;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            min-width: 200px;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3ecf8e 0%, #2d9c6b 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(62, 207, 142, 0.3);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #fc8181 0%, #e53e3e 100%);
+            color: white;
+        }
+
+        .results-section {
+            margin-top: 30px;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 5px solid #cbd5e0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+
+        .test-card:hover {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-card.success {
+            border-left-color: #38a169;
+            background: #f0fff4;
+        }
+
+        .test-card.error {
+            border-left-color: #e53e3e;
+            background: #fff5f5;
+        }
+
+        .test-card.warning {
+            border-left-color: #ed8936;
+            background: #fffaf0;
+        }
+
+        .test-card.info {
+            border-left-color: #4299e1;
+            background: #ebf8ff;
+        }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .test-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .test-status {
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-success {
+            background: #38a169;
+            color: white;
+        }
+
+        .status-error {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .status-warning {
+            background: #ed8936;
+            color: white;
+        }
+
+        .status-info {
+            background: #4299e1;
+            color: white;
+        }
+
+        .status-running {
+            background: #9f7aea;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+
+        .test-details {
+            color: #4a5568;
+            line-height: 1.6;
+        }
+
+        .test-details pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .test-details ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .test-details li {
+            margin-bottom: 8px;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .summary-item {
+            text-align: center;
+        }
+
+        .summary-value {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .summary-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .icon {
+            font-size: 1.2em;
+        }
+
+        .timestamp {
+            color: #718096;
+            font-size: 0.85em;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .error-details {
+            background: #fff5f5;
+            border-left: 4px solid #e53e3e;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .success-details {
+            background: #f0fff4;
+            border-left: 4px solid #38a169;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        .info-box {
+            background: #ebf8ff;
+            border: 2px solid #4299e1;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-box h3 {
+            color: #2c5282;
+            margin-bottom: 10px;
+        }
+
+        .info-box ul {
+            margin-left: 20px;
+            color: #2d3748;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Diagnóstico Supabase</h1>
+            <p>Ferramenta completa para testar conexão, CORS, variáveis de ambiente e problemas de rede</p>
+        </div>
+
+        <div class="content">
+            <!-- Configuration Section -->
+            <div class="config-section">
+                <h2>⚙️ Configuração</h2>
+                
+                <div class="info-box">
+                    <h3>📋 Informações Necessárias</h3>
+                    <ul>
+                        <li>URL do Supabase: Encontre em Settings → API</li>
+                        <li>Anon Key: Encontre em Settings → API (chave pública)</li>
+                        <li>Service Role Key (opcional): Para testes administrativos</li>
+                    </ul>
+                </div>
+
+                <div class="input-group">
+                    <label for="supabaseUrl">URL do Supabase *</label>
+                    <input 
+                        type="text" 
+                        id="supabaseUrl" 
+                        placeholder="https://seu-projeto.supabase.co"
+                        value="">
+                </div>
+
+                <div class="input-group">
+                    <label for="supabaseKey">Anon Key *</label>
+                    <input 
+                        type="password" 
+                        id="supabaseKey" 
+                        placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                        value="">
+                </div>
+
+                <div class="input-group">
+                    <label for="serviceRoleKey">Service Role Key (Opcional)</label>
+                    <input 
+                        type="password" 
+                        id="serviceRoleKey" 
+                        placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                        value="">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="runAllTests()">
+                        <span class="icon">🚀</span>
+                        Executar Todos os Testes
+                    </button>
+                    <button class="btn btn-secondary" onclick="runQuickTest()">
+                        <span class="icon">⚡</span>
+                        Teste Rápido
+                    </button>
+                    <button class="btn btn-danger" onclick="clearResults()">
+                        <span class="icon">🗑️</span>
+                        Limpar Resultados
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div id="resultsContainer" class="hidden">
+                <div class="results-section">
+                    <h2 style="margin-bottom: 20px; color: #2d3748;">📊 Resultados</h2>
+                    
+                    <div id="summary" class="summary hidden">
+                        <div class="summary-item">
+                            <div class="summary-value" id="totalTests">0</div>
+                            <div class="summary-label">Total de Testes</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-value" id="passedTests">0</div>
+                            <div class="summary-label">✅ Sucesso</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-value" id="failedTests">0</div>
+                            <div class="summary-label">❌ Falhas</div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-value" id="warningTests">0</div>
+                            <div class="summary-label">⚠️ Avisos</div>
+                        </div>
+                    </div>
+
+                    <div id="testResults"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let testResults = [];
+        let testStats = {
+            total: 0,
+            passed: 0,
+            failed: 0,
+            warnings: 0
+        };
+
+        function getConfig() {
+            const url = document.getElementById('supabaseUrl').value.trim();
+            const key = document.getElementById('supabaseKey').value.trim();
+            const serviceKey = document.getElementById('serviceRoleKey').value.trim();
+
+            if (!url || !key) {
+                alert('Por favor, preencha URL e Anon Key do Supabase');
+                return null;
+            }
+
+            return { url, key, serviceKey };
+        }
+
+        function clearResults() {
+            testResults = [];
+            testStats = { total: 0, passed: 0, failed: 0, warnings: 0 };
+            document.getElementById('testResults').innerHTML = '';
+            document.getElementById('resultsContainer').classList.add('hidden');
+            document.getElementById('summary').classList.add('hidden');
+        }
+
+        function showResults() {
+            document.getElementById('resultsContainer').classList.remove('hidden');
+            document.getElementById('summary').classList.remove('hidden');
+        }
+
+        function updateSummary() {
+            document.getElementById('totalTests').textContent = testStats.total;
+            document.getElementById('passedTests').textContent = testStats.passed;
+            document.getElementById('failedTests').textContent = testStats.failed;
+            document.getElementById('warningTests').textContent = testStats.warnings;
+        }
+
+        function addTestResult(title, status, details, data = null) {
+            const timestamp = new Date().toLocaleString('pt-BR');
+            const result = { title, status, details, data, timestamp };
+            testResults.push(result);
+
+            testStats.total++;
+            if (status === 'success') testStats.passed++;
+            else if (status === 'error') testStats.failed++;
+            else if (status === 'warning') testStats.warnings++;
+
+            renderTestResult(result);
+            updateSummary();
+        }
+
+        function renderTestResult(result) {
+            const container = document.getElementById('testResults');
+            const card = document.createElement('div');
+            card.className = `test-card ${result.status}`;
+
+            let statusText = '';
+            let statusClass = '';
+            let icon = '';
+
+            switch(result.status) {
+                case 'success':
+                    statusText = 'Sucesso';
+                    statusClass = 'status-success';
+                    icon = '✅';
+                    break;
+                case 'error':
+                    statusText = 'Erro';
+                    statusClass = 'status-error';
+                    icon = '❌';
+                    break;
+                case 'warning':
+                    statusText = 'Aviso';
+                    statusClass = 'status-warning';
+                    icon = '⚠️';
+                    break;
+                case 'info':
+                    statusText = 'Info';
+                    statusClass = 'status-info';
+                    icon = 'ℹ️';
+                    break;
+                case 'running':
+                    statusText = 'Executando...';
+                    statusClass = 'status-running';
+                    icon = '⏳';
+                    break;
+            }
+
+            let detailsHTML = `<p>${result.details}</p>`;
+            
+            if (result.data) {
+                detailsHTML += `<pre>${JSON.stringify(result.data, null, 2)}</pre>`;
+            }
+
+            card.innerHTML = `
+                <div class="test-header">
+                    <div class="test-title">${icon} ${result.title}</div>
+                    <div class="test-status ${statusClass}">${statusText}</div>
+                </div>
+                <div class="test-details">
+                    ${detailsHTML}
+                    <div class="timestamp">⏰ ${result.timestamp}</div>
+                </div>
+            `;
+
+            container.insertBefore(card, container.firstChild);
+        }
+
+        async function testEnvironmentVariables(config) {
+            const tests = {
+                'URL válida': config.url && config.url.includes('supabase'),
+                'URL com HTTPS': config.url && config.url.startsWith('https://'),
+                'Anon Key presente': config.key && config.key.length > 20,
+                'Formato JWT da Key': config.key && config.key.startsWith('eyJ')
+            };
+
+            const results = [];
+            let allPassed = true;
+
+            for (const [test, passed] of Object.entries(tests)) {
+                results.push(`${passed ? '✅' : '❌'} ${test}`);
+                if (!passed) allPassed = false;
+            }
+
+            addTestResult(
+                'Validação de Variáveis de Ambiente',
+                allPassed ? 'success' : 'error',
+                results.join('<br>'),
+                { config: { url: config.url, keyLength: config.key.length } }
+            );
+
+            return allPassed;
+        }
+
+        async function testNetworkConnectivity(config) {
+            try {
+                const startTime = performance.now();
+                const response = await fetch(config.url, {
+                    method: 'HEAD',
+                    mode: 'no-cors'
+                });
+                const endTime = performance.now();
+                const latency = Math.round(endTime - startTime);
+
+                addTestResult(
+                    'Conectividade de Rede',
+                    'success',
+                    `Conexão estabelecida com sucesso!<br>Latência: ${latency}ms`,
+                    { latency: `${latency}ms`, url: config.url }
+                );
+                return true;
+            } catch (error) {
+                addTestResult(
+                    'Conectividade de Rede',
+                    'error',
+                    `Falha na conexão: ${error.message}<br><br>
+                    <strong>Possíveis causas:</strong><br>
+                    - URL incorreta<br>
+                    - Problema de DNS<br>
+                    - Firewall bloqueando conexão<br>
+                    - Serviço do Supabase indisponível`,
+                    { error: error.message }
+                );
+                return false;
+            }
+        }
+
+        async function testCORS(config) {
+            try {
+                const response = await fetch(`${config.url}/rest/v1/`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': config.key,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                const corsHeaders = {
+                    'Access-Control-Allow-Origin': response.headers.get('Access-Control-Allow-Origin'),
+                    'Access-Control-Allow-Methods': response.headers.get('Access-Control-Allow-Methods'),
+                    'Access-Control-Allow-Headers': response.headers.get('Access-Control-Allow-Headers')
+                };
+
+                if (response.ok || response.status === 404) {
+                    addTestResult(
+                        'Teste de CORS',
+                        'success',
+                        'CORS configurado corretamente! O navegador conseguiu fazer requisições.',
+                        { status: response.status, corsHeaders }
+                    );
+                    return true;
+                } else {
+                    addTestResult(
+                        'Teste de CORS',
+                        'warning',
+                        `Resposta recebida mas com status: ${response.status}<br>
+                        Isso pode indicar problemas de autenticação, não de CORS.`,
+                        { status: response.status, corsHeaders }
+                    );
+                    return true;
+                }
+            } catch (error) {
+                if (error.message.includes('CORS')) {
+                    addTestResult(
+                        'Teste de CORS',
+                        'error',
+                        `Erro de CORS detectado!<br><br>
+                        <strong>Soluções:</strong><br>
+                        1. Verifique as configurações de domínio no painel do Supabase<br>
+                        2. Adicione seu domínio em Authentication → URL Configuration<br>
+                        3. Certifique-se de que está usando HTTPS em produção`,
+                        { error: error.message }
+                    );
+                } else {
+                    addTestResult(
+                        'Teste de CORS',
+                        'error',
+                        `Erro na requisição: ${error.message}`,
+                        { error: error.message }
+                    );
+                }
+                return false;
+            }
+        }
+
+        async function testSupabaseConnection(config) {
+            try {
+                const response = await fetch(`${config.url}/rest/v1/`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': config.key,
+                        'Authorization': `Bearer ${config.key}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    addTestResult(
+                        'Conexão com Supabase',
+                        'success',
+                        'Conectado com sucesso ao Supabase!',
+                        { status: response.status, statusText: response.statusText }
+                    );
+                    return true;
+                } else {
+                    const errorText = await response.text();
+                    addTestResult(
+                        'Conexão com Supabase',
+                        'error',
+                        `Falha na autenticação. Status: ${response.status}<br>
+                        Verifique se as credenciais estão corretas.`,
+                        { status: response.status, error: errorText }
+                    );
+                    return false;
+                }
+            } catch (error) {
+                addTestResult(
+                    'Conexão com Supabase',
+                    'error',
+                    `Erro ao conectar: ${error.message}`,
+                    { error: error.message }
+                );
+                return false;
+            }
+        }
+
+        async function testDatabaseQuery(config) {
+            try {
+                // Test a simple query to a common table (this will fail if table doesn't exist, but tests the connection)
+                const response = await fetch(`${config.url}/rest/v1/?select=*&limit=1`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': config.key,
+                        'Authorization': `Bearer ${config.key}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    addTestResult(
+                        'Teste de Query no Banco',
+                        'success',
+                        'Query executada com sucesso! O banco de dados está acessível.',
+                        { status: response.status }
+                    );
+                    return true;
+                } else if (response.status === 404) {
+                    addTestResult(
+                        'Teste de Query no Banco',
+                        'info',
+                        'Conexão OK, mas nenhuma tabela encontrada. Isso é normal se o banco está vazio.',
+                        { status: response.status }
+                    );
+                    return true;
+                } else {
+                    const errorText = await response.text();
+                    addTestResult(
+                        'Teste de Query no Banco',
+                        'warning',
+                        `Status: ${response.status}. Pode haver problemas de permissão ou configuração.`,
+                        { status: response.status, error: errorText }
+                    );
+                    return false;
+                }
+            } catch (error) {
+                addTestResult(
+                    'Teste de Query no Banco',
+                    'error',
+                    `Erro ao executar query: ${error.message}`,
+                    { error: error.message }
+                );
+                return false;
+            }
+        }
+
+        async function testRealtimeConnection(config) {
+            try {
+                const wsUrl = config.url.replace('https://', 'wss://').replace('http://', 'ws://');
+                const realtimeUrl = `${wsUrl}/realtime/v1/websocket?apikey=${config.key}&vsn=1.0.0`;
+
+                addTestResult(
+                    'Teste de Realtime WebSocket',
+                    'info',
+                    `URL de WebSocket gerada: ${wsUrl}/realtime/v1/websocket<br>
+                    <br>Nota: Teste de WebSocket requer biblioteca adicional para teste completo.<br>
+                    Se você usa Realtime, verifique no console do navegador se há erros de WebSocket.`,
+                    { realtimeUrl }
+                );
+                return true;
+            } catch (error) {
+                addTestResult(
+                    'Teste de Realtime WebSocket',
+                    'error',
+                    `Erro: ${error.message}`,
+                    { error: error.message }
+                );
+                return false;
+            }
+        }
+
+        async function testStorageAccess(config) {
+            try {
+                const response = await fetch(`${config.url}/storage/v1/bucket`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': config.key,
+                        'Authorization': `Bearer ${config.key}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    const buckets = await response.json();
+                    addTestResult(
+                        'Teste de Storage',
+                        'success',
+                        `Storage acessível! ${buckets.length} bucket(s) encontrado(s).`,
+                        { bucketCount: buckets.length, buckets }
+                    );
+                    return true;
+                } else if (response.status === 404) {
+                    addTestResult(
+                        'Teste de Storage',
+                        'info',
+                        'Storage está configurado mas nenhum bucket encontrado.',
+                        { status: response.status }
+                    );
+                    return true;
+                } else {
+                    addTestResult(
+                        'Teste de Storage',
+                        'warning',
+                        `Resposta do Storage: ${response.status}`,
+                        { status: response.status }
+                    );
+                    return false;
+                }
+            } catch (error) {
+                addTestResult(
+                    'Teste de Storage',
+                    'error',
+                    `Erro ao acessar Storage: ${error.message}`,
+                    { error: error.message }
+                );
+                return false;
+            }
+        }
+
+        async function testAuthEndpoint(config) {
+            try {
+                const response = await fetch(`${config.url}/auth/v1/health`, {
+                    method: 'GET',
+                    headers: {
+                        'apikey': config.key
+                    }
+                });
+
+                if (response.ok) {
+                    const health = await response.json();
+                    addTestResult(
+                        'Teste de Autenticação',
+                        'success',
+                        'Serviço de autenticação está funcionando!',
+                        { status: response.status, health }
+                    );
+                    return true;
+                } else {
+                    addTestResult(
+                        'Teste de Autenticação',
+                        'warning',
+                        `Status do auth: ${response.status}`,
+                        { status: response.status }
+                    );
+                    return false;
+                }
+            } catch (error) {
+                addTestResult(
+                    'Teste de Autenticação',
+                    'error',
+                    `Erro ao verificar auth: ${error.message}`,
+                    { error: error.message }
+                );
+                return false;
+            }
+        }
+
+        async function testDNSResolution(config) {
+            try {
+                const hostname = new URL(config.url).hostname;
+                addTestResult(
+                    'Resolução DNS',
+                    'info',
+                    `Hostname: ${hostname}<br>
+                    Para teste completo de DNS, abra o Console do Navegador e execute:<br>
+                    <code>await fetch('${config.url}')</code>`,
+                    { hostname }
+                );
+                return true;
+            } catch (error) {
+                addTestResult(
+                    'Resolução DNS',
+                    'error',
+                    `Erro ao parsear URL: ${error.message}`,
+                    { error: error.message }
+                );
+                return false;
+            }
+        }
+
+        async function testSSLCertificate(config) {
+            try {
+                if (!config.url.startsWith('https://')) {
+                    addTestResult(
+                        'Teste de SSL/TLS',
+                        'warning',
+                        'URL não usa HTTPS! Recomendamos sempre usar HTTPS em produção.',
+                        { protocol: 'HTTP' }
+                    );
+                    return false;
+                }
+
+                addTestResult(
+                    'Teste de SSL/TLS',
+                    'success',
+                    'URL usa HTTPS corretamente. ✅',
+                    { protocol: 'HTTPS' }
+                );
+                return true;
+            } catch (error) {
+                addTestResult(
+                    'Teste de SSL/TLS',
+                    'error',
+                    `Erro: ${error.message}`,
+                    { error: error.message }
+                );
+                return false;
+            }
+        }
+
+        async function runQuickTest() {
+            const config = getConfig();
+            if (!config) return;
+
+            clearResults();
+            showResults();
+
+            await testEnvironmentVariables(config);
+            await testNetworkConnectivity(config);
+            await testCORS(config);
+            await testSupabaseConnection(config);
+        }
+
+        async function runAllTests() {
+            const config = getConfig();
+            if (!config) return;
+
+            clearResults();
+            showResults();
+
+            // Run tests sequentially for better readability
+            await testEnvironmentVariables(config);
+            await testSSLCertificate(config);
+            await testDNSResolution(config);
+            await testNetworkConnectivity(config);
+            await testCORS(config);
+            await testSupabaseConnection(config);
+            await testAuthEndpoint(config);
+            await testDatabaseQuery(config);
+            await testStorageAccess(config);
+            await testRealtimeConnection(config);
+
+            // Final summary
+            const allPassed = testStats.failed === 0;
+            const summaryMessage = allPassed 
+                ? '🎉 Todos os testes críticos passaram! Seu Supabase está configurado corretamente.'
+                : `⚠️ ${testStats.failed} teste(s) falharam. Revise os erros acima para corrigir os problemas.`;
+
+            addTestResult(
+                'Resumo Final',
+                allPassed ? 'success' : 'warning',
+                summaryMessage,
+                { 
+                    total: testStats.total, 
+                    passed: testStats.passed, 
+                    failed: testStats.failed,
+                    warnings: testStats.warnings 
+                }
+            );
+        }
+
+        // Auto-fill from localStorage if available
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUrl = localStorage.getItem('supabaseUrl');
+            const savedKey = localStorage.getItem('supabaseKey');
+            
+            if (savedUrl) document.getElementById('supabaseUrl').value = savedUrl;
+            if (savedKey) document.getElementById('supabaseKey').value = savedKey;
+
+            // Save to localStorage on change
+            document.getElementById('supabaseUrl').addEventListener('change', (e) => {
+                localStorage.setItem('supabaseUrl', e.target.value);
+            });
+            document.getElementById('supabaseKey').addEventListener('change', (e) => {
+                localStorage.setItem('supabaseKey', e.target.value);
+            });
+        });
+    </script>
+</body>
+</html>
