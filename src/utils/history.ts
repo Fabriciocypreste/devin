@@ -169,8 +169,8 @@ export const getContinueWatching = (): HistoryItem[] => {
 /**
  * Hook personalizado para usar histórico em componentes React
  */
-export const useHistoryListener = (callback: () => void): void => {
-  if (typeof window === 'undefined') return;
+export const useHistoryListener = (callback: () => void): (() => void) => {
+  if (typeof window === 'undefined') return () => {};
   
   window.addEventListener('historyChanged', callback);
   

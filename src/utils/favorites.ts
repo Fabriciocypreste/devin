@@ -97,8 +97,8 @@ export const getFavoritesByType = (type: 'movie' | 'series' | 'channel' | 'all' 
 /**
  * Hook personalizado para usar favoritos em componentes React
  */
-export const useFavoritesListener = (callback: () => void): void => {
-  if (typeof window === 'undefined') return;
+export const useFavoritesListener = (callback: () => void): (() => void) => {
+  if (typeof window === 'undefined') return () => {};
   
   window.addEventListener('favoritesChanged', callback);
   

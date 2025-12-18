@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { addToHistory, getHistory, getContinueWatching } from '../utils/history';
 import { getFavorites } from '../utils/favorites';
+import { toast } from '../utils/toastNotifications';
 
 export function Profile() {
   const navigate = useNavigate();
@@ -73,10 +74,10 @@ export function Profile() {
       console.log('Salvando perfil:', formData);
       // Aqui você pode adicionar chamada à API
       setIsEditing(false);
-      alert('Perfil atualizado com sucesso!');
+      toast.success('Perfil atualizado com sucesso!');
     } catch (error) {
       console.error('Erro ao salvar perfil:', error);
-      alert('Erro ao atualizar perfil');
+      toast.error('Erro ao atualizar perfil');
     }
   };
 

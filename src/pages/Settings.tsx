@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { toast } from '../utils/toastNotifications';
 
 interface Settings {
   // Reprodução
@@ -81,10 +82,10 @@ export function Settings() {
     try {
       localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings));
       setHasChanges(false);
-      alert('Configurações salvas com sucesso!');
+      toast.success('Configurações salvas com sucesso!');
     } catch (error) {
       console.error('Erro ao salvar configurações:', error);
-      alert('Erro ao salvar configurações');
+      toast.error('Erro ao salvar configurações');
     }
   };
 
@@ -97,14 +98,14 @@ export function Settings() {
           localStorage.removeItem(key);
         }
       });
-      alert('Cache limpo com sucesso!');
+      toast.success('Cache limpo com sucesso!');
     }
   };
 
   const handleClearHistory = () => {
     if (confirm('Isso irá apagar todo o seu histórico de visualização. Deseja continuar?')) {
       localStorage.removeItem('redflix_watch_history');
-      alert('Histórico limpo com sucesso!');
+      toast.success('Histórico limpo com sucesso!');
     }
   };
 

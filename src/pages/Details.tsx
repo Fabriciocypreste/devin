@@ -10,6 +10,7 @@ import { tmdbService } from '../services/tmdbService';
 import { EnrichedContent } from '../types/content';
 import { addToFavorites, removeFromFavorites, isFavorite } from '../utils/favorites';
 import { addToHistory } from '../utils/history';
+import { toast } from '../utils/toastNotifications';
 
 interface DetailsProps {
   onPlay?: (item: EnrichedContent) => void;
@@ -145,8 +146,12 @@ export function Details({ onPlay }: DetailsProps) {
       }
     } else {
       // Fallback: copia URL para clipboard
-      navigator.clipboard.writeText(window.location.href);
-      alert('Link copiado para a área de transferência!');
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        toast.success('Link copiado para a área de transferência!');
+      } catch (error) {
+        toast.error('Erro ao copiar link');
+      }
     }
   };
 
