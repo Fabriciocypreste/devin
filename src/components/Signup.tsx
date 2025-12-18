@@ -24,7 +24,7 @@ export function Signup({ onBack, onContinue }: SignupProps) {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signup } = useAuth();
+  const { signUp } = useAuth();
 
   const handleStep1Submit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -58,7 +58,7 @@ export function Signup({ onBack, onContinue }: SignupProps) {
     setLoading(true);
     
     try {
-      await signup(email, password, name, phone);
+      await signUp(email, password, name, phone);
       toast.success('✅ Conta criada com sucesso!');
       setStep(3);
     } catch (error: any) {
