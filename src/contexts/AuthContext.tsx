@@ -136,7 +136,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       console.error('❌ [AuthContext] Erro no signout:', error);
       // Limpar mesmo se der erro
       setUser(null);
-      localStorage.clear();
+      localStorage.removeItem('user');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
     } finally {
       setLoading(false);
     }
